@@ -1,6 +1,14 @@
 <!DOCTYPE html><!-- notify2はQiitaの記事に則って作ってみました(notify無印は三浦先生のへぇ準拠) -->
 <html>
   <head>
+    <style>
+        #week{
+             display: none;
+         }
+         
+     </style>
+     
+ </head>
     <title>Hello PWA world!</title>
     <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
@@ -23,5 +31,40 @@
   <body>
     <h1>Hello, PWA world!</h1>
     <button onclick="notify()">通知を送信</button>
-  </body>
+    
+     <div id="button"></div>
+     <br>
+     日曜日
+     <select name="youbi" id="week">
+         <option value="0">0:00</option>
+         <option value="1">1:00</option>
+         <option value="2">2:00</option>
+         <option value="3">3:00</option>
+         <option value="4">4:00</option>
+         <option value="5">5:00</option>
+         <option value="6">6:00</option>
+         <option value="7">7:00</option>
+         <option value="8">8:00</option>
+         <option value="9">9:00</option>
+         <option value="10">10:00</option>
+         <option value="11">11:00</option>
+         <option value="12">12:00</option>
+     </select>
+     <a id="displayText"></a>
+     <script>
+             
+     </script>
+     <br>
+     月曜日
+     <br>
+     火曜日
+     <br>
+     水曜日
+     <br>
+     木曜日
+     <br>
+     金曜日
+     <br>
+     土曜日
+ </body>
 </html>
