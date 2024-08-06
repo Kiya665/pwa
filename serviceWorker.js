@@ -1,9 +1,5 @@
 var CACHE_NAME  = "MKit-cache-v1";
 var urlsToCache = [
-    "https://app.saitama-cmcc.ac.jp/saitama-pwa/notify2/index.html",
-    "https://app.saitama-cmcc.ac.jp/saitama-pwa/notify2/serviceWorker.js",
-    "https://app.saitama-cmcc.ac.jp/saitama-pwa/notify2/images/icon192.png",
-    "https://app.saitama-cmcc.ac.jp/saitama-pwa/notify2/notify.js",
 ];
 
 self.addEventListener('install', function(event) {
