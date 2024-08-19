@@ -2,9 +2,28 @@
 <html>
   <head>
     <style>
-        #week{
+        #sun{
              display: none;
          }
+         #mon{
+             display: none;
+         }
+         #tue{
+             display: none;
+         }
+         #wed{
+             display: none;
+         }
+         #thu{
+             display: none;
+         }
+         #fry{
+             display: none;
+         }
+         #sut{
+             display: none;
+         }
+         
          
      </style>
      
@@ -14,6 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="text/javascript" src="./notify.js"></script>
+    <script src="main.js"></script>
 
     <script>
       window.addEventListener('load', () => {
@@ -32,39 +52,46 @@
     <h1>Hello, PWA world!</h1>
     <button onclick="notify()">通知を送信</button>
     
-     <div id="button"></div>
-     <br>
+    <div id="button"></div>
+    <br>
      日曜日
-     <select name="youbi" id="week">
-         <option value="0">0:00</option>
-         <option value="1">1:00</option>
-         <option value="2">2:00</option>
-         <option value="3">3:00</option>
-         <option value="4">4:00</option>
-         <option value="5">5:00</option>
-         <option value="6">6:00</option>
-         <option value="7">7:00</option>
-         <option value="8">8:00</option>
-         <option value="9">9:00</option>
-         <option value="10">10:00</option>
-         <option value="11">11:00</option>
-         <option value="12">12:00</option>
-     </select>
-     <a id="displayText"></a>
-     <script>
-             
-     </script>
-     <br>
-     月曜日
-     <br>
-     火曜日
-     <br>
-     水曜日
-     <br>
-     木曜日
-     <br>
-     金曜日
-     <br>
-     土曜日
- </body>
+    <input type="time" id="sun" value="00:00">
+
+    <a id="suntext"></a>
+    <br>
+    月曜日
+    <input type="time" id="mon" value="00:00">
+    <a id="montext"></a>
+  
+    <br>
+    火曜日
+    <input type="time" id="tue" value="00:00">
+
+    <a id="tuetext"></a>
+  
+    <br>
+    水曜日
+    <input type="time" id="wed" value="00:00">
+
+    <a id="wedtext"></a>
+  
+
+    <br>
+    木曜日
+    <input type="time" id="thu" value="00:00">
+
+    <a id="thutext"></a>
+
+    <br>
+    金曜日
+    <input type="time" id="fry" value="00:00">
+
+    <a id="frytext"></a>
+
+    <br>
+    土曜日
+    <input type="time" id="sut" value="00:00">
+
+    <a id="suttext"></a>
+    </body>
 </html>
