@@ -14,3 +14,13 @@ function measure(){
         console.log(error);
     });
 }
+
+// おやすみ通知を送らない設定のとき 何時間前に通知を送るかの選択肢を隠す
+function displayTime(){
+    document.getElementById("sleepNotifyTime").style.display = "block";
+}
+
+// おやすみ通知を送る設定のとき 何時間前に通知を送るかの選択肢を表示する
+function hiddenTime(){
+    document.getElementById("sleepNotifyTime").style.display = "none";
+}
