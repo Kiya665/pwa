@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
-
+#!/usr/local/bin/python3
 import RPi.GPIO as GPIO
 import time
-
+import json
+#GPIO.setwarnings(False)
 TRIG = 11
 ECHO = 12
-loopTimes = 15
+loopTimes = 1
 prev = 0
 disList = []
 
@@ -42,11 +42,9 @@ def loop():
         if(prev * 1.1 >= dis and prev * 0.9 <= dis) :
             count += 1
             disList.append(dis)
-            print("y")
         else :
             count = 0
             disList = []
-            print("n")
         prev = dis
         time.sleep(0.3)
 
@@ -55,11 +53,17 @@ def destroy():
     GPIO.cleanup()
 
 setup()
-try :
-    loop()
-except KeyboardInterrupt:
-    destroy()
+loop()
+destroy()
 avg = round(sum(disList)/len(disList),2)
-print(avg)
+data = {
+    'distance': avg
+}
+
+print("Content-Type: application/json\n")
+#print("Content-Type: text/html\n")
+print(json.dumps(avg))
+
+
 
 
