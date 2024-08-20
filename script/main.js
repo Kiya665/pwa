@@ -140,6 +140,7 @@ function buttonclick(){
 }
 
 function buttonclick2(){
+    
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     var selectElement = document.getElementById('sun');
     var Element = document.getElementById('suntext');
@@ -242,6 +243,7 @@ function buttonclick2(){
     console.log(localStorage.getItem('sun_start_hour'));
 
 }
+
 
 
 
