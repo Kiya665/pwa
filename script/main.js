@@ -3,66 +3,65 @@ window.addEventListener("load",a)
 function a(){
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
 
-    if(!localStorage.getItem('sun')){
+    // if(!localStorage.getItem('sun')){
 
-        document.getElementById('suntext').innerText = document.getElementById('sun').value;
+    //     document.getElementById('suntext').innerText = document.getElementById('sun').value;
 
-        document.getElementById('montext').innerText = document.getElementById('mon').value;
+    //     document.getElementById('montext').innerText = document.getElementById('mon').value;
 
-        document.getElementById('tuetext').innerText = document.getElementById('tue').value;
+    //     document.getElementById('tuetext').innerText = document.getElementById('tue').value;
 
-        document.getElementById('wedtext').innerText = document.getElementById('wed').value;
+    //     document.getElementById('wedtext').innerText = document.getElementById('wed').value;
 
-        document.getElementById('thutext').innerText = document.getElementById('thu').value;
+    //     document.getElementById('thutext').innerText = document.getElementById('thu').value;
 
-        document.getElementById('fritext').innerText = document.getElementById('fri').value;
+    //     document.getElementById('fritext').innerText = document.getElementById('fri').value;
 
-        document.getElementById('sattext').innerText = document.getElementById('sat').value;
+    //     document.getElementById('sattext').innerText = document.getElementById('sat').value;
 
-        document.getElementById('sun1text').innerText = document.getElementById('sun1').value;
+    //     document.getElementById('sun1text').innerText = document.getElementById('sun1').value;
 
-        document.getElementById('mon1text').innerText = document.getElementById('mon1').value;
+    //     document.getElementById('mon1text').innerText = document.getElementById('mon1').value;
 
-        document.getElementById('tue1text').innerText = document.getElementById('tue1').value;
+    //     document.getElementById('tue1text').innerText = document.getElementById('tue1').value;
 
-        document.getElementById('wed1text').innerText = document.getElementById('wed1').value;
+    //     document.getElementById('wed1text').innerText = document.getElementById('wed1').value;
 
-        document.getElementById('thu1text').innerText = document.getElementById('thu1').value;
+    //     document.getElementById('thu1text').innerText = document.getElementById('thu1').value;
 
-        document.getElementById('fri1text').innerText = document.getElementById('fri1').value;
+    //     document.getElementById('fri1text').innerText = document.getElementById('fri1').value;
 
-        document.getElementById('sat1text').innerText = document.getElementById('sat1').value;
-    }else{
+    //     document.getElementById('sat1text').innerText = document.getElementById('sat1').value;
+    // }else{
+    //     document.getElementById('suntext').innerText = localStorage.getItem('sun_start_hour');
 
-        document.getElementById('suntext').innerText = localStorage.getItem('sun_start_hour');
+    //     document.getElementById('montext').innerText = localStorage.getItem('mon_start_hour');
 
-        document.getElementById('montext').innerText = localStorage.getItem('mon_start_hour');
+    //     document.getElementById('tuetext').innerText = localStorage.getItem('thu_start_hour');
 
-        document.getElementById('tuetext').innerText = localStorage.getItem('thu_start_hour');
+    //     document.getElementById('wedtext').innerText = localStorage.getItem('wed_start_hour');
 
-        document.getElementById('wedtext').innerText = localStorage.getItem('wed_start_hour');
+    //     document.getElementById('thutext').innerText = localStorage.getItem('thu_start_hour');
 
-        document.getElementById('thutext').innerText = localStorage.getItem('thu_start_hour');
+    //     document.getElementById('fritext').innerText = localStorage.getItem('fri_start_hour');
 
-        document.getElementById('fritext').innerText = localStorage.getItem('fri_start_hour');
+    //     document.getElementById('sattext').innerText = localStorage.getItem('sat_start_hour');
 
-        document.getElementById('sattext').innerText = localStorage.getItem('sat_start_hour');
+    //     document.getElementById('sun1text').innerText = localStorage.getItem('sun_start_minute');
 
-        document.getElementById('sun1text').innerText = localStorage.getItem('sun_start_minute');
+    //     document.getElementById('mon1text').innerText = localStorage.getItem('mon_start_minute');
 
-        document.getElementById('mon1text').innerText = localStorage.getItem('mon_start_minute');
+    //     document.getElementById('tue1text').innerText = localStorage.getItem('tue_start_minute');
 
-        document.getElementById('tue1text').innerText = localStorage.getItem('tue_start_minute');
+    //     document.getElementById('wed1text').innerText = localStorage.getItem('wed_start_minute');
 
-        document.getElementById('wed1text').innerText = localStorage.getItem('wed_start_minute');
+    //     document.getElementById('thu1text').innerText = localStorage.getItem('thu_start_minute');
 
-        document.getElementById('thu1text').innerText = localStorage.getItem('thu_start_minute');
+    //     document.getElementById('fri1text').innerText = localStorage.getItem('fri_start_minute');
 
-        document.getElementById('fri1text').innerText = localStorage.getItem('fri_start_minute');
-
-        document.getElementById('sat1text').innerText = localStorage.getItem('sat_start_minute');
-    }
-    
+    //     document.getElementById('sat1text').innerText = localStorage.getItem('sat_start_minute');
+    // }
+    if(localStorage.getItem('sun_start_hour')) document.getElementById('suntext').innerText = localStorage.getItem('sun_start_hour');
 }
 
 function buttonclick(){
@@ -103,10 +102,6 @@ function buttonclick(){
     selectElement.style.display = "inline";
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
-    var selectElement = document.getElementById('sun1');
-    var Element = document.getElementById('sun1text');
-    Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('mon1');
     var Element = document.getElementById('mon1text');
@@ -182,11 +177,6 @@ function buttonclick2(){
     Element.style.display = "inline";
     document.getElementById('sattext').innerText = document.getElementById('sat').value;
 
-    selectElement.style.display = "none";var selectElement = document.getElementById('sun1');
-    var Element = document.getElementById('sun1text');
-    Element.style.display = "inline";
-    document.getElementById('sun1text').innerText = document.getElementById('sun1').value;
-    selectElement.style.display = "none";
 
     var selectElement = document.getElementById('mon1');
     var Element = document.getElementById('mon1text');
@@ -231,7 +221,6 @@ function buttonclick2(){
     localStorage.setItem('thu_start_hour',document.getElementById('thu').value);
     localStorage.setItem('fri_start_hour',document.getElementById('fri').value);
     localStorage.setItem('sat_start_hour',document.getElementById('sat').value);
-    localStorage.setItem('sun_start_minute',document.getElementById('sun1').value);
     localStorage.setItem('mon_start_minute',document.getElementById('mon1').value);
     localStorage.setItem('tue_start_minute',document.getElementById('tue1').value);
     localStorage.setItem('wed_start_minute',document.getElementById('wed1').value);
