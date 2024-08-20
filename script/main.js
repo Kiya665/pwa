@@ -17,11 +17,11 @@ function a(){
     var selectElement = document.getElementById('thu');
     document.getElementById('thutext').innerText = document.getElementById('thu').value;
 
-    var selectElement = document.getElementById('fry');
-    document.getElementById('frytext').innerText = document.getElementById('fry').value;
+    var selectElement = document.getElementById('fri');
+    document.getElementById('fritext').innerText = document.getElementById('fri').value;
 
-    var selectElement = document.getElementById('sut');
-    document.getElementById('suttext').innerText = document.getElementById('sut').value;
+    var selectElement = document.getElementById('sat');
+    document.getElementById('sattext').innerText = document.getElementById('sat').value;
 }
 
 function buttonclick(){
@@ -51,13 +51,13 @@ function buttonclick(){
     Element.style.display = "none";
     selectElement.style.display = "inline";
 
-    var selectElement = document.getElementById('fry');
-    var Element = document.getElementById('frytext');
+    var selectElement = document.getElementById('fri');
+    var Element = document.getElementById('fritext');
     Element.style.display = "none";
     selectElement.style.display = "inline";
 
-    var selectElement = document.getElementById('sut');
-    var Element = document.getElementById('suttext');
+    var selectElement = document.getElementById('sat');
+    var Element = document.getElementById('sattext');
     Element.style.display = "none";
     selectElement.style.display = "inline";
 }
@@ -94,16 +94,16 @@ function buttonclick2(){
     document.getElementById('thutext').innerText = document.getElementById('thu').value;
     selectElement.style.display = "none";
 
-    var selectElement = document.getElementById('fry');
-    var Element = document.getElementById('frytext');
+    var selectElement = document.getElementById('fri');
+    var Element = document.getElementById('fritext');
     Element.style.display = "inline";
-    document.getElementById('frytext').innerText = document.getElementById('fry').value;
+    document.getElementById('fritext').innerText = document.getElementById('fri').value;
     selectElement.style.display = "none";
 
-    var selectElement = document.getElementById('sut');
-    var Element = document.getElementById('suttext');
+    var selectElement = document.getElementById('sat');
+    var Element = document.getElementById('sattext');
     Element.style.display = "inline";
-    document.getElementById('suttext').innerText = document.getElementById('sut').value;
+    document.getElementById('sattext').innerText = document.getElementById('sat').value;
     selectElement.style.display = "none";
 }
 function measure(){
