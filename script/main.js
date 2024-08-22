@@ -135,6 +135,7 @@ function buttonclick(){
 }
 
 function buttonclick2(){
+    
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     var selectElement = document.getElementById('sun');
     var Element = document.getElementById('suntext');
@@ -233,8 +234,22 @@ function buttonclick2(){
 }
 
 
-// import { createNotification } from './notify.js';
-window.onload = () =>{
-    //console.error('test');
-    //setInterval(createNotification,10000);
-};
+
+
+// window.addEventListener('load',notify2);
+// function notify2(){
+//     if (!('Notification' in window)) {
+//         alert('このブラウザはプッシュ通知に対応してません。。。');
+//         return;
+//       }
+
+//       const permission = Notification.permission;
+//       if (permission === 'granted') {
+//         navigator.serviceWorker.ready.then(registration => {
+//           registration.active.postMessage('hello!!!');
+//         });
+//       } else {
+//         alert('通知の許可がもらえませんよ');
+//       }
+//     setInterval(notify2,30000);
+// }
