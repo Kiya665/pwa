@@ -14,15 +14,23 @@ function createNotification(){
     alert('通知の許可がもらえませんよ');
   }
 }
-function checkNotificationCondition(){
+
+// function checkNotificationCondition(){
+//   let nextAlarmData = getNextAlarm();
+//   let endTime = new Date(2024,1,nextAlarmData[1],nextAlarmData[2]);
+//   endTime.setMinutes(nextAlarmData[3]);
+//   if()
+
+// }
+
+function getSleepTime(){
   const now = new Date();
 
   const dayCheck = now.getDay();
   const hourCheck = now.getHours();
   const minuteCheck = now.getMinutes();
 
-  let settingData = getSettingData(); 
-  let nextAlarmData = getNextAlarm(settingData);
+  let nextAlarmData = getNextAlarm();
 
   let day = (parseInt(nextAlarmData[0]) - parseInt(dayCheck) + 7) % 7;
   let hour = (parseInt(nextAlarmData[1]) - parseInt(hourCheck) + 24) % 24;
@@ -32,7 +40,7 @@ function checkNotificationCondition(){
     day += 6;
   }
   let sleepTime = day * 24 *  60 * 60 * 1000 + hour * 60 * 60 * 1000 + minute * 60 * 1000;
-  setTimeout(createNotification,sleepTime);
+  return sleepTime;
 }
 
 let data = [['0','8','50','60'],
@@ -55,6 +63,7 @@ function getNextAlarm(){
   let nextAlarmDay;
   let nextAlarmHour;
   let nextAlarmMinute;
+  let nextAlarmRange;
   let i = dayCheck;
   for(;count < 7;(i++)%=7,count++){
     if(settingData[i][1]!= -1){
@@ -70,22 +79,33 @@ function getNextAlarm(){
   nextAlarmDay = settingData[i][0];
   nextAlarmHour = settingData[i][1];
   nextAlarmMinute = settingData[i][2];
-  let alarmData = [nextAlarmDay,nextAlarmHour,nextAlarmMinute];
+  nextAlarmRange = settingData[i][3]
+  let alarmData = [nextAlarmDay,nextAlarmHour,nextAlarmMinute,nextAlarmRange];
   return alarmData;
 }
 
 function getSettingData(){
-  let data = [['0',localStorage.getItem(sun_start_hour),localStorage.getItem(sun_start_minute),localStorage.getItem(sun_range)],
-              ['1',localStorage.getItem(mon_start_hour),localStorage.getItem(mon_start_minute),localStorage.getItem(mon_range)],
-              ['2',localStorage.getItem(tue_start_hour),localStorage.getItem(tue_start_minute),localStorage.getItem(tue_range)],
-              ['3',localStorage.getItem(wed_start_hour),localStorage.getItem(wed_start_minute),localStorage.getItem(wed_range)],
-              ['4',localStorage.getItem(thu_start_hour),localStorage.getItem(thu_start_minute),localStorage.getItem(thu_range)],
-              ['5',localStorage.getItem(fri_start_hour),localStorage.getItem(fri_start_minute),localStorage.getItem(fri_range)],
-              ['6',localStorage.getItem(sat_start_hour),localStorage.getItem(sat_start_minute),localStorage.getItem(sat_range)],
+  let data = [['0',localStorage.getItem('sun_start_hour'),localStorage.getItem('sun_start_minute'),localStorage.getItem('sun_range')],
+              ['1',localStorage.getItem('mon_start_hour'),localStorage.getItem('mon_start_minute'),localStorage.getItem('mon_range')],
+              ['2',localStorage.getItem('tue_start_hour'),localStorage.getItem('tue_start_minute'),localStorage.getItem('tue_range')],
+              ['3',localStorage.getItem('wed_start_hour'),localStorage.getItem('wed_start_minute'),localStorage.getItem('wed_range')],
+              ['4',localStorage.getItem('thu_start_hour'),localStorage.getItem('thu_start_minute'),localStorage.getItem('thu_range')],
+              ['5',localStorage.getItem('fri_start_hour'),localStorage.getItem('fri_start_minute'),localStorage.getItem('fri_range')],
+              ['6',localStorage.getItem('sat_start_hour'),localStorage.getItem('sat_start_minute'),localStorage.getItem('sat_range')],
             ];
   return data;
 }
 
 function checkSleepState(){
-  fetch('')
+  let settingDistnce = localStorage.getItem('settingDistnce');
+  fetch('../sleepState.py')
+    .then(response => response.json())
+    .then(data => {
+        if(settingDistnce > data){
+          createNotification();
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
 }
