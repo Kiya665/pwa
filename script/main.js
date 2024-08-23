@@ -53,6 +53,7 @@ function a(){
 }
 
 function buttonclick(){
+
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
 
     var checkboxes = document.getElementsByName('box')
@@ -62,7 +63,8 @@ function buttonclick(){
     var selectElement = document.getElementById('sun');
     var Element = document.getElementById('suntext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
+    //selectElement.style.display = "inline";
+    selectElement.style.visibility = "inline";
 
     var selectElement = document.getElementById('mon');
     var Element = document.getElementById('montext');
@@ -128,6 +130,13 @@ function buttonclick(){
 }
 
 function buttonclick2(){
+    toggletext('sun');
+    toggletext('mon');
+    toggletext('tue');
+    toggletext('wed');
+    toggletext('thu');
+    toggletext('fri');
+    toggletext('sat');
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].style.visibility = 'hidden';
@@ -203,14 +212,10 @@ function buttonclick2(){
 }
 
 function toggletext(day) {
-    var checkbox = document.getElementById(day + 'box');
-    var timeInput = document.getElementById(day);
-    if (checkbox.checked) {
-      timeInput.classList.remove('hidden');
-    } else {
-        timeInput.classList.add('hidden');
-    }
+    
 }
+
+
 
 
 // window.addEventListener('load',notify2);
