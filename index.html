@@ -3,8 +3,11 @@
   <head>
     
     <style>
-      .hidden {
+      .none {
         display: none;
+      }
+      .hidden{
+        visibility: hidden;
       }
         
          
@@ -39,43 +42,43 @@
      <br>
      日曜日
      <input type="checkbox" id="sunbox" name="box" onclick="toggletext('sun')">
-     <input type="time" id="sun" name="time" class="hidden">
+     <input type="time" id="sun" name="time" class="none">
       <a id="suntext"></a>
 
       <br>
       月曜日
       <input type="checkbox" id="monbox" name="box" onclick="toggletext('mon')">
-      <input type="time" id="mon" name="time" class="hidden">
+      <input type="time" id="mon" name="time" class="none">
       <a id="montext"></a>
 
       <br>
       火曜日
       <input type="checkbox" id="tuebox" name="box" onclick="toggletext('tue')">
-      <input type="time" id="tue" name="time" class="hidden">
+      <input type="time" id="tue" name="time" class="none">
       <a id="tuetext"></a>
       <br>
       水曜日
       <input type="checkbox" id="wedbox" name="box" onclick="toggletext('wed')">
-      <input type="time" id="wed" name="time" class="hidden">
+      <input type="time" id="wed" name="time" class="none">
 
       <a id="wedtext"></a>
     
       <br>
       木曜日
       <input type="checkbox" id="thubox" name="box" onclick="toggletext('thu')">
-      <input type="time" id="thu" name="time" class="hidden">
+      <input type="time" id="thu" name="time" class="none">
 
       <a id="thutext"></a>
      <br>
       金曜日
       <input type="checkbox" id="fribox" name="box" onclick="toggletext('fri')">
-      <input type="time" id="fri" name="time" class="hidden">
+      <input type="time" id="fri" name="time" class="none">
       <a id="fritext"></a>
     
       <br>
       土曜日
       <input type="checkbox" id="satbox" name="box" onclick="toggletext('sat')">
-      <input type="time" id="sat" name="time" class="hidden">
+      <input type="time" id="sat" name="time" class="none">
 
       <a id="sattext"></a>
     
@@ -83,18 +86,7 @@
     <script>
        var checkboxes = document.getElementsByName('box')
        for (var i = 0; i < checkboxes.length; i++) {
-         checkboxes[i].style.display = "none";
+         checkboxes[i].style.visibility = "hidden";
        }
-
-
-      function toggletext(day) {
-            var checkbox = document.getElementById(day + 'box');
-            var timeInput = document.getElementById(day);
-            if (checkbox.checked) {
-              timeInput.classList.remove('hidden');
-            } else {
-                timeInput.classList.add('hidden');
-            }
-      }
     </script>
 </html>

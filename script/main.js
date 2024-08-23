@@ -19,19 +19,7 @@ function a(){
 
          document.getElementById('sattext').innerText = document.getElementById('sat').value;
 
-         document.getElementById('sun1text').innerText = document.getElementById('sun1').value;
-
-         document.getElementById('mon1text').innerText = document.getElementById('mon1').value;
-
-         document.getElementById('tue1text').innerText = document.getElementById('tue1').value;
-
-         document.getElementById('wed1text').innerText = document.getElementById('wed1').value;
-
-         document.getElementById('thu1text').innerText = document.getElementById('thu1').value;
-
-         document.getElementById('fri1text').innerText = document.getElementById('fri1').value;
-
-         document.getElementById('sat1text').innerText = document.getElementById('sat1').value;
+         
     //  }else{
     //      document.getElementById('suntext').innerText = localStorage.getItem('sun_start_hour');
 
@@ -69,42 +57,42 @@ function buttonclick(){
 
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.display = "inline";
+        checkboxes[i].style.visibility = "visible";
     }
     var selectElement = document.getElementById('sun');
     var Element = document.getElementById('suntext');
     Element.style.display = "none";
-   // selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('mon');
     var Element = document.getElementById('montext');
     Element.style.display = "none";
-   // selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('tue');
     var Element = document.getElementById('tuetext');
     Element.style.display = "none";
-   // selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('wed');
     var Element = document.getElementById('wedtext');
     Element.style.display = "none";
-   // selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('thu');
     var Element = document.getElementById('thutext');
     Element.style.display = "none";
-   // selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('fri');
     var Element = document.getElementById('fritext');
     Element.style.display = "none";
-   // selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('sat');
     var Element = document.getElementById('sattext');
     Element.style.display = "none";
-    //selectElement.style.display = "inline";
+    selectElement.style.display = "inline";
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
 
@@ -142,7 +130,7 @@ function buttonclick(){
 function buttonclick2(){
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.display = "none";
+        checkboxes[i].style.visibility = 'hidden';
     }
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     var selectElement = document.getElementById('sun');
@@ -210,11 +198,19 @@ function buttonclick2(){
     localStorage.setItem('fri_range',document.getElementById('sat1').value);
     localStorage.setItem('sat_range',document.getElementById('sat1').value);
 
-    console.log(localStorage.getItem('sun_start_hour'));
+//visibility: hidden;    console.log(localStorage.getItem('sun_start_hour'));
 
 }
 
-
+function toggletext(day) {
+    var checkbox = document.getElementById(day + 'box');
+    var timeInput = document.getElementById(day);
+    if (checkbox.checked) {
+      timeInput.classList.remove('hidden');
+    } else {
+        timeInput.classList.add('hidden');
+    }
+}
 
 
 // window.addEventListener('load',notify2);
