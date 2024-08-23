@@ -11,7 +11,7 @@ window.addEventListener('load',() =>{
 function measure(){
     document.getElementById("text").innerHTML="測定中です。<br><br>";
     document.getElementById("startButton").innerHTML="";
-    fetch('./measure.py')
+    fetch('../measure.py')
     .then(response => response.json())
     .then(data => {
         document.getElementById("again").innerHTML = '<button onclick="measure()">もう一度測定する</button><button type="button" onclick="setDistance()">計測を終了する</button>';

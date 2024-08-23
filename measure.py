@@ -5,7 +5,7 @@ import json
 #GPIO.setwarnings(False)
 TRIG = 11
 ECHO = 12
-loopTimes = 1
+loopTimes = 10
 prev = 0
 disList = []
 
