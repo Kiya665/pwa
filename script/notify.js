@@ -1,8 +1,8 @@
 function createNotification(){
-if (!('Notification' in window)) {
-    alert('このブラウザはプッシュ通知に対応してません。。。');
-    return;
-  }
+// if (!('Notification' in window)) {
+//     alert('このブラウザはプッシュ通知に対応してません。。。');
+//     return;
+//   }
 
   const permission = Notification.permission;
   if (permission === 'granted') {
@@ -14,49 +14,52 @@ if (!('Notification' in window)) {
     alert('通知の許可がもらえませんよ');
   }
 }
-function checkNotificationCondition(data){
+function checkNotificationCondition(){
   const now = new Date();
 
   const dayCheck = now.getDay();
   const hourCheck = now.getHours();
   const minuteCheck = now.getMinutes();
 
-  let alarmData = getNextAlarm(data);
+  let settingData = getSettingData(); 
+  let nextAlarmData = getNextAlarm(settingData);
 
-  let day = (parseInt(alarmData[0]) - parseInt(dayCheck) + 7) % 7;
-  let hour = (parseInt(alarmData[1]) - parseInt(hourCheck) + 24) % 24;
-  let minute = (parseInt(alarmData[2]) - parseInt(minuteCheck) + 60) % 60;
+  let day = (parseInt(nextAlarmData[0]) - parseInt(dayCheck) + 7) % 7;
+  let hour = (parseInt(nextAlarmData[1]) - parseInt(hourCheck) + 24) % 24;
+  let minute = (parseInt(nextAlarmData[2]) - parseInt(minuteCheck) + 60) % 60;
 
-  if(parseInt(alarmData[0]) == parseInt(dayCheck) && parseInt(alarmData[1] + alarmData[2]) < parseInt(hourCheck + minuteCheck)){
+  if(parseInt(nextAlarmData[0]) == parseInt(dayCheck) && parseInt(nextAlarmData[1] + nextAlarmData[2]) < parseInt(hourCheck + minuteCheck)){
     day += 6;
   }
   let sleepTime = day * 24 *  60 * 60 * 1000 + hour * 60 * 60 * 1000 + minute * 60 * 1000;
   setTimeout(createNotification,sleepTime);
 }
-let data = [['0','8','50'],
-            ['1','7','30'],
-            ['2','9','30'],
-            ['3','8','50'],
-            ['4','7','30'],
-            ['5','9','30'],
-            ['6','9','30'],
+
+let data = [['0','8','50','60'],
+            ['1','7','30','60'],
+            ['2','9','30','60'],
+            ['3','8','50','60'],
+            ['4','7','30','60'],
+            ['5','9','30','60'],
+            ['6','9','30','60'],
           ];
 
-function getNextAlarm(data){
+function getNextAlarm(){
   const now = new Date();
 
   const dayCheck = now.getDay();
   const hourCheck = now.getHours();
   const minuteCheck = now.getMinutes();
+  let settingData = getSettingData();
   let count = 0;
   let nextAlarmDay;
   let nextAlarmHour;
   let nextAlarmMinute;
   let i = dayCheck;
   for(;count < 7;(i++)%=7,count++){
-    if(data[i][1]!= -1){
+    if(settingData[i][1]!= -1){
       if(data[i][0] == i){
-        if(parseInt(data[i][1] + data[i][2]) > parseInt(hourCheck + minuteCheck)){
+        if(parseInt(settingData[i][1] + settingData[i][2]) > parseInt(hourCheck + minuteCheck)){
           break;
         }
       }else{
@@ -64,13 +67,25 @@ function getNextAlarm(data){
       }
     }
   }
-  nextAlarmDay = data[i][0];
-  nextAlarmHour = data[i][1];
-  nextAlarmMinute = data[i][2];
+  nextAlarmDay = settingData[i][0];
+  nextAlarmHour = settingData[i][1];
+  nextAlarmMinute = settingData[i][2];
   let alarmData = [nextAlarmDay,nextAlarmHour,nextAlarmMinute];
   return alarmData;
 }
 
 function getSettingData(){
-  let data = [[]];
+  let data = [['0',localStorage.getItem(sun_start_hour),localStorage.getItem(sun_start_minute),localStorage.getItem(sun_range)],
+              ['1',localStorage.getItem(mon_start_hour),localStorage.getItem(mon_start_minute),localStorage.getItem(mon_range)],
+              ['2',localStorage.getItem(tue_start_hour),localStorage.getItem(tue_start_minute),localStorage.getItem(tue_range)],
+              ['3',localStorage.getItem(wed_start_hour),localStorage.getItem(wed_start_minute),localStorage.getItem(wed_range)],
+              ['4',localStorage.getItem(thu_start_hour),localStorage.getItem(thu_start_minute),localStorage.getItem(thu_range)],
+              ['5',localStorage.getItem(fri_start_hour),localStorage.getItem(fri_start_minute),localStorage.getItem(fri_range)],
+              ['6',localStorage.getItem(sat_start_hour),localStorage.getItem(sat_start_minute),localStorage.getItem(sat_range)],
+            ];
+  return data;
+}
+
+function checkSleepState(){
+  fetch('')
 }
