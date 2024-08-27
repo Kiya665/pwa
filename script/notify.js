@@ -14,17 +14,33 @@ function createNotification(){
     alert('通知の許可がもらえませんよ');
   }
 }
+let timeoutID;
+//let timeoutID2;
+function start(){
+  clearTimeout(timeoutID);
+  let sleepTime = getSleepTime();
+  console.log('sleepTime',sleepTime);
 
+  const alarmData = getNextAlarm();
+  const endTime = new Date();
+  endTime.setMinutes(endTime.getMinutes() + parseInt(alarmData[3]));
+  let hour = endTime.getHours;
+  let minute = endTime.getMinutes
+  con
+  timeoutID = setTimeout(checkNotificationCondition,sleepTime,hour,minute);
+}
+
+let intervalID;
 function checkNotificationCondition(){
-  let nextAlarmData = getNextAlarm();
-  let alarmRange = nextAlarmData[3];
-  let intervalTime = 10;
-  let loopTimes = alarmRange * 60 / intervalTime;
-  for(i = 0;i < loopTimes;i++){
-    setTimeout(checkSleepState,intervalTime * 1000);
-  }
-  let nextAlarm = getSleepTime();
-  setTimeout(checkNotificationCondition,nextAlarm);
+  console.log('checkNotification起動');
+  intervalID = setInterval(checkSleepState,10000);
+}
+
+function releaseInterval(){
+  clearInterval(intervalID);
+
+  let sleepTime = getSleepTime();
+  timeoutID = setTimeout(checkNotificationCondition,sleepTime);
 }
 
 function getSleepTime(){
@@ -37,24 +53,24 @@ function getSleepTime(){
   let nextAlarmData = getNextAlarm();
 
   let day = (parseInt(nextAlarmData[0]) - parseInt(dayCheck) + 7) % 7;
-  let hour = (parseInt(nextAlarmData[1]) - parseInt(hourCheck) + 24) % 24;
-  let minute = (parseInt(nextAlarmData[2]) - parseInt(minuteCheck) + 60) % 60;
-
-  if(parseInt(nextAlarmData[0]) == parseInt(dayCheck) && parseInt(nextAlarmData[1] + nextAlarmData[2]) < parseInt(hourCheck + minuteCheck)){
-    day += 6;
+  // let hour = (parseInt(nextAlarmData[1]) - parseInt(hourCheck) + 24) % 24;
+  // let minute = (parseInt(nextAlarmData[2]) - parseInt(minuteCheck) + 60) % 60;
+  let nowTime = hourCheck * 60 + minuteCheck;
+  let time = parseInt(nextAlarmData[1]) * 60 + parseInt(nextAlarmData[2]);
+  let diffTime = (time - nowTime + 1440) % 1440;
+  if(parseInt(nextAlarmData[1] + nextAlarmData[2]) < parseInt(hourCheck * 100 + minuteCheck)){
+    if(parseInt(nextAlarmData[0]) === parseInt(dayCheck)){
+      day += 7;
+    }
+    day -= 1;
   }
-  let sleepTime = day * 24 *  60 * 60 * 1000 + hour * 60 * 60 * 1000 + minute * 60 * 1000;
+  let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
   return sleepTime;
 }
+window.addEventListener('load',() =>{
+  console.log(timeoutID);
+})
 
-let data = [['0','8','50','60'],
-            ['1','7','30','60'],
-            ['2','9','30','60'],
-            ['3','8','50','60'],
-            ['4','7','30','60'],
-            ['5','9','30','60'],
-            ['6','9','30','60'],
-          ];
 
 function getNextAlarm(){
   const now = new Date();
@@ -69,10 +85,10 @@ function getNextAlarm(){
   let nextAlarmMinute;
   let nextAlarmRange;
   let i = dayCheck;
-  for(;count < 7;(i++)%=7,count++){
-    if(settingData[i][1]!= '-1'){
-      if(data[i][0] == i){
-        if(parseInt(settingData[i][1] + settingData[i][2]) > parseInt(hourCheck + minuteCheck)){
+  for(;count < 7;i = (i+1)%7,count++){
+    if(settingData[i][1] !== '--'){
+      if(dayCheck === i){
+        if(parseInt(settingData[i][1] + settingData[i][2]) > (hourCheck * 100 + minuteCheck)){
           break;
         }
       }else{
@@ -100,16 +116,53 @@ function getSettingData(){
   return data;
 }
 
-function checkSleepState(){
-  let settingDistnce = localStorage.getItem('measured_distance');
-  fetch('../sleepState.py')
-    .then(response => response.json())
-    .then(data => {
-        if(settingDistnce > data){
-          createNotification();
-        }
-    })
-    .catch(error => {
-        console.log(error);
-    });
+function setSettingData(){
+  localStorage.setItem('sun_start_hour','--');
+  localStorage.setItem('sun_start_minute','00');
+  localStorage.setItem('sun_range','60');
+  localStorage.setItem('mon_start_hour','--');
+  localStorage.setItem('mon_start_minute','00');
+  localStorage.setItem('mon_range','60');
+  localStorage.setItem('tue_start_hour','14');
+  localStorage.setItem('tue_start_minute','49');
+  localStorage.setItem('tue_range','1');
+  localStorage.setItem('wed_start_hour','--');
+  localStorage.setItem('wed_start_minute','55');
+  localStorage.setItem('wed_range','60');
+  localStorage.setItem('thu_start_hour','--');
+  localStorage.setItem('thu_start_minute','30');
+  localStorage.setItem('thu_range','60');
+  localStorage.setItem('fri_start_hour','--');
+  localStorage.setItem('fri_start_minute','30');
+  localStorage.setItem('fri_range','60');
+  localStorage.setItem('sat_start_hour','--');
+  localStorage.setItem('sat_start_minute','30');
+  localStorage.setItem('sat_range','60');
+}
+
+function checkSleepState(hour,minute){
+  console.log('通知送信');
+  createNotification();
+  const now = new Date();
+
+  const hourCheck = now.getHours();
+  const minuteCheck = now.getMinutes();
+
+  let matched = parseInt(hour) === hourCheck;
+  matched &&= parseInt(minute) === minuteCheck;
+  if(matched){
+    releaseInterval();
+    console.log('通知終了');
+  }
+  // let settingDistnce = localStorage.getItem('measured_distance');
+  // fetch('../sleepState.py')
+  //   .then(response => response.json())
+  //   .then(data => {
+  //       if(settingDistnce > data){
+  //         createNotification();
+  //       }
+  //   })
+  //   .catch(error => {
+  //       console.log(error);
+  //   });
 }
