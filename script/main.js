@@ -1,17 +1,5 @@
 window.addEventListener("load",a)
 
-window.onload = () => {
-    var sunHour = localStorage.getItem('sun_start_hour');
-    console.log()
-
-    function sleepNotify()
-    {
-        const now = new Date();
-    }
-}
-
-
-
 function a(){
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';

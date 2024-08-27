@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="./script/notify.js"></script>
+        <link rel="manifest" href="script/manifest.json">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <script>
+            window.addEventListener('load', () => {
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                  .register('./script/serviceWorker.js')
+                  .then(registration => console.log('registerd', registration))
+                  .catch(err => console.log('err', err));
+              }
+            });
+          </script>
+        <button type="button" onclick="start()">開始</button>
+    </body>
+</html>
