@@ -3,7 +3,7 @@ window.addEventListener("load",a)
 function a(){
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
 
-  //   if(!localStorage.getItem('sun')){
+        if(!localStorage.getItem('sun')){
 
          document.getElementById('suntext').innerText = document.getElementById('sun').value;
 
@@ -20,40 +20,34 @@ function a(){
          document.getElementById('sattext').innerText = document.getElementById('sat').value;
 
          
-    //  }else{
-    //      document.getElementById('suntext').innerText = localStorage.getItem('sun_start_hour');
+        }else{
+         document.getElementById('suntext').innerText = localStorage.getItem('suntime');
 
-    //      document.getElementById('montext').innerText = localStorage.getItem('mon_start_hour');
+         document.getElementById('montext').innerText = localStorage.getItem('montime');
 
-    //      document.getElementById('tuetext').innerText = localStorage.getItem('thu_start_hour');
+         document.getElementById('tuetext').innerText = localStorage.getItem('thutime');
 
-    //      document.getElementById('wedtext').innerText = localStorage.getItem('wed_start_hour');
+         document.getElementById('wedtext').innerText = localStorage.getItem('wedtime');
 
-    //      document.getElementById('thutext').innerText = localStorage.getItem('thu_start_hour');
+         document.getElementById('thutext').innerText = localStorage.getItem('thutime');
 
-    //      document.getElementById('fritext').innerText = localStorage.getItem('fri_start_hour');
+         document.getElementById('fritext').innerText = localStorage.getItem('fritime');
 
-    //      document.getElementById('sattext').innerText = localStorage.getItem('sat_start_hour');
+         document.getElementById('sattext').innerText = localStorage.getItem('sattime');
 
-    //      document.getElementById('sun1text').innerText = localStorage.getItem('sun_start_minute');
-
-    //      document.getElementById('mon1text').innerText = localStorage.getItem('mon_start_minute');
-
-    //      document.getElementById('tue1text').innerText = localStorage.getItem('tue_start_minute');
-
-    //      document.getElementById('wed1text').innerText = localStorage.getItem('wed_start_minute');
-
-    //      document.getElementById('thu1text').innerText = localStorage.getItem('thu_start_minute');
-
-    //      document.getElementById('fri1text').innerText = localStorage.getItem('fri_start_minute');
-
-    //      document.getElementById('sat1text').innerText = localStorage.getItem('sat_start_minute');
-    //  }
-    if(localStorage.getItem('sun_start_hour')) document.getElementById('suntext').innerText = localStorage.getItem('sun_start_hour');
+         
+        }
 }
 
 function buttonclick(){
-
+    toggletext('sun');
+    toggletext('mon');
+    toggletext('tue');
+    toggletext('wed');
+    toggletext('thu');
+    toggletext('fri');
+    toggletext('sat');
+    
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
 
     var checkboxes = document.getElementsByName('box')
@@ -64,37 +58,30 @@ function buttonclick(){
     var Element = document.getElementById('suntext');
     Element.style.display = "none";
     //selectElement.style.display = "inline";
-    selectElement.style.visibility = "inline";
 
     var selectElement = document.getElementById('mon');
     var Element = document.getElementById('montext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('tue');
     var Element = document.getElementById('tuetext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('wed');
     var Element = document.getElementById('wedtext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('thu');
     var Element = document.getElementById('thutext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('fri');
     var Element = document.getElementById('fritext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     var selectElement = document.getElementById('sat');
     var Element = document.getElementById('sattext');
     Element.style.display = "none";
-    selectElement.style.display = "inline";
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
 
@@ -146,52 +133,52 @@ function buttonclick2(){
     var Element = document.getElementById('suntext');
     Element.style.display = "inline";
     document.getElementById('suntext').innerText = document.getElementById('sun').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
 
     var selectElement = document.getElementById('mon');
     var Element = document.getElementById('montext');
     Element.style.display = "inline";
     document.getElementById('montext').innerText = document.getElementById('mon').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
 
     var selectElement = document.getElementById('tue');
     var Element = document.getElementById('tuetext');
     Element.style.display = "inline";
     document.getElementById('tuetext').innerText = document.getElementById('tue').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
 
     var selectElement = document.getElementById('wed');
     var Element = document.getElementById('wedtext');
     Element.style.display = "inline";
     document.getElementById('wedtext').innerText = document.getElementById('wed').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
 
     var selectElement = document.getElementById('thu');
     var Element = document.getElementById('thutext');
     Element.style.display = "inline";
     document.getElementById('thutext').innerText = document.getElementById('thu').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
 
     var selectElement = document.getElementById('fri');
     var Element = document.getElementById('fritext');
     Element.style.display = "inline";
     document.getElementById('fritext').innerText = document.getElementById('fri').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
 
     var selectElement = document.getElementById('sat');
     var Element = document.getElementById('sattext');
     Element.style.display = "inline";
     document.getElementById('sattext').innerText = document.getElementById('sat').value;
-    selectElement.style.display = "none";
+    selectElement.style.visibility = "hidden";
     // 
-
-    localStorage.setItem('sun_start_hour',document.getElementById('sun').value);
-    localStorage.setItem('mon_start_hour',document.getElementById('mon').value);
-    localStorage.setItem('tue_start_hour',document.getElementById('tue').value);
-    localStorage.setItem('wed_start_hour',document.getElementById('wed').value);
-    localStorage.setItem('thu_start_hour',document.getElementById('thu').value);
-    localStorage.setItem('fri_start_hour',document.getElementById('fri').value);
-    localStorage.setItem('sat_start_hour',document.getElementById('sat').value);
+    
+    localStorage.setItem('suntime',document.getElementById('sun').value);
+    localStorage.setItem('montime',document.getElementById('mon').value);
+    localStorage.setItem('tuetime',document.getElementById('tue').value);
+    localStorage.setItem('wedtime',document.getElementById('wed').value);
+    localStorage.setItem('thutime',document.getElementById('thu').value);
+    localStorage.setItem('fritime',document.getElementById('fri').value);
+    localStorage.setItem('sattime',document.getElementById('sat').value);
     localStorage.setItem('sun_start_minute',document.getElementById('mon1').value);
     localStorage.setItem('mon_start_minute',document.getElementById('mon1').value);
     localStorage.setItem('tue_start_minute',document.getElementById('tue1').value);
@@ -199,13 +186,13 @@ function buttonclick2(){
     localStorage.setItem('thu_start_minute',document.getElementById('thu1').value);
     localStorage.setItem('fri_start_minute',document.getElementById('fri1').value);
     localStorage.setItem('sat_start_minute',document.getElementById('sat1').value);
-    localStorage.setItem('sun_range',document.getElementById('mon1').value);
-    localStorage.setItem('mon_range',document.getElementById('tue1').value);
-    localStorage.setItem('tue_range',document.getElementById('wed1').value);
-    localStorage.setItem('wed_range',document.getElementById('thu1').value);
-    localStorage.setItem('thu_range',document.getElementById('fri1').value);
-    localStorage.setItem('fri_range',document.getElementById('sat1').value);
-    localStorage.setItem('sat_range',document.getElementById('sat1').value);
+    localStorage.setItem('sun_range',document.getElementById('monrange').value);
+    localStorage.setItem('mon_range',document.getElementById('tuerange').value);
+    localStorage.setItem('tue_range',document.getElementById('wedrange').value);
+    localStorage.setItem('wed_range',document.getElementById('thurange').value);
+    localStorage.setItem('thu_range',document.getElementById('frirange').value);
+    localStorage.setItem('fri_range',document.getElementById('satrange').value);
+    localStorage.setItem('sat_range',document.getElementById('satrange').value);
 
 //visibility: hidden;    console.log(localStorage.getItem('sun_start_hour'));
 
@@ -213,8 +200,18 @@ function buttonclick2(){
 
 function toggletext(day) {
     
+    var checkbox = document.getElementById(day + 'box');
+            var timeInput = document.getElementById(day);
+            if (checkbox && timeInput) {
+                if (checkbox.checked) {
+                    timeInput.style.visibility = "visible";
+                } else {
+                    timeInput.style.visibility = "hidden";
+                }
+            } else {
+                console.error('Element not found for day:', day);
+            }
 }
-
 
 
 
