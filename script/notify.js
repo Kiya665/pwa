@@ -21,19 +21,19 @@ function start(){
   let sleepTime = getSleepTime();
   console.log('sleepTime',sleepTime);
 
-  const alarmData = getNextAlarm();
-  const endTime = new Date();
-  endTime.setMinutes(endTime.getMinutes() + parseInt(alarmData[3]));
-  let hour = endTime.getHours;
-  let minute = endTime.getMinutes
-  con
-  timeoutID = setTimeout(checkNotificationCondition,sleepTime,hour,minute);
+  timeoutID = setTimeout(checkNotificationCondition,sleepTime);
 }
 
 let intervalID;
 function checkNotificationCondition(){
+  const alarmData = getNextAlarm();
+  const endTime = new Date();
+  console.log(endTime.getHours(),endTime.getMinutes());
+  endTime.setMinutes(endTime.getMinutes() + parseInt(alarmData[3]));
+  let hour = endTime.getHours();
+  let minute = endTime.getMinutes();
   console.log('checkNotification起動');
-  intervalID = setInterval(checkSleepState,10000);
+  intervalID = setInterval(checkSleepState,10000,hour,minute);
 }
 
 function releaseInterval(){
@@ -64,11 +64,14 @@ function getSleepTime(){
     }
     day -= 1;
   }
+  console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
   let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
   return sleepTime;
 }
 window.addEventListener('load',() =>{
+  setSettingData();
   console.log(timeoutID);
+  console.log(getSleepTime());
 })
 
 
@@ -123,8 +126,8 @@ function setSettingData(){
   localStorage.setItem('mon_start_hour','--');
   localStorage.setItem('mon_start_minute','00');
   localStorage.setItem('mon_range','60');
-  localStorage.setItem('tue_start_hour','14');
-  localStorage.setItem('tue_start_minute','49');
+  localStorage.setItem('tue_start_hour','15');
+  localStorage.setItem('tue_start_minute','17');
   localStorage.setItem('tue_range','1');
   localStorage.setItem('wed_start_hour','--');
   localStorage.setItem('wed_start_minute','55');
