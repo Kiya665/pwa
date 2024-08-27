@@ -3,13 +3,15 @@ window.addEventListener("load",a)
 function a(){
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
-         document.getElementById('suntext').innerText = localStorage.getItem('sun_time');
-         document.getElementById('montext').innerText = localStorage.getItem('mon_time');
-         document.getElementById('tuetext').innerText = localStorage.getItem('thu_time');
-         document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
-         document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
-         document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
-         document.getElementById('sattext').innerText = localStorage.getItem('sat_time');         
+         if(localStorage.getItem('sun_time')){
+            document.getElementById('suntext').innerText = localStorage.getItem('sun_time');
+            document.getElementById('montext').innerText = localStorage.getItem('mon_time');
+            document.getElementById('tuetext').innerText = localStorage.getItem('tue_time');
+            document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
+            document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
+            document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
+            document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
+         }       
 }
 
 function buttonclick(){
@@ -94,11 +96,28 @@ function buttonclick(){
     // Element.style.display = "none";
     // selectElement.style.display = "inline";
 }
-
+function test(){
+    console.log(
+        localStorage.getItem('sun_start_hour'),
+        localStorage.getItem('sun_start_minute'),
+        localStorage.getItem('mon_start_hour'),
+        localStorage.getItem('mon_start_minute'),
+        localStorage.getItem('tue_start_hour'),
+        localStorage.getItem('tue_start_minute'),
+        localStorage.getItem('wed_start_hour'),
+        localStorage.getItem('wed_start_minute'),
+        localStorage.getItem('thu_start_hour'),
+        localStorage.getItem('thu_start_minute'),
+        localStorage.getItem('fri_start_hour'),
+        localStorage.getItem('fri_start_minute'),
+        localStorage.getItem('sat_start_hour'),
+        localStorage.getItem('sat_start_minute'),
+    );
+}
 function buttonclick2(){
     var checkboxes = document.getElementsByName('box')
     toggletext('sun');
-    toggletext('wed');
+    toggletext('mon');
     toggletext('tue');
     toggletext('wed');
     toggletext('thu');
@@ -257,14 +276,14 @@ function buttonclick2(){
     // 
 
     var sunHour = parseInt((document.getElementById('sun').value).slice(0, 2));
-    var wedHour = parseInt((document.getElementById('wed').value).slice(0, 2));
+    var wedHour = parseInt((document.getElementById('mon').value).slice(0, 2));
     var tueHour = parseInt((document.getElementById('tue').value).slice(0, 2));
     var wedHour = parseInt((document.getElementById('wed').value).slice(0, 2));
     var thuHour = parseInt((document.getElementById('thu').value).slice(0, 2));
     var friHour = parseInt((document.getElementById('fri').value).slice(0, 2));
     var satHour = parseInt((document.getElementById('sat').value).slice(0, 2));
     var sunMinute = parseInt((document.getElementById('sun').value).slice(3, 5));
-    var wedMinute = parseInt((document.getElementById('wed').value).slice(3, 5));
+    var wedMinute = parseInt((document.getElementById('mon').value).slice(3, 5));
     var tueMinute = parseInt((document.getElementById('tue').value).slice(3, 5));
     var wedMinute = parseInt((document.getElementById('wed').value).slice(3, 5));
     var thuMinute = parseInt((document.getElementById('thu').value).slice(3, 5));
