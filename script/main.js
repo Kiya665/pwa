@@ -192,19 +192,19 @@ function buttonclick2(){
     localStorage.setItem('thu_start_hour',document.getElementById('thu').value);
     localStorage.setItem('fri_start_hour',document.getElementById('fri').value);
     localStorage.setItem('sat_start_hour',document.getElementById('sat').value);
-    localStorage.setItem('sun_start_minute',document.getElementById('mon1').value);
+    localStorage.setItem('sun_start_minute',document.getElementById('sun1').value);
     localStorage.setItem('mon_start_minute',document.getElementById('mon1').value);
     localStorage.setItem('tue_start_minute',document.getElementById('tue1').value);
     localStorage.setItem('wed_start_minute',document.getElementById('wed1').value);
     localStorage.setItem('thu_start_minute',document.getElementById('thu1').value);
     localStorage.setItem('fri_start_minute',document.getElementById('fri1').value);
     localStorage.setItem('sat_start_minute',document.getElementById('sat1').value);
-    localStorage.setItem('sun_range',document.getElementById('mon1').value);
-    localStorage.setItem('mon_range',document.getElementById('tue1').value);
-    localStorage.setItem('tue_range',document.getElementById('wed1').value);
-    localStorage.setItem('wed_range',document.getElementById('thu1').value);
-    localStorage.setItem('thu_range',document.getElementById('fri1').value);
-    localStorage.setItem('fri_range',document.getElementById('sat1').value);
+    localStorage.setItem('sun_range',document.getElementById('sun1').value);
+    localStorage.setItem('mon_range',document.getElementById('mon1').value);
+    localStorage.setItem('tue_range',document.getElementById('tue1').value);
+    localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    localStorage.setItem('thu_range',document.getElementById('thu1').value);
+    localStorage.setItem('fri_range',document.getElementById('fri1').value);
     localStorage.setItem('sat_range',document.getElementById('sat1').value);
 
 //visibility: hidden;    console.log(localStorage.getItem('sun_start_hour'));
