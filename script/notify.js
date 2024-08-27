@@ -1,4 +1,4 @@
-function createNotification(){
+function createNotification(){//通知送信関数
 // if (!('Notification' in window)) {
 //     alert('このブラウザはプッシュ通知に対応してません。。。');
 //     return;
@@ -16,7 +16,8 @@ function createNotification(){
 }
 let timeoutID;
 //let timeoutID2;
-function start(){
+
+function start(){//次のアラーム開始時刻に変更がある際に呼び出さないといけない関数
   clearTimeout(timeoutID);
   let sleepTime = getSleepTime();
   console.log('sleepTime',sleepTime);
@@ -25,7 +26,7 @@ function start(){
 }
 
 let intervalID;
-function checkNotificationCondition(){
+function checkNotificationCondition(){//アラーム開始関数。アラーム終了時刻を計算して、checkSleepStateに渡す。
   const alarmData = getNextAlarm();
   const endTime = new Date();
   console.log(endTime.getHours(),endTime.getMinutes());
@@ -36,14 +37,14 @@ function checkNotificationCondition(){
   intervalID = setInterval(checkSleepState,10000,hour,minute);
 }
 
-function releaseInterval(){
+function releaseInterval(){//アラーム終了関数。clearInterval後、次のアラーム時刻までTimeoutする。
   clearInterval(intervalID);
 
   let sleepTime = getSleepTime();
   timeoutID = setTimeout(checkNotificationCondition,sleepTime);
 }
 
-function getSleepTime(){
+function getSleepTime(){//現在時刻から次のアラーム時刻までをミリ秒で返す関数。
   const now = new Date();
 
   const dayCheck = now.getDay();
@@ -68,6 +69,7 @@ function getSleepTime(){
   let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
   return sleepTime;
 }
+
 window.addEventListener('load',() =>{
   setSettingData();
   console.log(timeoutID);
@@ -75,7 +77,7 @@ window.addEventListener('load',() =>{
 })
 
 
-function getNextAlarm(){
+function getNextAlarm(){//次のアラームデータを要素数4で返す。[曜日(0~6),アラーム開始時間,アラーム開始分,アラーム期間]
   const now = new Date();
 
   const dayCheck = now.getDay();
@@ -107,7 +109,7 @@ function getNextAlarm(){
   return alarmData;
 }
 
-function getSettingData(){
+function getSettingData(){//localstrageのデータをすべて配列にする。getNextAlarmで必要。
   let data = [['0',localStorage.getItem('sun_start_hour'),localStorage.getItem('sun_start_minute'),localStorage.getItem('sun_range')],
               ['1',localStorage.getItem('mon_start_hour'),localStorage.getItem('mon_start_minute'),localStorage.getItem('mon_range')],
               ['2',localStorage.getItem('tue_start_hour'),localStorage.getItem('tue_start_minute'),localStorage.getItem('tue_range')],
@@ -119,7 +121,7 @@ function getSettingData(){
   return data;
 }
 
-function setSettingData(){
+function setSettingData(){//テスト用データ。後で消す。
   localStorage.setItem('sun_start_hour','--');
   localStorage.setItem('sun_start_minute','00');
   localStorage.setItem('sun_range','60');
@@ -143,7 +145,7 @@ function setSettingData(){
   localStorage.setItem('sat_range','60');
 }
 
-function checkSleepState(hour,minute){
+function checkSleepState(hour,minute){//python呼び出す関数。checkNotificationConditionから渡されたhour,minuteになると終わる。
   console.log('通知送信');
   createNotification();
   const now = new Date();
