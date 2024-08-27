@@ -1,5 +1,17 @@
 window.addEventListener("load",a)
 
+window.onload = () => {
+    var sunHour = localStorage.getItem('sun_start_hour');
+    console.log()
+
+    function sleepNotify()
+    {
+        const now = new Date();
+    }
+}
+
+
+
 function a(){
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
 
@@ -171,28 +183,43 @@ function buttonclick2(){
     document.getElementById('sattext').innerText = document.getElementById('sat').value;
     selectElement.style.visibility = "hidden";
     // 
-    
-    localStorage.setItem('suntime',document.getElementById('sun').value);
-    localStorage.setItem('montime',document.getElementById('mon').value);
-    localStorage.setItem('tuetime',document.getElementById('tue').value);
-    localStorage.setItem('wedtime',document.getElementById('wed').value);
-    localStorage.setItem('thutime',document.getElementById('thu').value);
-    localStorage.setItem('fritime',document.getElementById('fri').value);
-    localStorage.setItem('sattime',document.getElementById('sat').value);
-    localStorage.setItem('sun_start_minute',document.getElementById('mon1').value);
-    localStorage.setItem('mon_start_minute',document.getElementById('mon1').value);
-    localStorage.setItem('tue_start_minute',document.getElementById('tue1').value);
-    localStorage.setItem('wed_start_minute',document.getElementById('wed1').value);
-    localStorage.setItem('thu_start_minute',document.getElementById('thu1').value);
-    localStorage.setItem('fri_start_minute',document.getElementById('fri1').value);
-    localStorage.setItem('sat_start_minute',document.getElementById('sat1').value);
-    localStorage.setItem('sun_range',document.getElementById('monrange').value);
-    localStorage.setItem('mon_range',document.getElementById('tuerange').value);
-    localStorage.setItem('tue_range',document.getElementById('wedrange').value);
-    localStorage.setItem('wed_range',document.getElementById('thurange').value);
-    localStorage.setItem('thu_range',document.getElementById('frirange').value);
-    localStorage.setItem('fri_range',document.getElementById('satrange').value);
-    localStorage.setItem('sat_range',document.getElementById('satrange').value);
+
+    var sunHour = parseInt((document.getElementById('sun').value).slice(0, 2));
+    var monHour = parseInt((document.getElementById('mon').value).slice(0, 2));
+    var tueHour = parseInt((document.getElementById('tue').value).slice(0, 2));
+    var wedHour = parseInt((document.getElementById('wed').value).slice(0, 2));
+    var thuHour = parseInt((document.getElementById('thu').value).slice(0, 2));
+    var friHour = parseInt((document.getElementById('fri').value).slice(0, 2));
+    var satHour = parseInt((document.getElementById('sat').value).slice(0, 2));
+    var sunMinute = parseInt((document.getElementById('sun').value).slice(3, 5));
+    var monMinute = parseInt((document.getElementById('mon').value).slice(3, 5));
+    var tueMinute = parseInt((document.getElementById('tue').value).slice(3, 5));
+    var wedMinute = parseInt((document.getElementById('wed').value).slice(3, 5));
+    var thuMinute = parseInt((document.getElementById('thu').value).slice(3, 5));
+    var friMinute = parseInt((document.getElementById('fri').value).slice(3, 5));
+    var satMinute = parseInt((document.getElementById('sat').value).slice(3, 5));
+
+    localStorage.setItem('sun_start_hour',sunHour);
+    localStorage.setItem('mon_start_hour',monHour);
+    localStorage.setItem('tue_start_hour',tueHour);
+    localStorage.setItem('wed_start_hour',wedHour);
+    localStorage.setItem('thu_start_hour',thuHour);
+    localStorage.setItem('fri_start_hour',friHour);
+    localStorage.setItem('sat_start_hour',satHour);
+    localStorage.setItem('sun_start_minute',sunMinute);
+    localStorage.setItem('mon_start_minute',monMinute);
+    localStorage.setItem('tue_start_minute',tueMinute);
+    localStorage.setItem('wed_start_minute',wedMinute);
+    localStorage.setItem('thu_start_minute',thuMinute);
+    localStorage.setItem('fri_start_minute',friMinute);
+    localStorage.setItem('sat_start_minute',satMinute);
+    localStorage.setItem('sun_range',document.getElementById('sun1').value);
+    localStorage.setItem('mon_range',document.getElementById('mon1').value);
+    localStorage.setItem('tue_range',document.getElementById('tue1').value);
+    localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    localStorage.setItem('thu_range',document.getElementById('thu1').value);
+    localStorage.setItem('fri_range',document.getElementById('fri1').value);
+    localStorage.setItem('sat_range',document.getElementById('sat1').value);
 
 //visibility: hidden;    console.log(localStorage.getItem('sun_start_hour'));
 

@@ -15,13 +15,17 @@ function createNotification(){
   }
 }
 
-// function checkNotificationCondition(){
-//   let nextAlarmData = getNextAlarm();
-//   let endTime = new Date(2024,1,nextAlarmData[1],nextAlarmData[2]);
-//   endTime.setMinutes(nextAlarmData[3]);
-//   if()
-
-// }
+function checkNotificationCondition(){
+  let nextAlarmData = getNextAlarm();
+  let alarmRange = nextAlarmData[3];
+  let intervalTime = 10;
+  let loopTimes = alarmRange * 60 / intervalTime;
+  for(i = 0;i < loopTimes;i++){
+    setTimeout(checkSleepState,intervalTime * 1000);
+  }
+  let nextAlarm = getSleepTime();
+  setTimeout(checkNotificationCondition,nextAlarm);
+}
 
 function getSleepTime(){
   const now = new Date();
@@ -66,7 +70,7 @@ function getNextAlarm(){
   let nextAlarmRange;
   let i = dayCheck;
   for(;count < 7;(i++)%=7,count++){
-    if(settingData[i][1]!= -1){
+    if(settingData[i][1]!= '-1'){
       if(data[i][0] == i){
         if(parseInt(settingData[i][1] + settingData[i][2]) > parseInt(hourCheck + minuteCheck)){
           break;
@@ -97,7 +101,7 @@ function getSettingData(){
 }
 
 function checkSleepState(){
-  let settingDistnce = localStorage.getItem('settingDistnce');
+  let settingDistnce = localStorage.getItem('measured_distance');
   fetch('../sleepState.py')
     .then(response => response.json())
     .then(data => {
