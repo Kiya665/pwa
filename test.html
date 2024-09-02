@@ -19,7 +19,11 @@
           document.getElementById('box').checked = true;
         }
         function print(){
-          console.log(document.getElementById('sun').value);
+          if(document.getElementById('sun').value === ''){
+            console.log("空白です");
+          }else{
+            console.log(document.getElementById('sun').value);
+          }
         }
         function dainyu(){
           document.getElementById('sun').value = '11:30';
