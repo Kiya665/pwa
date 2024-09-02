@@ -35,7 +35,7 @@ function buttonclick(){
     toggletext('fri');
     toggletext('sat');
     
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
+    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
 
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
@@ -108,11 +108,28 @@ function buttonclick(){
     // Element.style.display = "none";
     // selectElement.style.display = "inline";
 }
-
+function test(){
+    console.log(
+        localStorage.getItem('sun_start_hour'),
+        localStorage.getItem('sun_start_minute'),
+        localStorage.getItem('mon_start_hour'),
+        localStorage.getItem('mon_start_minute'),
+        localStorage.getItem('tue_start_hour'),
+        localStorage.getItem('tue_start_minute'),
+        localStorage.getItem('wed_start_hour'),
+        localStorage.getItem('wed_start_minute'),
+        localStorage.getItem('thu_start_hour'),
+        localStorage.getItem('thu_start_minute'),
+        localStorage.getItem('fri_start_hour'),
+        localStorage.getItem('fri_start_minute'),
+        localStorage.getItem('sat_start_hour'),
+        localStorage.getItem('sat_start_minute'),
+    );
+}
 function buttonclick2(){
     var checkboxes = document.getElementsByName('box')
     toggletext('sun');
-    toggletext('wed');
+    toggletext('mon');
     toggletext('tue');
     toggletext('wed');
     toggletext('thu');
@@ -267,22 +284,22 @@ function buttonclick2(){
          console.log("nocheaked");
      }
      selectElement.style.visibility = "hidden";
-    // 
-
-    var sunHour = parseInt((document.getElementById('sun').value).slice(0, 2));
-    var wedHour = parseInt((document.getElementById('wed').value).slice(0, 2));
-    var tueHour = parseInt((document.getElementById('tue').value).slice(0, 2));
-    var wedHour = parseInt((document.getElementById('wed').value).slice(0, 2));
-    var thuHour = parseInt((document.getElementById('thu').value).slice(0, 2));
-    var friHour = parseInt((document.getElementById('fri').value).slice(0, 2));
-    var satHour = parseInt((document.getElementById('sat').value).slice(0, 2));
-    var sunMinute = parseInt((document.getElementById('sun').value).slice(3, 5));
-    var wedMinute = parseInt((document.getElementById('wed').value).slice(3, 5));
-    var tueMinute = parseInt((document.getElementById('tue').value).slice(3, 5));
-    var wedMinute = parseInt((document.getElementById('wed').value).slice(3, 5));
-    var thuMinute = parseInt((document.getElementById('thu').value).slice(3, 5));
-    var friMinute = parseInt((document.getElementById('fri').value).slice(3, 5));
-    var satMinute = parseInt((document.getElementById('sat').value).slice(3, 5));
+    // 00:00
+//     012345
+    var sunHour = (document.getElementById('sun').value).slice(0, 2);
+    var monHour = (document.getElementById('mon').value).slice(0, 2);
+    var tueHour = (document.getElementById('tue').value).slice(0, 2);
+    var wedHour = (document.getElementById('wed').value).slice(0, 2);
+    var thuHour = (document.getElementById('thu').value).slice(0, 2);
+    var friHour = (document.getElementById('fri').value).slice(0, 2);
+    var satHour = (document.getElementById('sat').value).slice(0, 2);
+    var sunMinute = (document.getElementById('sun').value).slice(3, 5);
+    var monMinute = (document.getElementById('mon').value).slice(3, 5);
+    var tueMinute = (document.getElementById('tue').value).slice(3, 5);
+    var wedMinute = (document.getElementById('wed').value).slice(3, 5);
+    var thuMinute = (document.getElementById('thu').value).slice(3, 5);
+    var friMinute = (document.getElementById('fri').value).slice(3, 5);
+    var satMinute = (document.getElementById('sat').value).slice(3, 5);
 
     // localStorage.setItem('wed_time',document.getElementById('wed').value);
     // localStorage.setItem('tue_time',document.getElementById('tue').value);
@@ -291,14 +308,14 @@ function buttonclick2(){
     // localStorage.setItem('fri_time',document.getElementById('fri').value);
     // localStorage.setItem('sat_time',document.getElementById('sat').value);
     localStorage.setItem('sun_start_hour',sunHour);
-    localStorage.setItem('mon_start_hour',wedHour);
+    localStorage.setItem('mon_start_hour',monHour);
     localStorage.setItem('tue_start_hour',tueHour);
     localStorage.setItem('wed_start_hour',wedHour);
     localStorage.setItem('thu_start_hour',thuHour);
     localStorage.setItem('fri_start_hour',friHour);
     localStorage.setItem('sat_start_hour',satHour);
     localStorage.setItem('sun_start_minute',sunMinute);
-    localStorage.setItem('mon_start_minute',wedMinute);
+    localStorage.setItem('mon_start_minute',monMinute);
     localStorage.setItem('tue_start_minute',tueMinute);
     localStorage.setItem('wed_start_minute',wedMinute);
     localStorage.setItem('thu_start_minute',thuMinute);

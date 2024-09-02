@@ -66,6 +66,7 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
     <script src="./script/notify.js"></script>
     <script src="./script/main.js"></script>
 
@@ -85,6 +86,9 @@
     <div id="header">
       <h1>pwa</h1>
     </div>
+    <script>
+      
+    </script>
     <button onclick="createNotification()">通知を送信</button>
     
      <div id="button"></div>
@@ -117,6 +121,7 @@
       <input type="checkbox" id="wedbox" name="box" onclick="toggletext('wed')">
       水曜日
       <a id="wedtext">--</a>
+
       <input type="time" id="wed" name="time" class="hidden">
       <input type="number" min="0" id="wed1" class="hidden">
     
@@ -137,9 +142,8 @@
       土曜日
       <a id="sattext">--</a>
       <input type="time" id="sat" name="time" class="hidden">
-      <input type="number" min="0" id="sat1" class="hidden">
 
-    
+    <button type="button" onclick="test()">test</button>
     </body>
     <script>
        var checkboxes = document.getElementsByName('box')
