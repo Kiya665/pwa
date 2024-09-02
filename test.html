@@ -9,16 +9,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-        <script>
-            window.addEventListener('load', () => {
-              if ('serviceWorker' in navigator) {
-                navigator.serviceWorker
-                  .register('./script/serviceWorker.js')
-                  .then(registration => console.log('registerd', registration))
-                  .catch(err => console.log('err', err));
-              }
-            });
-          </script>
-        <button type="button" onclick="start()">開始</button>
+      <input type="time" id="sun" name="time">
+      <input type="checkbox" id="box">
+      <button type="button" onclick="print()">表示</button>
+      <button type="button" onclick="dainyu()">代入</button>
+      <button type="button" onclick="check()">チェック</button>
+      <script>
+        function check(){
+          document.getElementById('box').checked = true;
+        }
+        function print(){
+          console.log(document.getElementById('sun').value);
+        }
+        function dainyu(){
+          document.getElementById('sun').value = '11:30';
+        }
+        window.addEventListener('load',() =>{
+        })
+      </script>
+        
     </body>
 </html>
