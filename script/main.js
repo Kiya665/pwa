@@ -14,6 +14,7 @@ function a(){
          }       
 }
 
+
 function buttonclick(){
     toggletext('sun');
     toggletext('mon');
@@ -23,7 +24,7 @@ function buttonclick(){
     toggletext('fri');
     toggletext('sat');
     
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
+    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
 
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
