@@ -76,7 +76,6 @@ window.addEventListener('load',() =>{
   console.log(getSleepTime());
 })
 
-
 function getNextAlarm(){//次のアラームデータを要素数4で返す。[曜日(0~6),アラーム開始時間,アラーム開始分,アラーム期間]
   const now = new Date();
 
@@ -100,6 +99,9 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
         break;
       }
     }
+  }
+  if(count === 7){
+
   }
   nextAlarmDay = settingData[i][0];
   nextAlarmHour = settingData[i][1];
