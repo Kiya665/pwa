@@ -3,14 +3,17 @@ window.addEventListener("load",a);
 function a(){
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
-    if(localStorage.getItem('sun_start_hour')){
+    if(localStorage.getItem('login') === '1'){
+        console.log('二回目以降');
         document.getElementById('suntext').innerText = localStorage.getItem('sun_time');
-         document.getElementById('montext').innerText = localStorage.getItem('mon_time');
-         document.getElementById('tuetext').innerText = localStorage.getItem('tue_time');
-         document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
-         document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
-         document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
-         document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
+        document.getElementById('montext').innerText = localStorage.getItem('mon_time');
+        document.getElementById('tuetext').innerText = localStorage.getItem('tue_time');
+        document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
+        document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
+        document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
+        document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
+    }else{
+        console.log('初めてのログイン');
     }
     check('sun');
     check('mon');
@@ -105,6 +108,7 @@ function displayElement(day){
     element.value = localStorage.getItem(day + '_time');
 }
 function buttonclick2(){
+    localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
     toggletext('sun');
     toggletext('mon');
@@ -118,14 +122,7 @@ function buttonclick2(){
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].style.visibility = 'hidden';
     }
-    
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
-    
-    
-    
 
-    // 00:00
-//     012345
     var sunHour = (document.getElementById('sun').value).slice(0, 2);
     var monHour = (document.getElementById('mon').value).slice(0, 2);
     var tueHour = (document.getElementById('tue').value).slice(0, 2);
@@ -147,20 +144,21 @@ function buttonclick2(){
     // localStorage.setItem('thu_time',document.getElementById('thu').value);
     // localStorage.setItem('fri_time',document.getElementById('fri').value);
     // localStorage.setItem('sat_time',document.getElementById('sat').value);
-    localStorage.setItem('sun_start_hour',sunHour);
-    localStorage.setItem('mon_start_hour',monHour);
-    localStorage.setItem('tue_start_hour',tueHour);
-    localStorage.setItem('wed_start_hour',wedHour);
-    localStorage.setItem('thu_start_hour',thuHour);
-    localStorage.setItem('fri_start_hour',friHour);
-    localStorage.setItem('sat_start_hour',satHour);
-    localStorage.setItem('sun_start_minute',sunMinute);
-    localStorage.setItem('mon_start_minute',monMinute);
-    localStorage.setItem('tue_start_minute',tueMinute);
-    localStorage.setItem('wed_start_minute',wedMinute);
-    localStorage.setItem('thu_start_minute',thuMinute);
-    localStorage.setItem('fri_start_minute',friMinute);
-    localStorage.setItem('sat_start_minute',satMinute);
+
+    // localStorage.setItem('sun_start_hour',checkHyphen(sunHour));
+    // localStorage.setItem('mon_start_hour',checkHyphen(monHour));
+    // localStorage.setItem('tue_start_hour',checkHyphen(tueHour));
+    // localStorage.setItem('wed_start_hour',checkHyphen(wedHour));
+    // localStorage.setItem('thu_start_hour',checkHyphen(thuHour));
+    // localStorage.setItem('fri_start_hour',checkHyphen(friHour));
+    // localStorage.setItem('sat_start_hour',checkHyphen(satHour));
+    // localStorage.setItem('sun_start_minute',checkHyphen(sunMinute));
+    // localStorage.setItem('mon_start_minute',checkHyphen(monMinute));
+    // localStorage.setItem('tue_start_minute',checkHyphen(tueMinute));
+    // localStorage.setItem('wed_start_minute',checkHyphen(wedMinute));
+    // localStorage.setItem('thu_start_minute',checkHyphen(thuMinute));
+    // localStorage.setItem('fri_start_minute',checkHyphen(friMinute));
+    // localStorage.setItem('sat_start_minute',checkHyphen(satMinute));
     // localStorage.setItem('sun_range',document.getElementById('sun1').value);
     // localStorage.setItem('wed_range',document.getElementById('wed1').value);
     // localStorage.setItem('tue_range',document.getElementById('tue1').value);
@@ -168,13 +166,13 @@ function buttonclick2(){
     // localStorage.setItem('thu_range',document.getElementById('thu1').value);
     // localStorage.setItem('fri_range',document.getElementById('fri1').value);
     // localStorage.setItem('sat_range',document.getElementById('sat1').value);
-    checkbox_checked('sun');
-    checkbox_checked('mon');
-    checkbox_checked('thu');
-    checkbox_checked('wed');
-    checkbox_checked('tue');
-    checkbox_checked('fri');
-    checkbox_checked('sat');
+    // checkbox_checked('sun');
+    // checkbox_checked('mon');
+    // checkbox_checked('thu');
+    // checkbox_checked('wed');
+    // checkbox_checked('tue');
+    // checkbox_checked('fri');
+    // checkbox_checked('sat');
 
     confData('sun');
     confData('mon');
@@ -183,8 +181,29 @@ function buttonclick2(){
     confData('tue');
     confData('fri');
     confData('sat');
-}
+    setTime(sunHour,sunMinute,'sun');
+    setTime(monHour,monMinute,'mon');
+    setTime(tueHour,tueMinute,'tue');
+    setTime(wedHour,wedMinute,'wed');
+    setTime(thuHour,thuMinute,'thu');
+    setTime(friHour,friMinute,'fri');
+    setTime(satHour,satMinute,'sat');
+        
+    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
 
+    start();
+}
+function setTime(Hour,Minute,day){
+    if(Hour !== '' && localStorage.getItem(day + 'check') === '1'){//Hourが設定済み、かつ、チェックボックスがON　
+        localStorage.setItem(day + '_start_hour',Hour);
+        localStorage.setItem(day + '_start_minute',Minute);
+        console.log('setTimeTest = ' + localStorage.getItem(day + '_start_hour'));
+        console.log('setTimeTest = ' + localStorage.getItem(day + '_start_minute'));
+    }else{
+        localStorage.setItem(day + '_start_hour','--');
+        localStorage.setItem(day + '_start_minute','--');
+    }
+}
 function confData(day){
     var element = document.getElementById(day);
     var elementText = document.getElementById(day + 'text');
@@ -194,13 +213,13 @@ function confData(day){
         localStorage.setItem(day + 'check','1');
         if(element.value === ''){
             elementText.innerText = '--';
-            
         }else{
             elementText.innerText = element.value;
             localStorage.setItem(day + '_time',element.value);
             console.log("cheaked");
         }
     } else {
+        localStorage.setItem(day + 'check','0');
         elementText.innerText = '--';
         //element.value = '--:--';
         localStorage.setItem(element + '_time','--');
@@ -229,14 +248,14 @@ function toggletext(day) {
             }
 }
 
-function checkbox_checked(day){
-    console.log(day);
-    console.log(document.getElementById(day + 'box').checked);
-   var checkbox = document.getElementById(day+'box');
-   if(checkbox.checked){
-       localStorage.setItem(day+'box','1');
-    }
-}
+// function checkbox_checked(day){
+//     var checkbox = document.getElementById(day+'box');
+//     if(checkbox.checked){
+//         localStorage.setItem(day + 'box','1');
+//     }else{
+//         localStorage.setItem(day + 'box','0');
+//     }
+// }
 
 
 
