@@ -24,7 +24,7 @@ function buttonclick(){
     toggletext('fri');
     toggletext('sat');
     
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
+    
 
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
@@ -65,7 +65,7 @@ function buttonclick(){
     Element.style.display = "none";
     selectElement.value = localStorage.getItem('sat_time');
 
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()">確定</button>';
+    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
 
     // var selectElement = document.getElementById('wed1');
     // var Element = document.getElementById('wed1text');
