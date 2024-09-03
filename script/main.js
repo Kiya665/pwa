@@ -51,7 +51,8 @@ function buttonclick(){
     displayElement('fri');
     displayElement('sat');
 
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
+    //document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
+    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2()" "noSleep()">確定</button>';
 
     // var selectElement = document.getElementById('wed1');
     // var Element = document.getElementById('wed1text');
@@ -108,6 +109,49 @@ function displayElement(day){
     element.value = localStorage.getItem(day + '_time');
 }
 function buttonclick2(){
+    var range = document.getElementsByName('range');
+    var checkbox = document.getElementsByName('box');
+    var time = document.getElementsByName('time');
+    let n = 0;
+    
+    for(var i = 0;i < range.length;i++){
+        console.log(checkbox[i].checked);
+        if(checkbox[i].checked){
+            if(time[i].value == ''){
+                if(n == 0){
+                    n++;
+                }else if(n == 2){
+                    alert("時間と範囲を設定してください");
+                    return;
+                }
+            }
+
+            if(range[i].value == ''){
+                if(n == 1){
+                    alert("時間と範囲を設定してください");
+                    return;
+                }else{
+                    if(n == 0){
+                        n = n + 2;
+                    }
+                }
+            }
+        } 
+    }
+    if(n == 1){
+        alert("時間を設定してください");
+        return;
+    }else if(n == 2){
+        alert("範囲を設定してください");
+        return;
+    }
+    confData('sun');
+    confData('mon');
+    confData('thu');
+    confData('wed');
+    confData('tue');
+    confData('fri');
+    confData('sat');
     localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
     toggletext('sun');
@@ -167,7 +211,7 @@ function buttonclick2(){
             console.log("cheaked");
         } else {
             localStorage.setItem('mon_time','--');
-            document.getElementById('montext').innerText = localStorage.getItem('mon_time')+ "   " +document.getElementById('mon1');
+            document.getElementById('montext').innerText = localStorage.getItem('mon_time');
             document.getElementById('mon').value = '--:--';
             console.log("nocheaked");
         }
@@ -323,13 +367,7 @@ function buttonclick2(){
     // checkbox_checked('fri');
     // checkbox_checked('sat');
 
-    confData('sun');
-    confData('mon');
-    confData('thu');
-    confData('wed');
-    confData('tue');
-    confData('fri');
-    confData('sat');
+    
     setTime(sunHour,sunMinute,'sun');
     setTime(monHour,monMinute,'mon');
     setTime(tueHour,tueMinute,'tue');
@@ -356,17 +394,21 @@ function setTime(Hour,Minute,day){
 function confData(day){
     var element = document.getElementById(day);
     var elementText = document.getElementById(day + 'text');
+    var range = document.getElementById(day + '1');
+    var rangetext = document.getElementById(day + 'range');
     elementText.style.display = "inline";
     var checkbox = document.getElementById(day + 'box');
     if (checkbox.checked) {
         localStorage.setItem(day + 'check','1');
-        if(element.value === ''){
-            elementText.innerText = '--';
-        }else{
+        // if(element.value === ''){
+        //     elementText.innerText = '--';
+        // }else{
             elementText.innerText = element.value;
             localStorage.setItem(day + '_time',element.value);
             console.log("cheaked");
-        }
+            rangetext.innerText = range;  
+            console.log(range);
+        //}
     } else {
         localStorage.setItem(day + 'check','0');
         elementText.innerText = '--';
