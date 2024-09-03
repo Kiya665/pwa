@@ -70,8 +70,25 @@ function getSleepTime(){//現在時刻から次のアラーム時刻までをミ
   return sleepTime;
 }
 
+function setSleepNotify(){// おやすみ通知を送る時刻を計算しセット
+  let sleepTime = getSleepTime();
+  let sleepNotifyTime = parseInt(localStorage.getItem('sleep_notify_time'));
+  let SNTMilliSec = sleepNotifyTime * 60 * 60 * 1000; // おやすみ通知を送るまでの時間をミリ秒にしたもの
+  console.log('*ST*' + (sleepTime / 60 / 60 / 1000));
+  console.log('*SNT*' + (SNTMilliSec / 60 / 60 / 1000));
+  console.log('*wait*' + ((sleepTime - SNTMilliSec) / 60 / 60 / 1000));
+
+  console.log('*tue_start_time*' + localStorage.getItem('tue_start_hour') + ':' + localStorage.getItem('tue_start_minute'));
+
+  if ((sleepTime - SNTMilliSec) >= 0)
+  {
+    setTimeout(createNotification, sleepTime - SNTMilliSec);
+  }
+}
+
 window.addEventListener('load',() =>{
-  setSettingData();
+  // setSettingData();
+  setSleepNotify();
   console.log(timeoutID);
   console.log(getSleepTime());
 })
