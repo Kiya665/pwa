@@ -11,6 +11,12 @@ function a(){
          document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
          document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
          document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
+         console.log('atest' + localStorage.getItem('sun_start_hour'));
+    }
+    if(localStorage.getItem('login') !== 1){
+        console.log('localStoragenasi');
+    }else{
+        console.log('localStorageari');
     }
     check('sun');
     check('mon');
@@ -21,8 +27,8 @@ function a(){
     check('sat');
 }
 function check(day){
-    var checkbox = document.getElementById(day+'dox');
-    if(localStorage.getItem(day+'box') == '1'){
+    var checkbox = document.getElementById(day + 'dox');
+    if(localStorage.getItem(day+'box') === '1'){
         checkbox.checked = true;
     }
 }
@@ -127,6 +133,7 @@ function test(){
     );
 }
 function buttonclick2(){
+    localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
     toggletext('sun');
     toggletext('mon');
@@ -143,147 +150,13 @@ function buttonclick2(){
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     
-    var selectElement = document.getElementById('sun');
-    var Element = document.getElementById('suntext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('sunbox');
-       if (checkbox.checked) {
-        localStorage.setItem('suncheck',1)
-        if(!document.getElementById('sun').value){
-            document.getElementById('suntext').innerText = '--';
-            
-        }else{
-            document.getElementById('suntext').innerText = document.getElementById('sun').value;
-            localStorage.setItem('sun_time',document.getElementById('sun').value);
-            console.log("cheaked");
-        }
-            
-        } else {
-            document.getElementById('suntext').innerText = '--';
-            document.getElementById('sun').value = '--:--';
-            localStorage.setItem('sun_time','--');
-            console.log("nocheaked");
-            localStorage.setItem('suncheck',0)
-        }
-    selectElement.style.visibility = "hidden";
-    
-    var selectElement = document.getElementById('mon');
-    var Element = document.getElementById('montext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('monbox');
-       if (checkbox.checked) {
-        localStorage.setItem('moncheck',1);
-        if(!document.getElementById('mon').value){
-            document.getElementById('montext').innerText = '--';
-        }
-            document.getElementById('montext').innerText = document.getElementById('mon').value;
-            localStorage.setItem('mon_time',document.getElementById('mon').value);
-            console.log("cheaked");
-        } else {
-            localStorage.setItem('mon_time','--');
-            document.getElementById('montext').innerText = localStorage.getItem('mon_time');
-            document.getElementById('mon').value = '--:--';
-            console.log("nocheaked");
-        }
-    selectElement.style.visibility = "hidden";
-
-    var selectElement = document.getElementById('wed');
-    var Element = document.getElementById('wedtext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('wedbox');
-    if (checkbox.checked) {
-        if(!document.getElementById('wed').value){
-            document.getElementById('wedtext').innerText = '--';
-        }
-         document.getElementById('wedtext').innerText = document.getElementById('wed').value;
-         localStorage.setItem('wed_time',document.getElementById('wed').value);
-         console.log("cheaked");
-     } else {
-         document.getElementById('wedtext').innerText = '--';
-         document.getElementById('wed').value = '--:--';
-         localStorage.setItem('wed_time','--');
-         console.log("nocheaked");
-     }    selectElement.style.visibility = "hidden";
-
-    var selectElement = document.getElementById('tue');
-    var Element = document.getElementById('tuetext');
-    Element.style.display = "inline";
-    var selectElement = document.getElementById('tue');
-    var Element = document.getElementById('tuetext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('tuebox');
-    if (checkbox.checked) {
-        if(!document.getElementById('tue').value){
-            document.getElementById('tuetext').innerText = '--';
-        }
-         document.getElementById('tuetext').innerText = document.getElementById('tue').value;
-         localStorage.setItem('tue_time',document.getElementById('tue').value);
-         console.log("cheaked");
-     } else {
-         document.getElementById('tuetext').innerText = '--';
-         document.getElementById('tue').value = '--:--';
-         localStorage.setItem('tue_time','--');
-         console.log("nocheaked");
-     }    selectElement.style.visibility = "hidden";
-
-    var selectElement = document.getElementById('thu');
-    var Element = document.getElementById('thutext');
-    Element.style.display = "inline";
-    var selectElement = document.getElementById('thu');
-    var Element = document.getElementById('thutext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('thubox');
-    if (checkbox.checked) {
-         document.getElementById('thutext').innerText = document.getElementById('thu').value;
-         localStorage.setItem('thu_time',document.getElementById('thu').value);
-         console.log("cheaked");
-     } else {
-         document.getElementById('thutext').innerText = '--';
-         document.getElementById('thu').value = '--:--';
-         localStorage.setItem('thu_time','--');
-         console.log("nocheaked");
-     }    selectElement.style.visibility = "hidden";
-
-  
-    var selectElement = document.getElementById('fri');
-    var Element = document.getElementById('fritext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('fribox');
-    if (checkbox.checked) {
-        if(!document.getElementById('fri').value){
-            document.getElementById('fritext').innerText = '--';
-        }
-         document.getElementById('fritext').innerText = document.getElementById('fri').value;
-         localStorage.setItem('fri_time',document.getElementById('fri').value);
-         console.log("cheaked");
-     } else {
-         document.getElementById('fritext').innerText = '--';
-         document.getElementById('fri').value = '--:--';
-         localStorage.setItem('fri_time','--');
-         console.log("nocheaked");
-     }    selectElement.style.visibility = "hidden";
-
-    var selectElement = document.getElementById('sat');
-    var Element = document.getElementById('sattext');
-    Element.style.display = "inline";
-    var selectElement = document.getElementById('sat');
-    var Element = document.getElementById('sattext');
-    Element.style.display = "inline";
-    var checkbox = document.getElementById('satbox');
-    if (checkbox.checked) {
-        if(!document.getElementById('sat').value){
-            document.getElementById('sattext').innerText = '--';
-        }
-         document.getElementById('sattext').innerText = document.getElementById('sat').value;
-         localStorage.setItem('sat_time',document.getElementById('sat').value);
-         console.log("cheaked");
-     } else {
-         document.getElementById('sattext').innerText = '--';
-         document.getElementById('sat').value = '--:--';
-         localStorage.setItem('sat_time','--');
-         console.log("nocheaked");
-     }
-     selectElement.style.visibility = "hidden";
+    confData('sun');
+    confData('mon');
+    confData('tue');
+    confData('wed');
+    confData('thu');
+    confData('fri');
+    confData('sat');
     // 00:00
 //     012345
     var sunHour = (document.getElementById('sun').value).slice(0, 2);
@@ -337,25 +210,47 @@ function buttonclick2(){
     checkbox_checked('sat');
 
 }
-
+function confData(day){
+    var element = document.getElementById(day);
+    var elementText = document.getElementById(day + 'text');
+    elementText.style.display = "inline";
+    var checkbox = document.getElementById(day + 'box');
+    if (checkbox.checked) {
+        localStorage.setItem(day + 'check','1');
+        if(!element.value){
+            elementText.innerText = '--';
+        }else{
+            elementText.innerText = element.value;
+        }
+        localStorage.setItem(day + '_time',element.value);
+        console.log("cheaked");
+     } else {
+        localStorage.setItem(day + 'check','0');
+        elementText.innerText = '--';
+        element.value = '--:--';
+        localStorage.setItem(day + '_time','--');
+        console.log("nocheaked");
+     }
+     element.style.visibility = "hidden";
+}
 function toggletext(day) {
     var checkbox = document.getElementById(day + 'box');
-            var timeInput = document.getElementById(day);
-            var a = document.getElementById(day + '1');
-            if (checkbox && timeInput) {
-                if (checkbox.checked) {
-                    timeInput.style.visibility = "visible";
-               //     a.style.visibility = "visible";
-               localStorage.setItem(day+'box',1);
+    var timeInput = document.getElementById(day);
+    var a = document.getElementById(day + '1');
+    if (checkbox && timeInput) {
+        if (checkbox.checked) {
+            timeInput.style.visibility = "visible";
+            //a.style.visibility = "visible";
+            localStorage.setItem(day+'box',1);
 
-                } else {
-                    timeInput.style.visibility = "hidden";
-                 //   a.style.visibility = "hidden";
-                 localStorage.setItem(day+'box',0);
-                }
-            } else {
-                console.error('Element not found for day:', day);
-            }
+        } else {
+            timeInput.style.visibility = "hidden";
+            //a.style.visibility = "hidden";
+            localStorage.setItem(day+'box',0);
+        }
+    } else {
+        console.error('Element not found for day:', day);
+    }
 }
 
 function checkbox_checked(day){
