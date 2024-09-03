@@ -34,17 +34,20 @@ function a(){
 }
 function check(day){
     var checkbox = document.getElementById(day + 'box');
-    if(localStorage.getItem(day + 'check') === '1'){
+    if(localStorage.getItem(day + '_check') === '1'){
         checkbox.checked = true;
     }
 }
 function displayElementText(day){
-    var element = document.getElementById(day + 'text');
-    if(localStorage.getItem(day + 'check') === '1'){
-        element.innerText = localStorage.getItem(day + '_time');
+    var element = document.getElementById(day);
+    var elementText = document.getElementById(day + 'text');
+    if(localStorage.getItem(day + '_check') === '1' && localStorage.getItem(day + '_time') !== ''){
+        elementText.innerText = localStorage.getItem(day + '_time');
     }else{
-        element.innerText = '--';
+        elementText.innerText = '--';
     }
+
+    //console.log('test = ' + localStorage.getItem(day + '_check') + '' + localStorage.getItem(day + '_time'));
 }
 
 function buttonclick(){
@@ -115,7 +118,7 @@ function test(){
         localStorage.getItem('fri_start_hour'),
         localStorage.getItem('fri_start_minute'),
         localStorage.getItem('sat_start_hour'),
-        localStorage.getItem('sat_start_minute'),
+        localStorage.getItem('sat_start_minute')
     );
 }
 function displayElementTime(day){
@@ -212,35 +215,36 @@ function buttonclick2(){
     start();
 }
 
+
 function confData(day,Hour,Minute){
     var element = document.getElementById(day);
     var elementText = document.getElementById(day + 'text');
     elementText.style.display = "inline";
     var checkbox = document.getElementById(day + 'box');
-    if (checkbox.checked) {//チェックボックスがON
-        localStorage.setItem(day + 'check','1');
-        if(element.value === ''){//時間が未設定
-            localStorage.setItem(day + '_start_hour','--');
-            localStorage.setItem(day + '_start_minute','--');
-            elementText.innerText = '--';
-        }else{//時間が設定済み
-            // console.log('setTimeTest = ' + localStorage.getItem(day + '_start_hour'));
-            // console.log('setTimeTest = ' + localStorage.getItem(day + '_start_minute'));
-            localStorage.setItem(day + '_start_hour',Hour);
-            localStorage.setItem(day + '_start_minute',Minute);
-            elementText.innerText = element.value;
-            localStorage.setItem(day + '_time',element.value);
-            console.log("cheaked");
-        }
-    } else {//チェックボックスがOFF
+    if (checkbox.checked && element.value !== '') {//チェックボックスがON　かつ　時間が設定済み
+        localStorage.setItem(day + '_start_hour',Hour);
+        localStorage.setItem(day + '_start_minute',Minute);
+        elementText.innerText = element.value;
+        localStorage.setItem(day + '_time',element.value);
+        localStorage.setItem(day + '_check','1');
+    }else if(checkbox.checked){//チェックボックスがON　かつ　時間が未設定
         localStorage.setItem(day + '_start_hour','--');
         localStorage.setItem(day + '_start_minute','--');
-        localStorage.setItem(day + 'check','0');
         elementText.innerText = '--';
-        //element.value = '--:--';
-        localStorage.setItem(element + '_time','--');
-        console.log("nocheaked");
-        localStorage.setItem(element + 'check','0');
+        localStorage.setItem(day + '_time','--');
+        localStorage.setItem(day + '_check','1');
+    }else if(element.value !== ''){//チェックボックスがOFF　かつ　時間が設定済み
+        localStorage.setItem(day + '_start_hour',Hour);
+        localStorage.setItem(day + '_start_minute',Minute);
+        elementText.innerText = '--';
+        localStorage.setItem(day + '_time',element.value);
+        localStorage.setItem(day + '_check','0');
+    }else{//チェックボックスがOFF　かつ　時間が未設定
+        localStorage.setItem(day + '_start_hour','--');
+        localStorage.setItem(day + '_start_minute','--');
+        elementText.innerText = '--';
+        localStorage.setItem(day + '_time','--');
+        localStorage.setItem(day + '_check','0');
     }
     element.style.visibility = "hidden";
 }
@@ -254,14 +258,14 @@ function toggletext(day) {
             //a.style.visibility = "visible";
             localStorage.setItem(day+'box',1);
 
-                } else {
-                    console.log(document.getElementById(day + '1'));
-                    timeInput.style.visibility = "hidden";
-                    a.style.visibility = "hidden";
-                }
-            } else {
-                console.error('Element not found for day:', day);
-            }
+        } else {
+            //console.log(document.getElementById(day + '1'));
+            timeInput.style.visibility = "hidden";
+            a.style.visibility = "hidden";
+        }
+    } else {
+        console.error('Element not found for day:', day);
+    }
 }
 
 // function checkbox_checked(day){
