@@ -65,7 +65,7 @@ function getSleepTime(){//現在時刻から次のアラーム時刻までをミ
     }
     day -= 1;
   }
-  console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
+  //console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
   let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
   return sleepTime;
 }
@@ -88,9 +88,7 @@ function setSleepNotify(){// おやすみ通知を送る時刻を計算しセッ
 
 window.addEventListener('load',() =>{
   // setSettingData();
-  setSleepNotify();
-  console.log(timeoutID);
-  console.log(getSleepTime());
+  setSleepNotify();;
 })
 
 
