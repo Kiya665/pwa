@@ -108,6 +108,7 @@ function displayElement(day){
     element.value = localStorage.getItem(day + '_time');
 }
 function buttonclick2(){
+    noSleep();
     localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
     toggletext('sun');
