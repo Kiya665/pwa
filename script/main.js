@@ -1,37 +1,35 @@
-window.addEventListener("load",a)
+window.addEventListener("load",a);
 
 function a(){
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
-    if(localStorage.getItem('sun_start_hour')){
+    if(localStorage.getItem('login') === '1'){
+        console.log('二回目以降');
         document.getElementById('suntext').innerText = localStorage.getItem('sun_time');
-         document.getElementById('montext').innerText = localStorage.getItem('mon_time');
-         document.getElementById('tuetext').innerText = localStorage.getItem('tue_time');
-         document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
-         document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
-         document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
-         document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
-         console.log('atest' + localStorage.getItem('sun_start_hour'));
-    }
-    if(localStorage.getItem('login') !== 1){
-        console.log('localStoragenasi');
+        document.getElementById('montext').innerText = localStorage.getItem('mon_time');
+        document.getElementById('tuetext').innerText = localStorage.getItem('tue_time');
+        document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
+        document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
+        document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
+        document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
     }else{
-        console.log('localStorageari');
+        console.log('初めてのログイン');
     }
     check('sun');
     check('mon');
-    check('thu');
-    check('wed');
     check('tue');
+    check('wed');
+    check('thu');
     check('fri');
     check('sat');
 }
 function check(day){
-    var checkbox = document.getElementById(day + 'dox');
+    var checkbox = document.getElementById(day + 'box');
     if(localStorage.getItem(day+'box') === '1'){
         checkbox.checked = true;
     }
 }
+
 function buttonclick(){
     toggletext('sun');
     toggletext('mon');
@@ -40,47 +38,18 @@ function buttonclick(){
     toggletext('thu');
     toggletext('fri');
     toggletext('sat');
-    
-    
 
     var checkboxes = document.getElementsByName('box')
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].style.visibility = "visible";
     }
-    var selectElement = document.getElementById('sun');
-    var Element = document.getElementById('suntext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('sun_time');
-
-    var selectElement = document.getElementById('mon');
-    var Element = document.getElementById('montext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('mon_time');
-
-    var selectElement = document.getElementById('tue');
-    var Element = document.getElementById('tuetext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('tue_time');
-
-    var selectElement = document.getElementById('wed');
-    var Element = document.getElementById('wedtext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('wed_time');
-
-    var selectElement = document.getElementById('thu');
-    var Element = document.getElementById('thutext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('thu_time');
-
-    var selectElement = document.getElementById('fri');
-    var Element = document.getElementById('fritext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('fri_time');
-
-    var selectElement = document.getElementById('sat');
-    var Element = document.getElementById('sattext');
-    Element.style.display = "none";
-    selectElement.value = localStorage.getItem('sat_time');
+    displayElement('sun');
+    displayElement('mon');
+    displayElement('tue');
+    displayElement('wed');
+    displayElement('thu');
+    displayElement('fri');
+    displayElement('sat');
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();noSleep()">確定</button>';
 
@@ -132,6 +101,12 @@ function test(){
         localStorage.getItem('sat_start_minute'),
     );
 }
+function displayElement(day){
+    var element = document.getElementById(day);
+    var elementText = document.getElementById(day + 'text');
+    elementText.style.display = "none";
+    element.value = localStorage.getItem(day + '_time');
+}
 function buttonclick2(){
     localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
@@ -147,7 +122,11 @@ function buttonclick2(){
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].style.visibility = 'hidden';
     }
-    
+
+    var range = document.getElementsByName('range');
+    for(var i = 0;i < range.length;i++){
+        range[i].style.visibility = 'hidden';
+    }
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     
     confData('sun');
@@ -180,20 +159,21 @@ function buttonclick2(){
     // localStorage.setItem('thu_time',document.getElementById('thu').value);
     // localStorage.setItem('fri_time',document.getElementById('fri').value);
     // localStorage.setItem('sat_time',document.getElementById('sat').value);
-    localStorage.setItem('sun_start_hour',sunHour);
-    localStorage.setItem('mon_start_hour',monHour);
-    localStorage.setItem('tue_start_hour',tueHour);
-    localStorage.setItem('wed_start_hour',wedHour);
-    localStorage.setItem('thu_start_hour',thuHour);
-    localStorage.setItem('fri_start_hour',friHour);
-    localStorage.setItem('sat_start_hour',satHour);
-    localStorage.setItem('sun_start_minute',sunMinute);
-    localStorage.setItem('mon_start_minute',monMinute);
-    localStorage.setItem('tue_start_minute',tueMinute);
-    localStorage.setItem('wed_start_minute',wedMinute);
-    localStorage.setItem('thu_start_minute',thuMinute);
-    localStorage.setItem('fri_start_minute',friMinute);
-    localStorage.setItem('sat_start_minute',satMinute);
+
+    // localStorage.setItem('sun_start_hour',checkHyphen(sunHour));
+    // localStorage.setItem('mon_start_hour',checkHyphen(monHour));
+    // localStorage.setItem('tue_start_hour',checkHyphen(tueHour));
+    // localStorage.setItem('wed_start_hour',checkHyphen(wedHour));
+    // localStorage.setItem('thu_start_hour',checkHyphen(thuHour));
+    // localStorage.setItem('fri_start_hour',checkHyphen(friHour));
+    // localStorage.setItem('sat_start_hour',checkHyphen(satHour));
+    // localStorage.setItem('sun_start_minute',checkHyphen(sunMinute));
+    // localStorage.setItem('mon_start_minute',checkHyphen(monMinute));
+    // localStorage.setItem('tue_start_minute',checkHyphen(tueMinute));
+    // localStorage.setItem('wed_start_minute',checkHyphen(wedMinute));
+    // localStorage.setItem('thu_start_minute',checkHyphen(thuMinute));
+    // localStorage.setItem('fri_start_minute',checkHyphen(friMinute));
+    // localStorage.setItem('sat_start_minute',checkHyphen(satMinute));
     // localStorage.setItem('sun_range',document.getElementById('sun1').value);
     // localStorage.setItem('wed_range',document.getElementById('wed1').value);
     // localStorage.setItem('tue_range',document.getElementById('tue1').value);
@@ -201,14 +181,43 @@ function buttonclick2(){
     // localStorage.setItem('thu_range',document.getElementById('thu1').value);
     // localStorage.setItem('fri_range',document.getElementById('fri1').value);
     // localStorage.setItem('sat_range',document.getElementById('sat1').value);
-    checkbox_checked('sun');
-    checkbox_checked('mon');
-    checkbox_checked('thu');
-    checkbox_checked('wed');
-    checkbox_checked('tue');
-    checkbox_checked('fri');
-    checkbox_checked('sat');
+    // checkbox_checked('sun');
+    // checkbox_checked('mon');
+    // checkbox_checked('thu');
+    // checkbox_checked('wed');
+    // checkbox_checked('tue');
+    // checkbox_checked('fri');
+    // checkbox_checked('sat');
 
+    confData('sun');
+    confData('mon');
+    confData('thu');
+    confData('wed');
+    confData('tue');
+    confData('fri');
+    confData('sat');
+    setTime(sunHour,sunMinute,'sun');
+    setTime(monHour,monMinute,'mon');
+    setTime(tueHour,tueMinute,'tue');
+    setTime(wedHour,wedMinute,'wed');
+    setTime(thuHour,thuMinute,'thu');
+    setTime(friHour,friMinute,'fri');
+    setTime(satHour,satMinute,'sat');
+        
+    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
+
+    start();
+}
+function setTime(Hour,Minute,day){
+    if(Hour !== '' && localStorage.getItem(day + 'check') === '1'){//Hourが設定済み、かつ、チェックボックスがON　
+        localStorage.setItem(day + '_start_hour',Hour);
+        localStorage.setItem(day + '_start_minute',Minute);
+        console.log('setTimeTest = ' + localStorage.getItem(day + '_start_hour'));
+        console.log('setTimeTest = ' + localStorage.getItem(day + '_start_minute'));
+    }else{
+        localStorage.setItem(day + '_start_hour','--');
+        localStorage.setItem(day + '_start_minute','--');
+    }
 }
 function confData(day){
     var element = document.getElementById(day);
@@ -217,21 +226,22 @@ function confData(day){
     var checkbox = document.getElementById(day + 'box');
     if (checkbox.checked) {
         localStorage.setItem(day + 'check','1');
-        if(!element.value){
+        if(element.value === ''){
             elementText.innerText = '--';
         }else{
             elementText.innerText = element.value;
+            localStorage.setItem(day + '_time',element.value);
+            console.log("cheaked");
         }
-        localStorage.setItem(day + '_time',element.value);
-        console.log("cheaked");
-     } else {
+    } else {
         localStorage.setItem(day + 'check','0');
         elementText.innerText = '--';
-        element.value = '--:--';
-        localStorage.setItem(day + '_time','--');
+        //element.value = '--:--';
+        localStorage.setItem(element + '_time','--');
         console.log("nocheaked");
-     }
-     element.style.visibility = "hidden";
+        localStorage.setItem(element + 'check','0');
+    }
+    element.style.visibility = "hidden";
 }
 function toggletext(day) {
     var checkbox = document.getElementById(day + 'box');
@@ -243,24 +253,24 @@ function toggletext(day) {
             //a.style.visibility = "visible";
             localStorage.setItem(day+'box',1);
 
-        } else {
-            timeInput.style.visibility = "hidden";
-            //a.style.visibility = "hidden";
-            localStorage.setItem(day+'box',0);
-        }
-    } else {
-        console.error('Element not found for day:', day);
-    }
+                } else {
+                    console.log(document.getElementById(day + '1'));
+                    timeInput.style.visibility = "hidden";
+                    a.style.visibility = "hidden";
+                }
+            } else {
+                console.error('Element not found for day:', day);
+            }
 }
 
-function checkbox_checked(day){
-    console.log(day);
-    console.log(document.getElementById(day + 'box').checked);
-   var checkbox = document.getElementById(day+'box');
-   if(checkbox.checked){
-       localStorage.setItem(day+'box','1');
-    }
-}
+// function checkbox_checked(day){
+//     var checkbox = document.getElementById(day+'box');
+//     if(checkbox.checked){
+//         localStorage.setItem(day + 'box','1');
+//     }else{
+//         localStorage.setItem(day + 'box','0');
+//     }
+// }
 
 
 
