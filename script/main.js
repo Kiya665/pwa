@@ -3,26 +3,28 @@ window.addEventListener("load",a)
 function a(){
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
-    if(localStorage.getItem('sun_start_hour')){
-        document.getElementById('suntext').innerText = localStorage.getItem('sun_time');
-         document.getElementById('montext').innerText = localStorage.getItem('mon_time');
-         document.getElementById('tuetext').innerText = localStorage.getItem('tue_time');
-         document.getElementById('wedtext').innerText = localStorage.getItem('wed_time');
-         document.getElementById('thutext').innerText = localStorage.getItem('thu_time');
-         document.getElementById('fritext').innerText = localStorage.getItem('fri_time');
-         document.getElementById('sattext').innerText = localStorage.getItem('sat_time');  
+    if(!localStorage.getItem('sun_time') == null){
+        document.getElementById('suntext').innerText = localStorage.getItem('sun_time') + "   "+ localStorage.getItem('sun_range');
+         document.getElementById('montext').innerText = localStorage.getItem('mon_time')+ "   "+ localStorage.getItem('mon_range');
+         document.getElementById('tuetext').innerText = localStorage.getItem('tue_time')+ "   "+ localStorage.getItem('tue_range');
+         document.getElementById('wedtext').innerText = localStorage.getItem('wed_time')+ "   "+ localStorage.getItem('wed_range');
+         document.getElementById('thutext').innerText = localStorage.getItem('thu_time')+ "   "+ localStorage.getItem('thu_range');
+         document.getElementById('fritext').innerText = localStorage.getItem('fri_time')+ "   "+ localStorage.getItem('fri_range');
+         document.getElementById('sattext').innerText = localStorage.getItem('sat_time')+ "   "+ localStorage.getItem('sat_range');
     }
     check('sun');
     check('mon');
-    check('thu');
-    check('wed');
     check('tue');
+    check('wed');
+    check('thu');
     check('fri');
     check('sat');
 }
 function check(day){
-    var checkbox = document.getElementById(day+'dox');
-    if(localStorage.getItem(day+'box') == '1'){
+    var checkbox = document.getElementById(day+'box');
+    console.log(document.getElementById(day+'box'));
+    console.log(localStorage.getItem(day+'box'));
+        if(localStorage.getItem(day+'box') == '1'){
         checkbox.checked = true;
     }
 }
@@ -140,7 +142,11 @@ function buttonclick2(){
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].style.visibility = 'hidden';
     }
-    
+
+    var range = document.getElementsByName('range');
+    for(var i = 0;i < range.length;i++){
+        range[i].style.visibility = 'hidden';
+    }
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     
     var selectElement = document.getElementById('sun');
@@ -153,7 +159,7 @@ function buttonclick2(){
             document.getElementById('suntext').innerText = '--';
             
         }else{
-            document.getElementById('suntext').innerText = document.getElementById('sun').value;
+            document.getElementById('suntext').innerText = document.getElementById('sun').value + "   " + document.getElementById('sun1').value;
             localStorage.setItem('sun_time',document.getElementById('sun').value);
             console.log("cheaked");
         }
@@ -181,7 +187,7 @@ function buttonclick2(){
             console.log("cheaked");
         } else {
             localStorage.setItem('mon_time','--');
-            document.getElementById('montext').innerText = localStorage.getItem('mon_time');
+            document.getElementById('montext').innerText = localStorage.getItem('mon_time')+ "   " +document.getElementById('mon1');
             document.getElementById('mon').value = '--:--';
             console.log("nocheaked");
         }
@@ -321,13 +327,13 @@ function buttonclick2(){
     localStorage.setItem('thu_start_minute',thuMinute);
     localStorage.setItem('fri_start_minute',friMinute);
     localStorage.setItem('sat_start_minute',satMinute);
-    // localStorage.setItem('sun_range',document.getElementById('sun1').value);
-    // localStorage.setItem('wed_range',document.getElementById('wed1').value);
-    // localStorage.setItem('tue_range',document.getElementById('tue1').value);
-    // localStorage.setItem('wed_range',document.getElementById('wed1').value);
-    // localStorage.setItem('thu_range',document.getElementById('thu1').value);
-    // localStorage.setItem('fri_range',document.getElementById('fri1').value);
-    // localStorage.setItem('sat_range',document.getElementById('sat1').value);
+    localStorage.setItem('sun_range',document.getElementById('sun1').value);
+    localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    localStorage.setItem('tue_range',document.getElementById('tue1').value);
+    localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    localStorage.setItem('thu_range',document.getElementById('thu1').value);
+    localStorage.setItem('fri_range',document.getElementById('fri1').value);
+    localStorage.setItem('sat_range',document.getElementById('sat1').value);
     checkbox_checked('sun');
     checkbox_checked('mon');
     checkbox_checked('thu');
@@ -344,14 +350,14 @@ function toggletext(day) {
             var a = document.getElementById(day + '1');
             if (checkbox && timeInput) {
                 if (checkbox.checked) {
+                    console.log(document.getElementById(day + '1'));
                     timeInput.style.visibility = "visible";
-               //     a.style.visibility = "visible";
-               localStorage.setItem(day+'box',1);
+                    a.style.visibility = "visible";
 
                 } else {
+                    console.log(document.getElementById(day + '1'));
                     timeInput.style.visibility = "hidden";
-                 //   a.style.visibility = "hidden";
-                 localStorage.setItem(day+'box',0);
+                    a.style.visibility = "hidden";
                 }
             } else {
                 console.error('Element not found for day:', day);
@@ -360,7 +366,7 @@ function toggletext(day) {
 
 function checkbox_checked(day){
     console.log(day);
-    console.log(document.getElementById(day + 'box').checked);
+    console.log(document.getElementById(day + 'box'));
    var checkbox = document.getElementById(day+'box');
    if(checkbox.checked){
        localStorage.setItem(day+'box','1');
