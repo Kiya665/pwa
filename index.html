@@ -87,15 +87,17 @@
       <h1>pwa</h1>
     </div>
     <script>
-      // function noSleep(){
-      //   var data = getNextAlarm();
-      //   var noSleep = new NoSleep();
-      //   if(data[1] === '--'){
-      //     noSleep.disabled();
-      //   }else{
-      //     noSleep.enabled();
-      //   }
-      //}
+      function sleepMode(){
+        var data = getNextAlarm();
+        var noSleep = new NoSleep();
+        if(data[1] === '--'){
+          noSleep.disable();
+          console.log('スリープモードON');
+        }else{
+          noSleep.enable();
+          console.log('スリープモードOFF');
+        }
+      }
     </script>
     <button onclick="createNotification()">通知を送信</button>
     

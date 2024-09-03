@@ -1,4 +1,4 @@
-function createNotification(){//通知送信関数
+function createNotification(message){//通知送信関数
 // if (!('Notification' in window)) {
 //     alert('このブラウザはプッシュ通知に対応してません。。。');
 //     return;
@@ -9,7 +9,7 @@ function createNotification(){//通知送信関数
     // navigator.serviceWorker.ready.then(registration => {
     //   registration.active.postMessage('hello');
     // });
-    const notification = new Notification('test',{body:'test'});
+    const notification = new Notification(message,{body:'test'});
   } else {
    // alert('通知の許可がもらえませんよ');
   }
@@ -65,15 +65,30 @@ function getSleepTime(){//現在時刻から次のアラーム時刻までをミ
     }
     day -= 1;
   }
-  console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
+  //console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
   let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
   return sleepTime;
 }
 
+function setSleepNotify(){// おやすみ通知を送る時刻を計算しセット
+  let sleepTime = getSleepTime();
+  let sleepNotifyTime = parseInt(localStorage.getItem('sleep_notify_time'));
+  let SNTMilliSec = sleepNotifyTime * 60 * 60 * 1000; // おやすみ通知を送るまでの時間をミリ秒にしたもの
+  console.log('*ST*' + (sleepTime / 60 / 60 / 1000));
+  console.log('*SNT*' + (SNTMilliSec / 60 / 60 / 1000));
+  console.log('*wait*' + ((sleepTime - SNTMilliSec) / 60 / 60 / 1000));
+
+  console.log('*tue_start_time*' + localStorage.getItem('tue_start_hour') + ':' + localStorage.getItem('tue_start_minute'));
+
+  if ((sleepTime - SNTMilliSec) >= 0)
+  {
+    setTimeout(createNotification, sleepTime - SNTMilliSec, '就寝時刻になりました');
+  }
+}
+
 window.addEventListener('load',() =>{
-  setSettingData();
-  console.log(timeoutID);
-  console.log(getSleepTime());
+  // setSettingData();
+  setSleepNotify();;
 })
 
 
@@ -147,7 +162,7 @@ function setSettingData(){//テスト用データ。後で消す。
 
 function checkSleepState(hour,minute){//python呼び出す関数。checkNotificationConditionから渡されたhour,minuteになると終わる。
   console.log('通知送信');
-  createNotification();
+  createNotification('test');
   const now = new Date();
 
   const hourCheck = now.getHours();
