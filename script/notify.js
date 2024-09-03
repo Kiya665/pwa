@@ -1,4 +1,4 @@
-function createNotification(){//通知送信関数
+function createNotification(message){//通知送信関数
 // if (!('Notification' in window)) {
 //     alert('このブラウザはプッシュ通知に対応してません。。。');
 //     return;
@@ -9,7 +9,7 @@ function createNotification(){//通知送信関数
     // navigator.serviceWorker.ready.then(registration => {
     //   registration.active.postMessage('hello');
     // });
-    const notification = new Notification('test',{body:'test'});
+    const notification = new Notification(message,{body:'test'});
   } else {
     alert('通知の許可がもらえませんよ');
   }
@@ -82,7 +82,7 @@ function setSleepNotify(){// おやすみ通知を送る時刻を計算しセッ
 
   if ((sleepTime - SNTMilliSec) >= 0)
   {
-    setTimeout(createNotification, sleepTime - SNTMilliSec);
+    setTimeout(createNotification, sleepTime - SNTMilliSec, '就寝時刻になりました');
   }
 }
 
@@ -162,7 +162,7 @@ function setSettingData(){//テスト用データ。後で消す。
 
 function checkSleepState(hour,minute){//python呼び出す関数。checkNotificationConditionから渡されたhour,minuteになると終わる。
   console.log('通知送信');
-  createNotification();
+  createNotification('test');
   const now = new Date();
 
   const hourCheck = now.getHours();
