@@ -1,5 +1,6 @@
 var CACHE_NAME  = "MKit-cache-v1";
 var urlsToCache = [
+    '/pwa/'
 ];
 
 self.addEventListener('install', function(event) {
