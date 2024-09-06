@@ -62,27 +62,37 @@
      </style>
      
     <title>Hello PWA world!</title>
-    <link rel="manifest" href="script/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
-    <script src="./script/notify.js"></script>
-    <script src="./script/main.js"></script>
 
-    <script>
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker
-            .register('./script/serviceWorker.js')
-            .then(registration => console.log('registerd', registration))
-            .catch(err => console.log('err', err));
-        }
-      });
-    </script>
+
     
   </head>
   <body>
+    <script src="./script/notify.js"></script>
+    <script src="./script/main.js"></script>
+    <script>
+      // window.addEventListener('load', () => {
+      //   if ('serviceWorker' in navigator) {
+      //     navigator.serviceWorker
+      //       .register('serviceWorker.js')
+      //       .then(registration => console.log('registerd', registration))
+      //       .catch(err => console.log('err', err));
+      //   }
+      // });
+      window.addEventListener('load',() =>{
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      }
+      })
+    </script>
     <div id="header">
       <h1>pwa</h1>
     </div>
