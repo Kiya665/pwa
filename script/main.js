@@ -204,9 +204,9 @@ function buttonclick2(){
 
     confData('sun',sunHour,sunMinute);
     confData('mon',monHour,monMinute);
-    confData('thu',tueHour,tueMinute);
+    confData('tue',tueHour,tueMinute);
     confData('wed',wedHour,wedMinute);
-    confData('tue',thuHour,thuMinute);
+    confData('thu',thuHour,thuMinute);
     confData('fri',friHour,friMinute);
     confData('sat',satHour,satMinute);
         
