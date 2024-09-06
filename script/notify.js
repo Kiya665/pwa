@@ -4,6 +4,7 @@ function createNotification(message){//通知送信関数
 //     return;
 //   }
 
+  console.log("createNotification実行");
   const permission = Notification.permission;
   if (permission === 'granted') {
     navigator.serviceWorker.ready.then(registration => {
