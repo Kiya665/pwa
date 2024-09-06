@@ -6,184 +6,133 @@ function a(){
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     if(localStorage.getItem('login') === '1'){
         console.log('二回目以降');
-        displayElementText('sun');
-        displayElementText('mon');
-        displayElementText('tue');
-        displayElementText('wed');
-        displayElementText('thu');
-        displayElementText('fri');
-        displayElementText('sat');
     }else{
         console.log('初めてのログイン');
+        setDefaultValue('sun');
+        setDefaultValue('mon');
+        setDefaultValue('tue');
+        setDefaultValue('wed');
+        setDefaultValue('thu');
+        setDefaultValue('fri');
+        setDefaultValue('sat');
     }
-    check('sun');
-    check('mon');
-    check('tue');
-    check('wed');
-    check('thu');
-    check('fri');
-    check('sat');
-    console.log('現在のチェックボックス状況:\n' +
-        localStorage.getItem('suncheck')+ '\n' +
-        localStorage.getItem('moncheck')+ '\n' +
-        localStorage.getItem('tuecheck')+ '\n' +
-        localStorage.getItem('wedcheck')+ '\n' +
-        localStorage.getItem('thucheck')+ '\n' +
-        localStorage.getItem('fricheck')+ '\n' +
-        localStorage.getItem('satcheck')+ '\n'   
-    );
+    
+    displayElementText('sun');
+    displayElementText('mon');
+    displayElementText('tue');
+    displayElementText('wed');
+    displayElementText('thu');
+    displayElementText('fri');
+    displayElementText('sat');
+    // console.log('現在のチェックボックス状況:\n' +
+    //     localStorage.getItem('suncheck')+ '\n' +
+    //     localStorage.getItem('moncheck')+ '\n' +
+    //     localStorage.getItem('tuecheck')+ '\n' +
+    //     localStorage.getItem('wedcheck')+ '\n' +
+    //     localStorage.getItem('thucheck')+ '\n' +
+    //     localStorage.getItem('fricheck')+ '\n' +
+    //     localStorage.getItem('satcheck')+ '\n'   
+    // );
+}
+function setDefaultValue(day){
+    localStorage.setItem(day + '_start_hour',"07");
+    localStorage.setItem(day + '_start_minute',"00");
+    localStorage.setItem(day + '_range',"5");
+    localStorage.setItem(day + '_time',"07:30");
 }
 function check(day){
-    var checkbox = document.getElementById(day + 'box');
+    var checkbox = document.getElementById(day + 'Box');
     if(localStorage.getItem(day + '_check') === '1'){
         checkbox.checked = true;
     }
 }
 function displayElementText(day){
-    var element = document.getElementById(day);
-    var elementText = document.getElementById(day + 'text');
-    var rangetext = document.getElementById(day + 'range');
-    var b = document.getElementById(day + '1');
-    if(localStorage.getItem(day + '_check') === '1' && localStorage.getItem(day + '_time') !== ''){
-        elementText.innerText = localStorage.getItem(day + '_time');
-        rangetext.innerText = localStorage.getItem(day + '_range');
-        b.value = localStorage.getItem(day + '_range');
+    var elementTime = document.getElementById(day + 'Time');
+    var elementTimeText = document.getElementById(day + 'TimeText');
+    var elementRange = document.getElementById(day + 'RangeSelect');
+    var elementRangeText = document.getElementById(day + 'RangeText');
+    var checkbox = document.getElementById(day + 'Box');
+    elementTime.style.display = "none";
+    elementTimeText.style.display = 'inline';
+    elementRange.style.display = "none";
+    elementRangeText.style.display = "inline";
+    elementTimeText.style.visibility = "visible";
+    elementRangeText.style.visibility = "visible";
+    if(localStorage.getItem(day + '_check') === '1'){//チェックボックスがON
+        elementTimeText.innerText = localStorage.getItem(day + '_time');
+        elementRangeText.innerText = localStorage.getItem(day + '_range');
     }else{
-        elementText.innerText = '--';
+        elementTimeText.innerText = "--:--";
+        elementRangeText.innerText = "--";
     }
 
-    //console.log('test = ' + localStorage.getItem(day + '_check') + '' + localStorage.getItem(day + '_time'));
+    if(localStorage.getItem(day + '_check') === '1'){
+        checkbox.checked = true;
+    }
+    checkbox.style.visibility = "hidden";
 }
 
 function buttonclick(){
-    toggletext('sun');
-    toggletext('mon');
-    toggletext('tue');
-    toggletext('wed');
-    toggletext('thu');
-    toggletext('fri');
-    toggletext('sat');
 
-    var checkboxes = document.getElementsByName('box');
-    
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.visibility = "visible";
-    }
-    displayElementTime('sun');
-    displayElementTime('mon');
-    displayElementTime('tue');
-    displayElementTime('wed');
-    displayElementTime('thu');
-    displayElementTime('fri');
-    displayElementTime('sat');
+    displayElementInput('sun');
+    displayElementInput('mon');
+    displayElementInput('tue');
+    displayElementInput('wed');
+    displayElementInput('thu');
+    displayElementInput('fri');
+    displayElementInput('sat');
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();sleepMode()">確定</button>';
-    var rangetext = document.getElementsByName('range');
-    for(var i = 0;i < range.length;i++){
-        rangetext[i].style.display = "none";
-    }
-
-    // var selectElement = document.getElementById('wed1');
-    // var Element = document.getElementById('wed1text');
-    // Element.style.display = "none";
-    // selectElement.style.display = "inline";
-
-    // var selectElement = document.getElementById('tue1');
-    // var Element = document.getElementById('tue1text');
-    // Element.style.display = "none";
-    // selectElement.style.display = "inline";
-
-    // var selectElement = document.getElementById('wed1');
-    // var Element = document.getElementById('wed1text');
-    // Element.style.display = "none";
-    // selectElement.style.display = "inline";
-
-    // var selectElement = document.getElementById('thu1');
-    // var Element = document.getElementById('thu1text');
-    // Element.style.display = "none";
-    // selectElement.style.display = "inline";
-
-    // var selectElement = document.getElementById('fri1');
-    // var Element = document.getElementById('fri1text');
-    // Element.style.display = "none";
-    // selectElement.style.display = "inline";
-
-    // var selectElement = document.getElementById('sat1');
-    // var Element = document.getElementById('sat1text');
-    // Element.style.display = "none";
-    // selectElement.style.display = "inline";
 }
 function test(){
     console.log(
+        localStorage.getItem('sun_time'),
         localStorage.getItem('sun_start_hour'),
-        localStorage.getItem('sun_start_minute'),
+        localStorage.getItem('sun_start_minute'),"\n",
+
+        localStorage.getItem('mon_time'),
         localStorage.getItem('mon_start_hour'),
-        localStorage.getItem('mon_start_minute'),
+        localStorage.getItem('mon_start_minute'),"\n",
+
+        localStorage.getItem('tue_time'),
         localStorage.getItem('tue_start_hour'),
-        localStorage.getItem('tue_start_minute'),
+        localStorage.getItem('tue_start_minute'),"\n",
+
+        localStorage.getItem('wed_time'),
         localStorage.getItem('wed_start_hour'),
-        localStorage.getItem('wed_start_minute'),
+        localStorage.getItem('wed_start_minute'),"\n",
+
+        localStorage.getItem('thu_time'),
         localStorage.getItem('thu_start_hour'),
-        localStorage.getItem('thu_start_minute'),
+        localStorage.getItem('thu_start_minute'),"\n",
+
+        localStorage.getItem('fri_time'),
         localStorage.getItem('fri_start_hour'),
-        localStorage.getItem('fri_start_minute'),
+        localStorage.getItem('fri_start_minute'),"\n",
+
+        localStorage.getItem('sat_time'),
         localStorage.getItem('sat_start_hour'),
-        localStorage.getItem('sat_start_minute')
+        localStorage.getItem('sat_start_minute'),"\n"
     );
 }
-function displayElementTime(day){
-    var element = document.getElementById(day);
-    var elementText = document.getElementById(day + 'text');
-    var rangetext = document.getElementById(day + 'range');
-    elementText.style.display = "none";
-    rangetext.style.display = "none";
-    element.value = localStorage.getItem(day + '_time');
-   // document.getElementById(day + '1').value = localStorage.getItem(day + '_time');
+function displayElementInput(day){
+    var elementTime = document.getElementById(day + 'Time');
+    var elementTimeText = document.getElementById(day + 'TimeText');
+    var elementRange = document.getElementById(day + 'RangeSelect');
+    var elementRangeText = document.getElementById(day + 'RangeText');
+    var checkbox = document.getElementById(day + 'Box');
+    if(checkbox.checked){
+        elementTime.style.display = "inline";
+        elementRange.style.display = "inline";
+        elementTimeText.style.display = "none";
+        elementRangeText.style.display = "none";
+    }else{
+        // elementTimeText.style.visibility = "hidden";
+        // elementRangeText.style.visibility = "hidden";
+    }
+    checkbox.style.visibility = "visible";
 }
 function buttonclick2(){
-    var range = document.getElementsByName('range');
-    var checkbox = document.getElementsByName('box');
-    var time = document.getElementsByName('time');
-    let n = 0;
-    
-    for(var i = 0;i < range.length;i++){
-        console.log(checkbox[i].checked);
-        if(checkbox[i].checked){
-            if(time[i].value == ''){
-                if(n == 0){
-                    n++;
-                }else if(n == 2){
-                    alert("時間と範囲を設定してください");
-                    return;
-                }
-            }
-
-            if(range[i].value == ''){
-                if(n == 1){
-                    alert("時間と範囲を設定してください");
-                    return;
-                }else{
-                    if(n == 0){
-                        n = n + 2;
-                    }
-                }
-            }
-        } 
-    }
-    if(n == 1){
-        alert("時間を設定してください");
-        return;
-    }else if(n == 2){
-        alert("範囲を設定してください");
-        return;
-    }
-    confData('sun');
-    confData('mon');
-    confData('thu');
-    confData('wed');
-    confData('tue');
-    confData('fri');
-    confData('sat');
     sleepMode();
     localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
@@ -243,14 +192,13 @@ function buttonclick2(){
     // localStorage.setItem('thu_start_minute',checkHyphen(thuMinute));
     // localStorage.setItem('fri_start_minute',checkHyphen(friMinute));
     // localStorage.setItem('sat_start_minute',checkHyphen(satMinute));
-    localStorage.setItem('sun_range',document.getElementById('sun1').value);
-    localStorage.setItem('mon_range',document.getElementById('mon1').value);
-    localStorage.setItem('wed_range',document.getElementById('wed1').value);
-    localStorage.setItem('tue_range',document.getElementById('tue1').value);
-    localStorage.setItem('wed_range',document.getElementById('wed1').value);
-    localStorage.setItem('thu_range',document.getElementById('thu1').value);
-    localStorage.setItem('fri_range',document.getElementById('fri1').value);
-    localStorage.setItem('sat_range',document.getElementById('sat1').value);
+    // localStorage.setItem('sun_range',document.getElementById('sun1').value);
+    // localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    // localStorage.setItem('tue_range',document.getElementById('tue1').value);
+    // localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    // localStorage.setItem('thu_range',document.getElementById('thu1').value);
+    // localStorage.setItem('fri_range',document.getElementById('fri1').value);
+    // localStorage.setItem('sat_range',document.getElementById('sat1').value);
     // checkbox_checked('sun');
     // checkbox_checked('mon');
     // checkbox_checked('thu');
@@ -273,86 +221,46 @@ function buttonclick2(){
 }
 
 
-function confData(day,Hour,Minute){
-    var element = document.getElementById(day);
-    var elementText = document.getElementById(day + 'text');
-    var range = document.getElementById(day + '1');
-    var rangetext = document.getElementById(day + 'range');
-    elementText.style.display = "inline";
-    var checkbox = document.getElementById(day + 'box');
-    if (checkbox.checked && element.value !== '') {//チェックボックスがON　かつ　時間が設定済み
+function setData(day,Hour,Minute){
+    var elementTime = document.getElementById(day + 'Time');
+    var elementRange = document.getElementById(day + 'RangeSelect');
+    var checkbox = document.getElementById(day + 'Box');
+    if (checkbox.checked) {//チェックボックスがON
+        localStorage.setItem(day + '_range',elementRange.value);
         localStorage.setItem(day + '_start_hour',Hour);
         localStorage.setItem(day + '_start_minute',Minute);
-        elementText.innerText = element.value;
-        localStorage.setItem(day + '_time',element.value);
+        localStorage.setItem(day + '_time',elementTime.value);
         localStorage.setItem(day + '_check','1');
-        rangetext.innerHTML = range.value;
-    }else if(element.value !== ''){//チェックボックスがOFF　かつ　時間が設定済み
+    }else{//チェックボックスがOFF
+        localStorage.setItem(day + '_range',elementRange.value);
         localStorage.setItem(day + '_start_hour',Hour);
         localStorage.setItem(day + '_start_minute',Minute);
-        elementText.innerText = '--';
-        localStorage.setItem(day + '_time',element.value);
-        localStorage.setItem(day + '_check','0');
-        rangetext.innerText = "";
-    }else{//チェックボックスがOFF　かつ　時間が未設定
-        localStorage.setItem(day + '_start_hour','--');
-        localStorage.setItem(day + '_start_minute','--');
-        elementText.innerText = '--';
-        localStorage.setItem(day + '_time','--');
+        localStorage.setItem(day + '_time',elementTime.value);
         localStorage.setItem(day + '_check','0');
         rangetext.innerText = "";
     }
     element.style.visibility = "hidden";
-    rangetext.style.display = "inline";
 }
-function toggletext(day) {
-    var checkbox = document.getElementById(day + 'box');
-    var timeInput = document.getElementById(day);
-    var a = document.getElementById(day + '1');
-    var range = document.getElementById(day+'1');
-    var rangetext = document.getElementById(day+'range');
-    if (checkbox && timeInput) {
-        if (checkbox.checked) {
-            timeInput.style.visibility = "visible";
-            //a.style.visibility = "visible";
-            localStorage.setItem(day+'box',1);
-            range.style.visibility = "visible";
-        } else {
-            //console.log(document.getElementById(day + '1'));
-            timeInput.style.visibility = "hidden";
-            a.style.visibility = "hidden";
-            range.style.visibility = "hidden";
-        }
-    } else {
-        console.error('Element not found for day:', day);
+
+function toggleText(day){
+    elementBox = document.getElementById(day + 'Box');
+    if(elementBox.checked){
+        displayElementInput(day);
+    }else{
+        var elementTime = document.getElementById(day + 'Time');
+        var elementTimeText = document.getElementById(day + 'TimeText');
+        var elementRange = document.getElementById(day + 'RangeSelect');
+        var elementRangeText = document.getElementById(day + 'RangeText');
+        var checkbox = document.getElementById(day + 'Box');
+        elementTime.style.display = "none";
+        elementTimeText.style.display = 'inline';
+        elementRange.style.display = "none";
+        elementRangeText.style.display = "inline";
+        elementTimeText.style.visibility = "visible";
+        elementRangeText.style.visibility = "visible";
+        elementTimeText.innerText = "--:--";
+        elementRangeText.innerText = "--";
+        
+
     }
 }
-
-// function checkbox_checked(day){
-//     var checkbox = document.getElementById(day+'box');
-//     if(checkbox.checked){
-//         localStorage.setItem(day + 'box','1');
-//     }else{
-//         localStorage.setItem(day + 'box','0');
-//     }
-// }
-
-
-
-// window.addEventListener('load',notify2);
-// function notify2(){
-//     if (!('Notification' in window)) {
-//         alert('このブラウザはプッシュ通知に対応してません。。。');
-//         return;
-//       }
-
-//       const permission = Notification.permission;
-//       if (permission === 'granted') {
-//         navigator.serviceWorker.ready.then(registration => {
-//           registration.active.postMessage('hello!!!');
-//         });
-//       } else {
-//         alert('通知の許可がもらえませんよ');
-//       }
-//     setInterval(notify2,30000);
-// }
