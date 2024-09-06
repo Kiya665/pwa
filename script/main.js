@@ -261,9 +261,9 @@ function buttonclick2(){
 
     confData('sun',sunHour,sunMinute);
     confData('mon',monHour,monMinute);
-    confData('tue',tueHour,tueMinute);
+    confData('thu',tueHour,tueMinute);
     confData('wed',wedHour,wedMinute);
-    confData('thu',thuHour,thuMinute);
+    confData('tue',thuHour,thuMinute);
     confData('fri',friHour,friMinute);
     confData('sat',satHour,satMinute);
         
@@ -286,7 +286,7 @@ function confData(day,Hour,Minute){
         elementText.innerText = element.value;
         localStorage.setItem(day + '_time',element.value);
         localStorage.setItem(day + '_check','1');
-        rangetext.innerText = range.value;
+        rangetext.innerHTML = range.value;
     }else if(element.value !== ''){//チェックボックスがOFF　かつ　時間が設定済み
         localStorage.setItem(day + '_start_hour',Hour);
         localStorage.setItem(day + '_start_minute',Minute);
