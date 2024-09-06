@@ -6,10 +6,10 @@ function createNotification(){//通知送信関数
   console.log("createNotification実行");
   const permission = Notification.permission;
   if (permission === 'granted') {
-    // navigator.serviceWorker.ready.then(registration => {
-    //   registration.active.postMessage('hello');
-    // });
-    const notification = new Notification("test");
+    navigator.serviceWorker.ready.then(registration => {
+      registration.active.postMessage('hello');
+    });
+    //const notification = new Notification("test");
     console.log('通知送信');
   } else {
    // alert('通知の許可がもらえませんよ');
