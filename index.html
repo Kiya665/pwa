@@ -62,7 +62,7 @@
      </style>
      
     <title>Hello PWA world!</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="script/manifest.json">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,7 +74,7 @@
       window.addEventListener('load', () => {
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker
-            .register('serviceWorker.js')
+            .register('./script/serviceWorker.js')
             .then(registration => console.log('registerd', registration))
             .catch(err => console.log('err', err));
         }
@@ -99,7 +99,7 @@
         }
       }
     </script>
-    <button type="button" onclick="createNotification()">通知を送信</button>
+    <button onclick="createNotification()">通知を送信</button>
     
      <div id="button"></div>
      </button>
