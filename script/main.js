@@ -79,7 +79,7 @@ function buttonclick(){
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();sleepMode()">確定</button>';
     var rangetext = document.getElementsByName('range');
-    for(var i = 0;i < range.length;i++){
+    for(var i = 0;i < rangetext.length;i++){
         rangetext[i].style.display = "none";
     }
 

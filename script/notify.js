@@ -1,15 +1,15 @@
-function createNotification(message){//通知送信関数
+function createNotification(){//通知送信関数
 // if (!('Notification' in window)) {
 //     alert('このブラウザはプッシュ通知に対応してません。。。');
 //     return;
 //   }
-
+  console.log("createNotification実行");
   const permission = Notification.permission;
   if (permission === 'granted') {
     // navigator.serviceWorker.ready.then(registration => {
     //   registration.active.postMessage('hello');
     // });
-    const notification = new Notification(message,{body:'test'});
+    const notification = new Notification("test");
     console.log('通知送信');
   } else {
    // alert('通知の許可がもらえませんよ');
@@ -87,13 +87,6 @@ function setSleepNotify(){// おやすみ通知を送る時刻を計算しセッ
 window.addEventListener('load',() =>{
   // setSettingData();
   setSleepNotify();
-  Notification.requestPermission().then(permission => {
-      if (permission === 'granted') {
-          alert('プッシュ通知の権限が許可されました。');
-      } else {
-          alert('プッシュ通知の権限が拒否されました。');
-      }
-  });
 })
 
 
