@@ -120,6 +120,7 @@ function displayElementInput(day){
     var elementRange = document.getElementById(day + 'RangeSelect');
     var elementRangeText = document.getElementById(day + 'RangeText');
     var checkbox = document.getElementById(day + 'Box');
+    elementTime.value = localStorage.getItem(day + '_time');
     if(checkbox.checked){
         elementTime.style.display = "inline";
         elementRange.style.display = "inline";
@@ -132,7 +133,6 @@ function displayElementInput(day){
     checkbox.style.visibility = "visible";
 }
 function buttonclick2(){
-    sleepMode();
     localStorage.setItem('login','1');
 
     var sunHour = (document.getElementById('sunTime').value).slice(0, 2);

@@ -5,13 +5,14 @@ function createNotification(message){//通知送信関数
 //   }
 
   console.log("createNotification実行");
+  var now = new Date();
   const permission = Notification.permission;
   if (permission === 'granted') {
-    navigator.serviceWorker.ready.then(registration => {
-      registration.active.postMessage('hello');
-    });
-    //const notification = new Notification("test");
-    console.log('通知送信');
+    // navigator.serviceWorker.ready.then(registration => {
+    //   registration.active.postMessage('hello');
+    // });
+    // const notification = new Notification("test");
+    console.log("現在時刻 : ", now.getDay(),now.getHours(),"時",now.getMinutes(),"分,通知送信");
   } else {
    // alert('通知の許可がもらえませんよ');
   }
@@ -21,22 +22,25 @@ let timeoutID;
 
 function start(){//次のアラーム開始時刻に変更がある際に呼び出さないといけない関数
   clearTimeout(timeoutID);
+  sleepMode();
   let sleepTime = getSleepTime();
-  console.log('sleepTime',sleepTime);
-
-  timeoutID = setTimeout(checkNotificationCondition,sleepTime);
+  if(sleepTime !== false){
+    timeoutID = setTimeout(checkNotificationCondition,sleepTime - 1000);
+  }else{
+    console.log("アラームが未設定です");
+  }
 }
 
 let intervalID;
 function checkNotificationCondition(){//アラーム開始関数。アラーム終了時刻を計算して、checkSleepStateに渡す。
   const alarmData = getNextAlarm();
   const endTime = new Date();
-  console.log(endTime.getHours(),endTime.getMinutes());
-  endTime.setMinutes(endTime.getMinutes() + parseInt(alarmData[3]));
+  endTime.setMinutes(endTime.getMinutes() + parseInt(alarmData[2]));
   let hour = endTime.getHours();
   let minute = endTime.getMinutes();
   console.log('checkNotification起動');
-  intervalID = setInterval(checkSleepState,10000,hour,minute);
+  intervalID = setInterval(checkSleepState,30000,hour,minute);
+  console.log("通知終了時刻: ",hour,"時",minute,"分");
 }
 
 function releaseInterval(){//アラーム終了関数。clearInterval後、次のアラーム時刻までTimeoutする。
@@ -53,44 +57,51 @@ function getSleepTime(){//現在時刻から次のアラーム時刻までをミ
   const hourCheck = now.getHours();
   const minuteCheck = now.getMinutes();
 
-  let nextAlarmData = getNextAlarm();
-
-  let day = (parseInt(nextAlarmData[0]) - parseInt(dayCheck) + 7) % 7;
-  // let hour = (parseInt(nextAlarmData[1]) - parseInt(hourCheck) + 24) % 24;
-  // let minute = (parseInt(nextAlarmData[2]) - parseInt(minuteCheck) + 60) % 60;
-  let nowTime = hourCheck * 60 + minuteCheck;
-  let time = parseInt(nextAlarmData[1]) * 60 + parseInt(nextAlarmData[2]);
-  let diffTime = (time - nowTime + 1440) % 1440;
-  if(parseInt(nextAlarmData[1] + nextAlarmData[2]) < parseInt(hourCheck * 100 + minuteCheck)){
-    if(parseInt(nextAlarmData[0]) === parseInt(dayCheck)){
-      day += 7;
+  var nextAlarmData = getNextAlarm();
+  if(nextAlarmData === false){
+    return false;
+  }else{
+    let day = (parseInt(nextAlarmData[0]) - parseInt(dayCheck) + 7) % 7;
+    // let hour = (parseInt(nextAlarmData[1]) - parseInt(hourCheck) + 24) % 24;
+    // let minute = (parseInt(nextAlarmData[2]) - parseInt(minuteCheck) + 60) % 60;
+    let nowTime = hourCheck * 60 + minuteCheck;
+    let time = parseInt(nextAlarmData[2]) * 60 + parseInt(nextAlarmData[3]);
+    let diffTime = (time - nowTime + 1440) % 1440;
+    if(parseInt(nextAlarmData[2] + nextAlarmData[3]) < parseInt(hourCheck * 100 + minuteCheck)){
+      if(parseInt(nextAlarmData[0]) === parseInt(dayCheck)){
+        day += 7;
+      }
+      day -= 1;
     }
-    day -= 1;
+    //console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
+    let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
+    console.log(sleepTime);
+    return sleepTime;
   }
-  //console.log(nextAlarmData[0],nextAlarmData[1],nextAlarmData[2],':',day,diffTime);
-  let sleepTime = day * 24 *  60 * 60 * 1000 + diffTime * 60 * 1000;
-  return sleepTime;
 }
 
 function setSleepNotify(){// おやすみ通知を送る時刻を計算しセット
   let sleepTime = getSleepTime();
-  let sleepNotifyTime = parseInt(localStorage.getItem('sleep_notify_time'));
-  let SNTMilliSec = sleepNotifyTime * 60 * 60 * 1000; // おやすみ通知を送るまでの時間をミリ秒にしたもの
-  console.log('*ST*' + (sleepTime / 60 / 60 / 1000));
-  console.log('*SNT*' + (SNTMilliSec / 60 / 60 / 1000));
-  console.log('*wait*' + ((sleepTime - SNTMilliSec) / 60 / 60 / 1000));
-
-  console.log('*tue_start_time*' + localStorage.getItem('tue_start_hour') + ':' + localStorage.getItem('tue_start_minute'));
-
-  if ((sleepTime - SNTMilliSec) >= 0)
-  {
-    setTimeout(createNotification, sleepTime - SNTMilliSec);
+  if(sleepTime !== false){
+    let sleepNotifyTime = parseInt(localStorage.getItem('sleep_notify_time'));
+    let SNTMilliSec = sleepNotifyTime * 60 * 60 * 1000; // おやすみ通知を送るまでの時間をミリ秒にしたもの
+    console.log('*ST*' + (sleepTime / 60 / 60 / 1000));
+    console.log('*SNT*' + (SNTMilliSec / 60 / 60 / 1000));
+    console.log('*wait*' + ((sleepTime - SNTMilliSec) / 60 / 60 / 1000));
+  
+    console.log('*tue_start_time*' + localStorage.getItem('tue_start_hour') + ':' + localStorage.getItem('tue_start_minute'));
+  
+    if ((sleepTime - SNTMilliSec) >= 0)
+    {
+      setTimeout(createNotification, sleepTime - SNTMilliSec);
+    }
   }
 }
 
 window.addEventListener('load',() =>{
   // setSettingData();
-  setSleepNotify();;
+  setSleepNotify();
+  start();
 })
 
 
@@ -108,9 +119,9 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
   let nextAlarmRange;
   let i = dayCheck;
   for(;count < 7;i = (i+1)%7,count++){
-    if(settingData[i][1] !== '--'){
+    if(settingData[i][1] === '1'){
       if(dayCheck === i){
-        if(parseInt(settingData[i][1] + settingData[i][2]) > (hourCheck * 100 + minuteCheck)){
+        if(parseInt(settingData[i][2] + settingData[i][3]) > (hourCheck * 100 + minuteCheck)){
           break;
         }
       }else{
@@ -121,23 +132,25 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
   if(count === 7){
     return false;
   }else{
-    nextAlarmDay = settingData[i][0];
-    nextAlarmHour = settingData[i][1];
-    nextAlarmMinute = settingData[i][2];
-    nextAlarmRange = settingData[i][3]
-    let alarmData = [nextAlarmDay,nextAlarmHour,nextAlarmMinute,nextAlarmRange];
-    return alarmData;
+  nextAlarmDay = settingData[i][0];
+  nextAlarmFlag = settingData[i][1];
+  nextAlarmHour = settingData[i][2];
+  nextAlarmMinute = settingData[i][3];
+  nextAlarmRange = settingData[i][4]
+  let alarmData = [nextAlarmDay,nextAlarmFlag,nextAlarmHour,nextAlarmMinute,nextAlarmRange];
+  console.log("次のアラームは : ",nextAlarmDay,nextAlarmHour,nextAlarmMinute);
+  return alarmData;
   }
 }
 
 function getSettingData(){//localstrageのデータをすべて配列にする。getNextAlarmで必要。
-  let data = [['0',localStorage.getItem('sun_start_hour'),localStorage.getItem('sun_start_minute'),localStorage.getItem('sun_range')],
-              ['1',localStorage.getItem('mon_start_hour'),localStorage.getItem('mon_start_minute'),localStorage.getItem('mon_range')],
-              ['2',localStorage.getItem('tue_start_hour'),localStorage.getItem('tue_start_minute'),localStorage.getItem('tue_range')],
-              ['3',localStorage.getItem('wed_start_hour'),localStorage.getItem('wed_start_minute'),localStorage.getItem('wed_range')],
-              ['4',localStorage.getItem('thu_start_hour'),localStorage.getItem('thu_start_minute'),localStorage.getItem('thu_range')],
-              ['5',localStorage.getItem('fri_start_hour'),localStorage.getItem('fri_start_minute'),localStorage.getItem('fri_range')],
-              ['6',localStorage.getItem('sat_start_hour'),localStorage.getItem('sat_start_minute'),localStorage.getItem('sat_range')],
+  let data = [['0',localStorage.getItem('sun_check'),localStorage.getItem('sun_start_hour'),localStorage.getItem('sun_start_minute'),localStorage.getItem('sun_range')],
+              ['1',localStorage.getItem('mon_check'),localStorage.getItem('mon_start_hour'),localStorage.getItem('mon_start_minute'),localStorage.getItem('mon_range')],
+              ['2',localStorage.getItem('tue_check'),localStorage.getItem('tue_start_hour'),localStorage.getItem('tue_start_minute'),localStorage.getItem('tue_range')],
+              ['3',localStorage.getItem('wed_check'),localStorage.getItem('wed_start_hour'),localStorage.getItem('wed_start_minute'),localStorage.getItem('wed_range')],
+              ['4',localStorage.getItem('thu_check'),localStorage.getItem('thu_start_hour'),localStorage.getItem('thu_start_minute'),localStorage.getItem('thu_range')],
+              ['5',localStorage.getItem('fri_check'),localStorage.getItem('fri_start_hour'),localStorage.getItem('fri_start_minute'),localStorage.getItem('fri_range')],
+              ['6',localStorage.getItem('sat_check'),localStorage.getItem('sat_start_hour'),localStorage.getItem('sat_start_minute'),localStorage.getItem('sat_range')],
             ];
   return data;
 }
@@ -167,8 +180,7 @@ function setSettingData(){//テスト用データ。後で消す。
 }
 
 function checkSleepState(hour,minute){//python呼び出す関数。checkNotificationConditionから渡されたhour,minuteになると終わる。
-  console.log('通知送信');
-  createNotification('test');
+  createNotification();
   const now = new Date();
 
   const hourCheck = now.getHours();

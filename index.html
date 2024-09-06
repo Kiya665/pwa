@@ -100,7 +100,7 @@
       function sleepMode(){
         var data = getNextAlarm();
         var noSleep = new NoSleep();
-        if(data[1] === '--'){
+        if(data === false){
           noSleep.disable();
           console.log('スリープモードON');
         }else{
