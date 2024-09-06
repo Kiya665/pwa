@@ -12,7 +12,7 @@ function createNotification(message){//通知送信関数
     const notification = new Notification(message,{body:'test'});
     console.log('通知送信');
   } else {
-    alert('通知の許可がもらえませんよ');
+   // alert('通知の許可がもらえませんよ');
   }
 }
 let timeoutID;

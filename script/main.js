@@ -1,6 +1,7 @@
 window.addEventListener("load",a);
 
 function a(){
+    console.log(localStorage.getItem('mon_range'));
     
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
     if(localStorage.getItem('login') === '1'){
@@ -41,8 +42,12 @@ function check(day){
 function displayElementText(day){
     var element = document.getElementById(day);
     var elementText = document.getElementById(day + 'text');
+    var rangetext = document.getElementById(day + 'range');
+    var b = document.getElementById(day + '1');
     if(localStorage.getItem(day + '_check') === '1' && localStorage.getItem(day + '_time') !== ''){
         elementText.innerText = localStorage.getItem(day + '_time');
+        rangetext.innerText = localStorage.getItem(day + '_range');
+        b.value = localStorage.getItem(day + '_range');
     }else{
         elementText.innerText = '--';
     }
@@ -59,7 +64,8 @@ function buttonclick(){
     toggletext('fri');
     toggletext('sat');
 
-    var checkboxes = document.getElementsByName('box')
+    var checkboxes = document.getElementsByName('box');
+    
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].style.visibility = "visible";
     }
@@ -72,6 +78,10 @@ function buttonclick(){
     displayElementTime('sat');
 
     document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();sleepMode()">確定</button>';
+    var rangetext = document.getElementsByName('range');
+    for(var i = 0;i < range.length;i++){
+        rangetext[i].style.display = "none";
+    }
 
     // var selectElement = document.getElementById('wed1');
     // var Element = document.getElementById('wed1text');
@@ -124,10 +134,56 @@ function test(){
 function displayElementTime(day){
     var element = document.getElementById(day);
     var elementText = document.getElementById(day + 'text');
+    var rangetext = document.getElementById(day + 'range');
     elementText.style.display = "none";
+    rangetext.style.display = "none";
     element.value = localStorage.getItem(day + '_time');
+   // document.getElementById(day + '1').value = localStorage.getItem(day + '_time');
 }
 function buttonclick2(){
+    var range = document.getElementsByName('range');
+    var checkbox = document.getElementsByName('box');
+    var time = document.getElementsByName('time');
+    let n = 0;
+    
+    for(var i = 0;i < range.length;i++){
+        console.log(checkbox[i].checked);
+        if(checkbox[i].checked){
+            if(time[i].value == ''){
+                if(n == 0){
+                    n++;
+                }else if(n == 2){
+                    alert("時間と範囲を設定してください");
+                    return;
+                }
+            }
+
+            if(range[i].value == ''){
+                if(n == 1){
+                    alert("時間と範囲を設定してください");
+                    return;
+                }else{
+                    if(n == 0){
+                        n = n + 2;
+                    }
+                }
+            }
+        } 
+    }
+    if(n == 1){
+        alert("時間を設定してください");
+        return;
+    }else if(n == 2){
+        alert("範囲を設定してください");
+        return;
+    }
+    confData('sun');
+    confData('mon');
+    confData('thu');
+    confData('wed');
+    confData('tue');
+    confData('fri');
+    confData('sat');
     sleepMode();
     localStorage.setItem('login','1');
     var checkboxes = document.getElementsByName('box')
@@ -187,13 +243,14 @@ function buttonclick2(){
     // localStorage.setItem('thu_start_minute',checkHyphen(thuMinute));
     // localStorage.setItem('fri_start_minute',checkHyphen(friMinute));
     // localStorage.setItem('sat_start_minute',checkHyphen(satMinute));
-    // localStorage.setItem('sun_range',document.getElementById('sun1').value);
-    // localStorage.setItem('wed_range',document.getElementById('wed1').value);
-    // localStorage.setItem('tue_range',document.getElementById('tue1').value);
-    // localStorage.setItem('wed_range',document.getElementById('wed1').value);
-    // localStorage.setItem('thu_range',document.getElementById('thu1').value);
-    // localStorage.setItem('fri_range',document.getElementById('fri1').value);
-    // localStorage.setItem('sat_range',document.getElementById('sat1').value);
+    localStorage.setItem('sun_range',document.getElementById('sun1').value);
+    localStorage.setItem('mon_range',document.getElementById('mon1').value);
+    localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    localStorage.setItem('tue_range',document.getElementById('tue1').value);
+    localStorage.setItem('wed_range',document.getElementById('wed1').value);
+    localStorage.setItem('thu_range',document.getElementById('thu1').value);
+    localStorage.setItem('fri_range',document.getElementById('fri1').value);
+    localStorage.setItem('sat_range',document.getElementById('sat1').value);
     // checkbox_checked('sun');
     // checkbox_checked('mon');
     // checkbox_checked('thu');
@@ -219,6 +276,8 @@ function buttonclick2(){
 function confData(day,Hour,Minute){
     var element = document.getElementById(day);
     var elementText = document.getElementById(day + 'text');
+    var range = document.getElementById(day + '1');
+    var rangetext = document.getElementById(day + 'range');
     elementText.style.display = "inline";
     var checkbox = document.getElementById(day + 'box');
     if (checkbox.checked && element.value !== '') {//チェックボックスがON　かつ　時間が設定済み
@@ -227,41 +286,42 @@ function confData(day,Hour,Minute){
         elementText.innerText = element.value;
         localStorage.setItem(day + '_time',element.value);
         localStorage.setItem(day + '_check','1');
-    }else if(checkbox.checked){//チェックボックスがON　かつ　時間が未設定
-        localStorage.setItem(day + '_start_hour','--');
-        localStorage.setItem(day + '_start_minute','--');
-        elementText.innerText = '--';
-        localStorage.setItem(day + '_time','--');
-        localStorage.setItem(day + '_check','1');
+        rangetext.innerText = range.value;
     }else if(element.value !== ''){//チェックボックスがOFF　かつ　時間が設定済み
         localStorage.setItem(day + '_start_hour',Hour);
         localStorage.setItem(day + '_start_minute',Minute);
         elementText.innerText = '--';
         localStorage.setItem(day + '_time',element.value);
         localStorage.setItem(day + '_check','0');
+        rangetext.innerText = "";
     }else{//チェックボックスがOFF　かつ　時間が未設定
         localStorage.setItem(day + '_start_hour','--');
         localStorage.setItem(day + '_start_minute','--');
         elementText.innerText = '--';
         localStorage.setItem(day + '_time','--');
         localStorage.setItem(day + '_check','0');
+        rangetext.innerText = "";
     }
     element.style.visibility = "hidden";
+    rangetext.style.display = "inline";
 }
 function toggletext(day) {
     var checkbox = document.getElementById(day + 'box');
     var timeInput = document.getElementById(day);
     var a = document.getElementById(day + '1');
+    var range = document.getElementById(day+'1');
+    var rangetext = document.getElementById(day+'range');
     if (checkbox && timeInput) {
         if (checkbox.checked) {
             timeInput.style.visibility = "visible";
             //a.style.visibility = "visible";
             localStorage.setItem(day+'box',1);
-
+            range.style.visibility = "visible";
         } else {
             //console.log(document.getElementById(day + '1'));
             timeInput.style.visibility = "hidden";
             a.style.visibility = "hidden";
+            range.style.visibility = "hidden";
         }
     } else {
         console.error('Element not found for day:', day);
