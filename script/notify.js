@@ -84,7 +84,7 @@ function setSleepNotify(){// おやすみ通知を送る時刻を計算しセッ
 
   if ((sleepTime - SNTMilliSec) >= 0)
   {
-    setTimeout(createNotification, sleepTime - SNTMilliSec, '就寝時刻になりました');
+    setTimeout(createNotification, sleepTime - SNTMilliSec);
   }
 }
 
@@ -118,12 +118,16 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
       }
     }
   }
-  nextAlarmDay = settingData[i][0];
-  nextAlarmHour = settingData[i][1];
-  nextAlarmMinute = settingData[i][2];
-  nextAlarmRange = settingData[i][3]
-  let alarmData = [nextAlarmDay,nextAlarmHour,nextAlarmMinute,nextAlarmRange];
-  return alarmData;
+  if(count === 7){
+    return false;
+  }else{
+    nextAlarmDay = settingData[i][0];
+    nextAlarmHour = settingData[i][1];
+    nextAlarmMinute = settingData[i][2];
+    nextAlarmRange = settingData[i][3]
+    let alarmData = [nextAlarmDay,nextAlarmHour,nextAlarmMinute,nextAlarmRange];
+    return alarmData;
+  }
 }
 
 function getSettingData(){//localstrageのデータをすべて配列にする。getNextAlarmで必要。
