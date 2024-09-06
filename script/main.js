@@ -61,8 +61,8 @@ function displayElementText(day){
         elementTimeText.innerText = localStorage.getItem(day + '_time');
         elementRangeText.innerText = localStorage.getItem(day + '_range');
     }else{
-        elementTimeText.innerText = "--:--";
-        elementRangeText.innerText = "--";
+        elementTimeText.innerText = "";
+        elementRangeText.innerText = "";
     }
 
     if(localStorage.getItem(day + '_check') === '1'){
@@ -199,8 +199,8 @@ function toggleText(day){
         elementRangeText.style.display = "inline";
         elementTimeText.style.visibility = "visible";
         elementRangeText.style.visibility = "visible";
-        elementTimeText.innerText = "--:--";
-        elementRangeText.innerText = "--";
+        elementTimeText.innerText = "";
+        elementRangeText.innerText = "";
         
 
     }
