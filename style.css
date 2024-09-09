@@ -2,7 +2,6 @@ body
 {
     background-color: rgb(226, 226, 226);
 }
-
 header
 {
     position: relative;
@@ -11,6 +10,7 @@ header
     height: 160px;
     margin: 0 auto;
     background-image: linear-gradient(350deg, rgba(13, 124, 197, 1), rgba(0, 47, 140, 1));
+	/*<h1>pwa</h1>を<header>で囲むとグラデーションの背景がつく*/
 }
 h1
 {
@@ -24,7 +24,8 @@ h1
     font-family: "Comic Sans MS";
     font-size: 50px;
 }
-
+/*ボタン全体の設定
+	個別で変えたい場合はclassを付けて*/
 button
 {
     display: block;
@@ -60,22 +61,24 @@ button.outer
 button.outer img
 {
 	width: 20px;
+	/*<img src="images/geara.png" alt="Dinosaur">をindex.htmlの
+	116か117あたりの<button type="button" onclick="location.href='./config.html'" class="outer">の下の行に入れる
+	画像のダウンロードを忘れずに*/
 }
-
+/*通知を送信ボタンの位置調整*/
 button.notification
 {
 	position:relative;
 	left:0px;
 	top:0px;
 }
+/*テストなので気にせずに
 button.measurement
 {
 	position:relative;
 	top:5px;
-}
-body.week{
-	font-size: 1000px;
-}
+}*/
+
 /*レスポンシブ*/
 @media screen and (max-width: 600px) {
 
@@ -85,7 +88,7 @@ body.week{
 	button{
 		font-size: 20px;
 	}
-
+	/*スマホ*/
 }
 @media (min-width: 601px) and (max-width: 1034px) {
     body{
@@ -94,11 +97,10 @@ body.week{
 	button{
 		font-size: 25px;
 	}
-	button.outer{
-		font-size: 25px;
-	}
+	/*歯車の画像のサイズ調整*/
 	button.outer img
 	{
 		width: 35px;
 	}
+	/*タブレット*/
 }
