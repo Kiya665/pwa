@@ -62,7 +62,7 @@
      </style>
      
     <title>Hello PWA world!</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -83,20 +83,20 @@
       //       .catch(err => console.log('err', err));
       //   }
       // });
-      window.addEventListener('load',() =>{
+      window.addEventListener('load',() => {
         if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      }
-      })
+          navigator.serviceWorker
+            .register('serviceWorker.js')
+            .then(registration => console.log('registered',registration))
+            .catch(error => console.log('error',error));
+          }
+      });
     </script>
     <div id="header">
       <h1>pwa</h1>
     </div>
     <script>
+
       function sleepMode(){
         var data = getNextAlarm();
         var noSleep = new NoSleep();
@@ -109,6 +109,7 @@
         }
       }
     </script>
+    <div id="alert"></div>
     <button onclick="createNotification()">通知を送信</button>
     
     <div id="button"></div>
@@ -117,223 +118,241 @@
     <div class="iconGear"><div></div></div>
     </button>
 
-    <br>
-    <input type="checkbox" id="sunBox" name="box" onclick="toggleText('sun')">
-    日曜日
-    <a id="sunTimeText">--:--</a>
-    <input type="time" id="sunTime" name="time" value="07:00">期間
-    <select id="sunRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="sunRangeText">--</a>分
-
-    <br>
-    <input type="checkbox" id="monBox" name="box" onclick="toggleText('mon')">
-    月曜日
-    <a id="monTimeText">--:--</a>
-    <input type="time" id="monTime" name="time" value="07:00">期間
-    <select id="monRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="monRangeText">--</a>分
-
-    <br>
-    <input type="checkbox" id="tueBox" name="box" onclick="toggleText('tue')">
-    火曜日
-    <a id="tueTimeText">--:--</a>
-    <input type="time" id="tueTime" name="time" value="07:00">期間
-    <select id="tueRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="tueRangeText">--</a>分
-
-    <br>
-    <input type="checkbox" id="wedBox" name="box" onclick="toggleText('wed')">
-    水曜日
-    <a id="wedTimeText">--:--</a>
-    <input type="time" id="wedTime" name="time" value="07:00">期間
-    <select id="wedRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="wedRangeText">--</a>分
+    <div class="center">
+      <label for="sunBox">
+        <div id="sunDom">
+          <input type="checkbox" id="sunBox" name="box" onclick="toggleText('sun')">
+          日曜日
+          <a id="sunTimeText">--:--</a>
+          <input type="time" id="sunTime" name="time" value="07:00">期間
+          <select id="sunRangeSelect">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+            <option value="60">60</option>
+            <option value="65">65</option>
+            <option value="70">70</option>
+            <option value="75">75</option>
+            <option value="80">80</option>
+            <option value="95">95</option>
+            <option value="100">100</option>
+            <option value="105">105</option>
+            <option value="110">110</option>
+            <option value="115">115</option>
+            <option value="120">120</option>
+          </select>
+          <a id="sunRangeText">--</a>分
+        </div>
+      </label>
   
-    <br>
-    <input type="checkbox" id="thuBox" name="box" onclick="toggleText('thu')">
-    木曜日
-    <a id="thuTimeText">--:--</a>
-    <input type="time" id="thuTime" name="time" value="07:00">期間
-    <select id="thuRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="thuRangeText">--</a>分
+  
+      <div id="monDom">
+        <input type="checkbox" id="monBox" name="box" onclick="toggleText('mon')">
+        月曜日
+        <a id="monTimeText">--:--</a>
+        <input type="time" id="monTime" name="time" value="07:00">期間
+        <select id="monRangeSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+          <option value="95">95</option>
+          <option value="100">100</option>
+          <option value="105">105</option>
+          <option value="110">110</option>
+          <option value="115">115</option>
+          <option value="120">120</option>
+        </select>
+        <a id="monRangeText">--</a>分
+      </div>
+      
+  
+      <div id="tueDom">
+        <input type="checkbox" id="tueBox" name="box" onclick="toggleText('tue')">
+        火曜日
+        <a id="tueTimeText">--:--</a>
+        <input type="time" id="tueTime" name="time" value="07:00">期間
+        <select id="tueRangeSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+          <option value="95">95</option>
+          <option value="100">100</option>
+          <option value="105">105</option>
+          <option value="110">110</option>
+          <option value="115">115</option>
+          <option value="120">120</option>
+        </select>
+        <a id="tueRangeText">--</a>分
+      </div>
+      
+  
+      <div id="wedDom">
+        <input type="checkbox" id="wedBox" name="box" onclick="toggleText('wed')">
+        水曜日
+        <a id="wedTimeText">--:--</a>
+        <input type="time" id="wedTime" name="time" value="07:00">期間
+        <select id="wedRangeSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+          <option value="95">95</option>
+          <option value="100">100</option>
+          <option value="105">105</option>
+          <option value="110">110</option>
+          <option value="115">115</option>
+          <option value="120">120</option>
+        </select>
+        <a id="wedRangeText">--</a>分
+      </div>
     
-    <br>
-    <input type="checkbox" id="friBox" name="box" onclick="toggleText('fri')">
-    金曜日
-    <a id="friTimeText">--:--</a>
-    <input type="time" id="friTime" name="time" value="07:00">期間
-    <select id="friRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="friRangeText">--</a>分
+  
+      <div id="thuDom">
+        <input type="checkbox" id="thuBox" name="box" onclick="toggleText('thu')">
+        木曜日
+        <a id="thuTimeText">--:--</a>
+        <input type="time" id="thuTime" name="time" value="07:00">期間
+        <select id="thuRangeSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+          <option value="95">95</option>
+          <option value="100">100</option>
+          <option value="105">105</option>
+          <option value="110">110</option>
+          <option value="115">115</option>
+          <option value="120">120</option>
+        </select>
+        <a id="thuRangeText">--</a>分
+      </div>
+      
+    
+      <div id="friDom">
+        <input type="checkbox" id="friBox" name="box" onclick="toggleText('fri')">
+        金曜日
+        <a id="friTimeText">--:--</a>
+        <input type="time" id="friTime" name="time" value="07:00">期間
+        <select id="friRangeSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+          <option value="95">95</option>
+          <option value="100">100</option>
+          <option value="105">105</option>
+          <option value="110">110</option>
+          <option value="115">115</option>
+          <option value="120">120</option>
+        </select>
+        <a id="friRangeText">--</a>分
+      </div>
+      
+  
+  
+      <div id="satDom">
+        <input type="checkbox" id="satBox" name="box" onclick="toggleText('sat')">
+        土曜日
+        <a id="satTimeText">--:--</a>
+        <input type="time" id="satTime" name="time" value="07:00">期間
+        <select id="satRangeSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="35">35</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+          <option value="95">95</option>
+          <option value="100">100</option>
+          <option value="105">105</option>
+          <option value="110">110</option>
+          <option value="115">115</option>
+          <option value="120">120</option>
+        </select>
+        <a id="satRangeText">--</a>分
+      </div>
+    </div>
 
-    <br>
-    <input type="checkbox" id="satBox" name="box" onclick="toggleText('sat')">
-    土曜日
-    <a id="satTimeText">--:--</a>
-    <input type="time" id="satTime" name="time" value="07:00">期間
-    <select id="satRangeSelect">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
-      <option value="35">35</option>
-      <option value="40">40</option>
-      <option value="45">45</option>
-      <option value="50">50</option>
-      <option value="55">55</option>
-      <option value="60">60</option>
-      <option value="65">65</option>
-      <option value="70">70</option>
-      <option value="75">75</option>
-      <option value="80">80</option>
-      <option value="95">95</option>
-      <option value="100">100</option>
-      <option value="105">105</option>
-      <option value="110">110</option>
-      <option value="115">115</option>
-      <option value="120">120</option>
-    </select>
-    <a id="satRangeText">--</a>分
-
-    <button type="button" onclick="test()">test</button>
+    <button type="button" onclick="test()">tesat</button>
   </body>
 </html>

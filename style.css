@@ -1,6 +1,9 @@
 body {
     background-color: rgb(226, 226, 226);
 }
+.center {
+    text-align: center;
+}
 
 #header {
     position: relative;
@@ -21,4 +24,49 @@ body {
     text-shadow: 1px 1px 2px silver;
     font-family: "HGP創英角ｺﾞｼｯｸUB";
     font-size: 50px;
+}
+
+.switch-checkbox {
+    margin-bottom: 0rem;
+}
+
+.switch-checkbox input[type=checkbox] {
+    position: relative;
+    cursor: pointer;
+    width: 3.5rem;
+    height: 1.9rem;
+    margin-top: 0.2rem;
+    border-radius: 60px;
+    background-color: #ddd;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    vertical-align: middle;
+    transition: .5s;
+}
+
+.switch-checkbox input[type=checkbox]::before {
+    position: absolute;
+    top: .2rem;
+    left: .2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    content: '';
+    transition: .3s ease;
+}
+
+.switch-checkbox input[type=checkbox]:checked {
+    background: #1ff210;
+}
+
+.switch-checkbox input[type=checkbox]:checked::before {
+    left: 1.8rem;
+}
+
+.switch-checkbox label {
+    margin-left: 1rem;
 }
