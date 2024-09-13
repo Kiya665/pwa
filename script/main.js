@@ -1,9 +1,14 @@
-window.addEventListener("load",a);
 var onBackgroundColor = '#87ceeb';
 var offBackgroundColor = '#d3d3d3';
-var settingMode = 0;
 
 function a(){
+    displayElement('sun');
+    displayElement('mon');
+    displayElement('tue');
+    displayElement('wed');
+    displayElement('thu');
+    displayElement('fri');
+    displayElement('sat');
     if(localStorage.getItem('measured_distance')){
         //console.log('二回目以降');
     }else{
@@ -122,6 +127,11 @@ function test(){
 
 function settingSave(){
     localStorage.setItem('login','1');
+    var message = document.getElementById('message');
+    message.style.visibility = "visible";
+    message.innerText = '設定を保存しました';
+    message.style.opacity = 0;
+
 
     var sunHour = (document.getElementById('sunTime').value).slice(0, 2);
     var monHour = (document.getElementById('monTime').value).slice(0, 2);
@@ -151,6 +161,7 @@ function settingSave(){
     displayElement('thu');
     displayElement('fri');
     displayElement('sat');
+    document.getElementById('settingButton').innerHTML = '';
 
     start();
 }
@@ -193,7 +204,23 @@ function toggleText(day){
     elementTimeText.innerText = localStorage.getItem(day + '_time');
 }
 
+function settingDiscarding(){
+    var message = document.getElementById('message');
+    message.style.visibility = "visible";
+    message.innerText = '設定を破棄しました';
+    message.style.opacity = 0;
+
+    displayElement('sun');
+    displayElement('mon');
+    displayElement('tue');
+    displayElement('wed');
+    displayElement('thu');
+    displayElement('fri');
+    displayElement('sat');
+}
+
 window.addEventListener('load',()=>{
+    a();
     displayElementTime('sun');
     displayElementTime('mon');
     displayElementTime('tue');
@@ -201,6 +228,7 @@ window.addEventListener('load',()=>{
     displayElementTime('thu');
     displayElementTime('fri');
     displayElementTime('sat');
+    document.getElementById('message').innerHTML = "&nbsp"
 });
 
 function displayElementTime(day){
@@ -221,4 +249,10 @@ function displayElementTime(day){
         elementRange.style.display = "inline";
         elementBox.click();
     });
+    document.getElementById('timeDom').addEventListener('click',() =>{
+        message.style.visibility = "hidden";
+        message.style.opacity = 1;
+        
+        document.getElementById('settingButton').innerHTML = '<button type="button" id="settingDiscardingButton" onclick="settingDiscarding()">設定を破棄</button><span class="space"></span><button type="button" id="settingSaveButton" onclick="settingSave()">設定を保存</button>';
+    })
 }
