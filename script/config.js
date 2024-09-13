@@ -1,25 +1,4 @@
 window.addEventListener('DOMContentLoaded', function(){
-    // firstOnceSound(最低一回は通知する設定)の保存
-    let firstOnceSoundCheck = document.getElementById('firstOnceSound');
-    firstOnceSoundCheck.addEventListener('change',function(){
-        if(firstOnceSoundCheck.checked){
-            localStorage.setItem('first_once_sound','on');
-        }
-        else
-        {
-            localStorage.setItem('first_once_sound','off');
-        }
-    })
-
-    // 保存した設定の反映
-    if (localStorage.getItem('first_once_sound') === 'on')
-    {
-        firstOnceSoundCheck.checked = true;
-    }
-    else
-    {
-        firstOnceSoundCheck.checked = false;
-    }
 
     // sleepNotify(おやすみ通知の設定)の保存
     let sleepNotifyCheck = document.getElementById('sleepNotify');
@@ -59,6 +38,12 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // 保存した設定の反映
     sleepNotifyTimeCheck.value = localStorage.getItem('sleep_notify_time');
+    let range = document.getElementById('rangeSelect');
+    range.value = localStorage.getItem('range');
+    range.addEventListener('input',()=>{
+    localStorage.setItem('range',range.value);
+    console.log(range.value);
+})
 });
 // おやすみ通知を送らない設定のとき 何時間前に通知を送るかの選択肢を隠す
 function displayTime(){
@@ -69,3 +54,4 @@ function displayTime(){
 function hiddenTime(){
     document.getElementById("selectList").style.display = "none";
 }
+

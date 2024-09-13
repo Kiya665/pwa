@@ -55,7 +55,7 @@ function a(){
 function setDefaultValue(day){
     localStorage.setItem(day + '_start_hour',"07");
     localStorage.setItem(day + '_start_minute',"30");
-    localStorage.setItem(day + '_range',"60");
+    localStorage.setItem('range',"60");
     localStorage.setItem(day + '_time',"07:30");
     localStorage.setItem(day + 'check',"0");
 
@@ -71,15 +71,10 @@ function displayElement(day){
     var elementTime = document.getElementById(day + 'Time');
     var elementDom = document.getElementById(day + 'Dom');
     var elementTimeText = document.getElementById(day + 'TimeText');
-    var elementRange = document.getElementById(day + 'RangeSelect');
-    var elementRangeText = document.getElementById(day + 'RangeText');
     var checkbox = document.getElementById(day + 'Box');
     elementTime.value = localStorage.getItem(day + "_time");
-    elementRange.value = localStorage.getItem(day + "_range");
     elementTime.style.display = "none";
     elementTimeText.style.display = 'inline';
-    elementRange.style.display = "none";
-    elementRangeText.style.display = "inline";
     if(localStorage.getItem(day + '_check') === '1'){//チェックボックスがON
         elementDom.style.backgroundColor = onBackgroundColor;
         checkbox.checked = true;
@@ -87,7 +82,6 @@ function displayElement(day){
         elementDom.style.backgroundColor = offBackgroundColor;
         checkbox.checked = false;
     }
-    elementRangeText.innerText = localStorage.getItem(day + '_range');
     elementTimeText.innerText = localStorage.getItem(day + '_time');
 }
 
@@ -96,8 +90,7 @@ function test(){
     console.log(
         localStorage.getItem('sun_time'),
         localStorage.getItem('sun_start_hour'),
-        localStorage.getItem('sun_start_minute'),
-        localStorage.getItem("sun_range"),"\n",
+        localStorage.getItem('sun_start_minute'),"\n",
 
         localStorage.getItem('mon_time'),
         localStorage.getItem('mon_start_hour'),
@@ -127,10 +120,11 @@ function test(){
 
 function settingSave(){
     localStorage.setItem('login','1');
-    var message = document.getElementById('message');
-    message.style.visibility = "visible";
-    message.innerText = '設定を保存しました';
+
+    let message = document.getElementById('message');
+    message.classList.add('msg');
     message.style.opacity = 0;
+    message.innerText = '設定を保存しました';
 
 
     var sunHour = (document.getElementById('sunTime').value).slice(0, 2);
@@ -169,17 +163,13 @@ function settingSave(){
 
 function setData(day,Hour,Minute){
     var elementTime = document.getElementById(day + 'Time');
-    var elementRange = document.getElementById(day + 'RangeSelect');
     var checkbox = document.getElementById(day + 'Box');
-    console.log(elementRange.value);
     if (checkbox.checked) {//チェックボックスがON
-        localStorage.setItem(day + '_range',elementRange.value);
         localStorage.setItem(day + '_start_hour',Hour);
         localStorage.setItem(day + '_start_minute',Minute);
         localStorage.setItem(day + '_time',elementTime.value);
         localStorage.setItem(day + '_check','1');
     }else{//チェックボックスがOFF
-        localStorage.setItem(day + '_range',elementRange.value);
         localStorage.setItem(day + '_start_hour',Hour);
         localStorage.setItem(day + '_start_minute',Minute);
         localStorage.setItem(day + '_time',elementTime.value);
@@ -192,23 +182,20 @@ function toggleText(day){
     var elementDom = document.getElementById(day + 'Dom');        
     var elementTime = document.getElementById(day + 'Time');
     var elementTimeText = document.getElementById(day + 'TimeText');
-    var elementRange = document.getElementById(day + 'RangeSelect');
-    var elementRangeText = document.getElementById(day + 'RangeText');
     if(elementBox.checked){
         elementDom.style.backgroundColor = onBackgroundColor;
     }else{
         elementDom.style.backgroundColor = offBackgroundColor;
     }
-    
-    elementRangeText.innerText = localStorage.getItem(day + '_range');
     elementTimeText.innerText = localStorage.getItem(day + '_time');
 }
 
 function settingDiscarding(){
-    var message = document.getElementById('message');
-    message.style.visibility = "visible";
-    message.innerText = '設定を破棄しました';
+
+    let message = document.getElementById('message');
+    message.classList.add('msg');
     message.style.opacity = 0;
+    message.innerText = '設定を破棄しました';
 
     displayElement('sun');
     displayElement('mon');
@@ -217,6 +204,7 @@ function settingDiscarding(){
     displayElement('thu');
     displayElement('fri');
     displayElement('sat');
+    document.getElementById('settingButton').innerHTML = '';
 }
 
 window.addEventListener('load',()=>{
@@ -228,7 +216,7 @@ window.addEventListener('load',()=>{
     displayElementTime('thu');
     displayElementTime('fri');
     displayElementTime('sat');
-    document.getElementById('message').innerHTML = "&nbsp"
+    document.getElementById('message').innerHTML = "&nbsp";
 });
 
 function displayElementTime(day){
@@ -241,16 +229,10 @@ function displayElementTime(day){
         elementTime.style.display = "inline";
         elementBox.click();
     });
-    document.getElementById(day + 'RangeText').addEventListener('click',() =>{
-        var elementRange = document.getElementById(day + 'RangeSelect');
-        var elementRangeText = document.getElementById(day + 'RangeText');
-        var elementBox = document.getElementById(day + 'Box');
-        elementRangeText.style.display = "none";
-        elementRange.style.display = "inline";
-        elementBox.click();
-    });
     document.getElementById('timeDom').addEventListener('click',() =>{
-        message.style.visibility = "hidden";
+        let message = document.getElementById('message');
+        message.innerHTML = "&nbsp";
+        message.classList.remove('msg');
         message.style.opacity = 1;
         
         document.getElementById('settingButton').innerHTML = '<button type="button" id="settingDiscardingButton" onclick="settingDiscarding()">設定を破棄</button><span class="space"></span><button type="button" id="settingSaveButton" onclick="settingSave()">設定を保存</button>';
