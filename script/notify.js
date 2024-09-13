@@ -1,4 +1,4 @@
-function createNotification(message){//通知送信関数
+function createNotification(){//通知送信関数
 // if (!('Notification' in window)) {
 //     alert('このブラウザはプッシュ通知に対応してません。。。');
 //     return;
@@ -8,13 +8,13 @@ function createNotification(message){//通知送信関数
   var now = new Date();
   const permission = Notification.permission;
   if (permission === 'granted') {
-    // navigator.serviceWorker.ready.then(registration => {
-    //   registration.active.postMessage('hello');
-    // });
+    navigator.serviceWorker.ready.then(registration => {
+      registration.active.postMessage('hello');
+    });
     // const notification = new Notification("test");
     console.log("現在時刻 : ", now.getDay(),now.getHours(),"時",now.getMinutes(),"分,通知送信");
   } else {
-   // alert('通知の許可がもらえませんよ');
+   alert('通知の許可がもらえませんよ');
   }
 }
 let timeoutID;
@@ -192,15 +192,19 @@ function checkSleepState(hour,minute){//python呼び出す関数。checkNotifica
     releaseInterval();
     console.log('通知終了');
   }
-  // let settingDistnce = localStorage.getItem('measured_distance');
-  // fetch('../sleepState.py')
-  //   .then(response => response.json())
-  //   .then(data => {
-  //       if(settingDistnce > data){
-  //         createNotification();
-  //       }
-  //   })
-  //   .catch(error => {
-  //       console.log(error);
-  //   });
+  let settingDistnce = localStorage.getItem('measured_distance');
+  fetch('../sleepState.py')
+    .then(response => response.json())
+    .then(data => {
+        if(settingDistnce * 0.9 > data){
+          createNotification();
+        }else{
+          console.log("起床済み");
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
 }
+//1000 500
+//1000 999

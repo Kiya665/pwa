@@ -1,12 +1,13 @@
 window.addEventListener("load",a);
+var onBackgroundColor = '#87ceeb';
+var offBackgroundColor = '#d3d3d3';
+var settingMode = 0;
 
 function a(){
-    
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
-    if(localStorage.getItem('login') === '1'){
-        console.log('二回目以降');
+    if(localStorage.getItem('measured_distance')){
+        //console.log('二回目以降');
     }else{
-        console.log('初めてのログイン');
+        //console.log('初めてのログイン');
         setDefaultValue('sun');
         setDefaultValue('mon');
         setDefaultValue('tue');
@@ -14,15 +15,28 @@ function a(){
         setDefaultValue('thu');
         setDefaultValue('fri');
         setDefaultValue('sat');
+        if (!('Notification' in window)) {
+            alert('このブラウザはプッシュ通知に対応してません。。。');
+        }else{
+            Notification.requestPermission().then(permission => {
+            if (permission === 'granted') alert('通知の許可がもらえました');
+            if (permission === 'denied') alert('通知の許可がもらえませんでした');
+            });
+        }
+        alert("距離を設定してください");
+        window.location.href="measure.html";
+    }
+    if(!localStorage.getItem('measured_distance')){
+        document.getElementById('alert').innerHTML = "距離が設定されていません。";
     }
     
-    displayElementText('sun');
-    displayElementText('mon');
-    displayElementText('tue');
-    displayElementText('wed');
-    displayElementText('thu');
-    displayElementText('fri');
-    displayElementText('sat');
+    displayElement('sun');
+    displayElement('mon');
+    displayElement('tue');
+    displayElement('wed');
+    displayElement('thu');
+    displayElement('fri');
+    displayElement('sat');
     // console.log('現在のチェックボックス状況:\n' +
     //     localStorage.getItem('suncheck')+ '\n' +
     //     localStorage.getItem('moncheck')+ '\n' +
@@ -35,9 +49,12 @@ function a(){
 }
 function setDefaultValue(day){
     localStorage.setItem(day + '_start_hour',"07");
-    localStorage.setItem(day + '_start_minute',"00");
-    localStorage.setItem(day + '_range',"5");
+    localStorage.setItem(day + '_start_minute',"30");
+    localStorage.setItem(day + '_range',"60");
     localStorage.setItem(day + '_time',"07:30");
+    localStorage.setItem(day + 'check',"0");
+
+    localStorage.setItem('measured_distance',"1000");//test用。後で消す
 }
 function check(day){
     var checkbox = document.getElementById(day + 'Box');
@@ -45,49 +62,37 @@ function check(day){
         checkbox.checked = true;
     }
 }
-function displayElementText(day){
+function displayElement(day){
     var elementTime = document.getElementById(day + 'Time');
+    var elementDom = document.getElementById(day + 'Dom');
     var elementTimeText = document.getElementById(day + 'TimeText');
     var elementRange = document.getElementById(day + 'RangeSelect');
     var elementRangeText = document.getElementById(day + 'RangeText');
     var checkbox = document.getElementById(day + 'Box');
+    elementTime.value = localStorage.getItem(day + "_time");
+    elementRange.value = localStorage.getItem(day + "_range");
     elementTime.style.display = "none";
     elementTimeText.style.display = 'inline';
     elementRange.style.display = "none";
     elementRangeText.style.display = "inline";
-    elementTimeText.style.visibility = "visible";
-    elementRangeText.style.visibility = "visible";
     if(localStorage.getItem(day + '_check') === '1'){//チェックボックスがON
-        elementTimeText.innerText = localStorage.getItem(day + '_time');
-        elementRangeText.innerText = localStorage.getItem(day + '_range');
-    }else{
-        elementTimeText.innerText = "";
-        elementRangeText.innerText = "";
-    }
-
-    if(localStorage.getItem(day + '_check') === '1'){
+        elementDom.style.backgroundColor = onBackgroundColor;
         checkbox.checked = true;
+    }else{
+        elementDom.style.backgroundColor = offBackgroundColor;
+        checkbox.checked = false;
     }
-    checkbox.style.visibility = "hidden";
+    elementRangeText.innerText = localStorage.getItem(day + '_range');
+    elementTimeText.innerText = localStorage.getItem(day + '_time');
 }
 
-function buttonclick(){
 
-    displayElementInput('sun');
-    displayElementInput('mon');
-    displayElementInput('tue');
-    displayElementInput('wed');
-    displayElementInput('thu');
-    displayElementInput('fri');
-    displayElementInput('sat');
-
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick2();sleepMode()">確定</button>';
-}
 function test(){
     console.log(
         localStorage.getItem('sun_time'),
         localStorage.getItem('sun_start_hour'),
-        localStorage.getItem('sun_start_minute'),"\n",
+        localStorage.getItem('sun_start_minute'),
+        localStorage.getItem("sun_range"),"\n",
 
         localStorage.getItem('mon_time'),
         localStorage.getItem('mon_start_hour'),
@@ -114,25 +119,8 @@ function test(){
         localStorage.getItem('sat_start_minute'),"\n"
     );
 }
-function displayElementInput(day){
-    var elementTime = document.getElementById(day + 'Time');
-    var elementTimeText = document.getElementById(day + 'TimeText');
-    var elementRange = document.getElementById(day + 'RangeSelect');
-    var elementRangeText = document.getElementById(day + 'RangeText');
-    var checkbox = document.getElementById(day + 'Box');
-    elementTime.value = localStorage.getItem(day + '_time');
-    if(checkbox.checked){
-        elementTime.style.display = "inline";
-        elementRange.style.display = "inline";
-        elementTimeText.style.display = "none";
-        elementRangeText.style.display = "none";
-    }else{
-        // elementTimeText.style.visibility = "hidden";
-        // elementRangeText.style.visibility = "hidden";
-    }
-    checkbox.style.visibility = "visible";
-}
-function buttonclick2(){
+
+function settingSave(){
     localStorage.setItem('login','1');
 
     var sunHour = (document.getElementById('sunTime').value).slice(0, 2);
@@ -156,8 +144,13 @@ function buttonclick2(){
     setData('tue',thuHour,thuMinute);
     setData('fri',friHour,friMinute);
     setData('sat',satHour,satMinute);
-        
-    document.getElementById('button').innerHTML='<button type="button" onclick="buttonclick()">編集</button>';
+    displayElement('sun');
+    displayElement('mon');
+    displayElement('tue');
+    displayElement('wed');
+    displayElement('thu');
+    displayElement('fri');
+    displayElement('sat');
 
     start();
 }
@@ -167,6 +160,7 @@ function setData(day,Hour,Minute){
     var elementTime = document.getElementById(day + 'Time');
     var elementRange = document.getElementById(day + 'RangeSelect');
     var checkbox = document.getElementById(day + 'Box');
+    console.log(elementRange.value);
     if (checkbox.checked) {//チェックボックスがON
         localStorage.setItem(day + '_range',elementRange.value);
         localStorage.setItem(day + '_start_hour',Hour);
@@ -180,28 +174,51 @@ function setData(day,Hour,Minute){
         localStorage.setItem(day + '_time',elementTime.value);
         localStorage.setItem(day + '_check','0');
     }
-    displayElementText(day);
 }
 
 function toggleText(day){
-    elementBox = document.getElementById(day + 'Box');
+    var elementBox = document.getElementById(day + 'Box');
+    var elementDom = document.getElementById(day + 'Dom');        
+    var elementTime = document.getElementById(day + 'Time');
+    var elementTimeText = document.getElementById(day + 'TimeText');
+    var elementRange = document.getElementById(day + 'RangeSelect');
+    var elementRangeText = document.getElementById(day + 'RangeText');
     if(elementBox.checked){
-        displayElementInput(day);
+        elementDom.style.backgroundColor = onBackgroundColor;
     }else{
+        elementDom.style.backgroundColor = offBackgroundColor;
+    }
+    
+    elementRangeText.innerText = localStorage.getItem(day + '_range');
+    elementTimeText.innerText = localStorage.getItem(day + '_time');
+}
+
+window.addEventListener('load',()=>{
+    displayElementTime('sun');
+    displayElementTime('mon');
+    displayElementTime('tue');
+    displayElementTime('wed');
+    displayElementTime('thu');
+    displayElementTime('fri');
+    displayElementTime('sat');
+});
+
+function displayElementTime(day){
+    document.getElementById(day + 'TimeText').addEventListener('click',() =>{
         var elementTime = document.getElementById(day + 'Time');
         var elementTimeText = document.getElementById(day + 'TimeText');
+        elementTime.value = localStorage.getItem(day + '_time');
+        var elementBox = document.getElementById(day + 'Box');
+        elementTimeText.style.display = "none";
+        elementTime.style.display = "inline";
+        elementBox.click();
+    });
+    document.getElementById(day + 'RangeText').addEventListener('click',() =>{
         var elementRange = document.getElementById(day + 'RangeSelect');
         var elementRangeText = document.getElementById(day + 'RangeText');
-        var checkbox = document.getElementById(day + 'Box');
-        elementTime.style.display = "none";
-        elementTimeText.style.display = 'inline';
-        elementRange.style.display = "none";
-        elementRangeText.style.display = "inline";
-        elementTimeText.style.visibility = "visible";
-        elementRangeText.style.visibility = "visible";
-        elementTimeText.innerText = "";
-        elementRangeText.innerText = "";
-        
-
-    }
+        var elementBox = document.getElementById(day + 'Box');
+        elementRangeText.style.display = "none";
+        elementRange.style.display = "inline";
+        elementBox.click();
+    });
 }
