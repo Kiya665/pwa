@@ -4,7 +4,6 @@
 // キャッシュ名とキャッシュファイルの指定
 var CACHE_NAME = 'pwa-sample-caches';
 var urlsToCache = [
-	'/pwa/'
 ];
 
 // インストール処理
@@ -28,3 +27,7 @@ self.addEventListener('fetch', function(event) {
 			})
 	);
 });
+
+self.addEventListener('message', function (event) {
+	self.registration.showNotification(event.data);
+  });

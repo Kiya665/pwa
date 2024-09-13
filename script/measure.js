@@ -2,11 +2,6 @@ window.addEventListener('load',() =>{
     if(localStorage.getItem('measured_distance')){
         dist.innerText = localStorage.getItem('measured_distance') + "cm";
     }
-    if(localStorage.getItem('first_once_sound') === 'off'){
-        document.getElementById('firstOnceSound').checked = false;
-    }else{
-        document.getElementById('firstOnceSound').checked = true;
-    }
 })
 function measure(){
     document.getElementById("text").innerHTML="測定中です。<br><br>";
@@ -24,7 +19,3 @@ function measure(){
         console.log(error);
     });
 } 
-
-function setDistance(){
-
-}
