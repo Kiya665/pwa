@@ -1,9 +1,18 @@
+@font-face {
+    font-family: "zenmaru"; /*任意のフォントファミリー名でOK*/
+    src: url("./font/ZenMaruGothic-Medium.ttf") format("truetype"); /*fontがあるパスを書いて、formatを指定*/
+    font-display: swap; /*ダウンロード状況に応じてフォントの表示を変える
+(「swap」はWebフォントが読み込まれるまでフォールバックフォントで表示し、読み込まれた時点で置き換えます。)*/
+}
+
 body
 {
     background-color: rgb(153, 218, 249);
+	font-family: "zenmaru";
 }
 .center {
     text-align: center;
+	font-family: "zenmaru";
 }
 .center {
     text-align: center;
@@ -82,6 +91,7 @@ button
     display: block;
 	text-align: center;
 	text-decoration: none;
+	font-family: "zenmaru";
 	
 	padding: 0.4rem 1.2rem;
 	font-weight: bold;
