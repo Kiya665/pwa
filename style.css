@@ -183,7 +183,7 @@ button.measurement
 	font-size: clamp(2.4rem, calc(2.2rem + 0.625vw), 2.9rem);
 }
 .msg{
-	transition: opacity 3s ease-in;
+	transition: opacity 3s ease-in 1s;
 	color: #fff;
 	font-size: clamp(2.4rem, calc(2.2rem + 0.625vw), 2.9rem);
 }
