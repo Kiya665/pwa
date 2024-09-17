@@ -126,7 +126,7 @@ function settingSave(){
     message.style.opacity = 0;
     message.innerText = '設定を保存しました';
 
-
+    console.log(document.getElementById('tueTime').value);
     var sunHour = (document.getElementById('sunTime').value).slice(0, 2);
     var monHour = (document.getElementById('monTime').value).slice(0, 2);
     var tueHour = (document.getElementById('tueTime').value).slice(0, 2);
@@ -143,9 +143,9 @@ function settingSave(){
     var satMinute = (document.getElementById('satTime').value).slice(3, 5);
     setData('sun',sunHour,sunMinute);
     setData('mon',monHour,monMinute);
-    setData('thu',tueHour,tueMinute);
+    setData('tue',tueHour,tueMinute);
     setData('wed',wedHour,wedMinute);
-    setData('tue',thuHour,thuMinute);
+    setData('thu',thuHour,thuMinute);
     setData('fri',friHour,friMinute);
     setData('sat',satHour,satMinute);
     displayElement('sun');
@@ -162,6 +162,7 @@ function settingSave(){
 
 
 function setData(day,Hour,Minute){
+    console.log("Hour : " + Hour + "minute" + Minute);
     var elementTime = document.getElementById(day + 'Time');
     var checkbox = document.getElementById(day + 'Box');
     if (checkbox.checked) {//チェックボックスがON

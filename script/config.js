@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('rangeSelect').value = localStorage.getItem('')
 
     // sleepNotify(おやすみ通知の設定)の保存
     let sleepNotifyCheck = document.getElementById('sleepNotify');

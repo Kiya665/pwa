@@ -111,7 +111,8 @@
     </script>
     
 
-
+    <button type="button" onclick="createNotification()">通知を送信</button>
+    <button type="button" onclick="test()">test</button>
     <button type="button" onclick="location.href='./config.html'" class="outer">
     <div class="iconGear"><div></div></div>
     </button>
@@ -135,7 +136,7 @@
             <span class="switch-checkbox">
               <input type="checkbox" id="monBox" onclick="toggleText('mon')">
               月曜日
-              <span id="monTimeText"></span>
+              <span id="monTimeText">--:--</span>
               <input type="time" id="monTime" name="time" value="07:00">
             </span>
           </div>

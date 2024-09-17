@@ -1,11 +1,12 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
+
 import RPi.GPIO as GPIO
 import time
 import json
 #GPIO.setwarnings(False)
 TRIG = 11
 ECHO = 12
-loopTimes = 5
+loopTimes = 10
 prev = 0
 disList = []
 
@@ -37,9 +38,9 @@ def loop():
     prev = distance()
     time.sleep(0.3)
     count = 0
-    while count < loopTimes:
+    while count < loopTimes :
         dis = distance()
-        if(prev * 1.2 >= dis and prev * 0.8 <= dis) :
+        if(prev * 1.1 >= dis and prev * 0.9 <= dis) :
             count += 1
             disList.append(dis)
         else :
@@ -47,7 +48,6 @@ def loop():
             disList = []
         prev = dis
         time.sleep(0.3)
-    disList = []
 
 
 def destroy():

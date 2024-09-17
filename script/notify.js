@@ -121,7 +121,7 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
   for(;count < 7;i = (i+1)%7,count++){
     if(settingData[i][1] === '1'){
       if(dayCheck === i){
-        if(parseInt(settingData[i][2] + settingData[i][3]) > (hourCheck * 100 + minuteCheck)){
+        if(parseInt(settingData[i][2] + settingData[i][3]) > parseInt(hourCheck * 100 + minuteCheck)){
           break;
         }
       }else{
@@ -171,7 +171,7 @@ function checkSleepState(hour,minute){//python呼び出す関数。checkNotifica
     console.log('通知終了');
   }
   let settingDistnce = localStorage.getItem('measured_distance');
-  fetch('../sleepState.py')
+  fetch('./script/sleepState.py')
     .then(response => response.json())
     .then(data => {
         if(settingDistnce * 0.9 > data){
