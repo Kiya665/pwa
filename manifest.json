@@ -1,6 +1,6 @@
 {
-	"short_name": "PWAサンプル",
-	"name": "PWAサンプルアプリ",
+	"short_name": "WAKE ME!",
+	"name": "WAKE ME!",
 	"display": "standalone",
 	"start_url": "./index.html",
 	"icons": [

@@ -28,8 +28,8 @@ function a(){
             if (permission === 'denied') alert('通知の許可がもらえませんでした');
             });
         }
-        alert("距離を設定してください");
-        window.location.href="measure.html";
+        // alert("距離を設定してください");
+        // window.location.href="measure.html";
     }
     if(!localStorage.getItem('measured_distance')){
         document.getElementById('alert').innerHTML = "距離が設定されていません。";
@@ -59,7 +59,7 @@ function setDefaultValue(day){
     localStorage.setItem(day + '_time',"07:30");
     localStorage.setItem(day + 'check',"0");
 
-    localStorage.setItem('measured_distance',"1000");//test用。後で消す
+    localStorage.setItem('measured_distance',"100");//仮データ
 }
 function check(day){
     var checkbox = document.getElementById(day + 'Box');
