@@ -1,6 +1,18 @@
+@font-face {
+    font-family: "zenmaru"; /*任意のフォントファミリー名でOK*/
+    src: url("./font/ZenMaruGothic-Medium.ttf") format("truetype"); /*fontがあるパスを書いて、formatを指定*/
+    font-display: swap; /*ダウンロード状況に応じてフォントの表示を変える
+(「swap」はWebフォントが読み込まれるまでフォールバックフォントで表示し、読み込まれた時点で置き換えます。)*/
+}
+
 body
 {
-    background-color: rgb(226, 226, 226);
+    background-color: rgb(153, 218, 249);
+	font-family: "zenmaru";
+}
+.center {
+    text-align: center;
+	font-family: "zenmaru";
 }
 .center {
     text-align: center;
@@ -12,7 +24,7 @@ body
     width:  95%;
     height: 160px;
     margin: 0 auto;
-    background-image: linear-gradient(350deg, rgba(13, 124, 197, 1), rgba(0, 47, 140, 1));
+    background-image: linear-gradient(350deg, rgb(14, 12, 24), rgb(113, 103, 205));
 	/*<h1>pwa</h1>を<header>で囲むとグラデーションの背景がつく*/
 }
 h1
@@ -22,7 +34,7 @@ h1
     text-align: center;
     vertical-align: middle;
 
-    color: rgb(67, 67, 67);
+    color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px silver;
     font-family: "Comic Sans MS";
     font-size: 50px;
@@ -79,6 +91,7 @@ button
     display: block;
 	text-align: center;
 	text-decoration: none;
+	font-family: "zenmaru";
 	
 	padding: 0.4rem 1.2rem;
 	font-weight: bold;
@@ -151,4 +164,26 @@ button.measurement
 		width: 35px;
 	}
 	/*タブレット*/
+}
+
+#settingButton{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.space{
+	margin-left: 30px;
+	margin-left: 30px;
+}
+#settingDiscardingButton{
+	border: 1px solid #d92727;
+	background: #d92727;
+}
+#message{
+	font-size: clamp(2.4rem, calc(2.2rem + 0.625vw), 2.9rem);
+}
+.msg{
+	transition: opacity 3s ease-in 1s;
+	color: #fff;
+	font-size: clamp(2.4rem, calc(2.2rem + 0.625vw), 2.9rem);
 }

@@ -121,7 +121,7 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
   for(;count < 7;i = (i+1)%7,count++){
     if(settingData[i][1] === '1'){
       if(dayCheck === i){
-        if(parseInt(settingData[i][2] + settingData[i][3]) > (hourCheck * 100 + minuteCheck)){
+        if(parseInt(settingData[i][2] + settingData[i][3]) > parseInt(hourCheck * 100 + minuteCheck)){
           break;
         }
       }else{
@@ -144,40 +144,18 @@ function getNextAlarm(){//次のアラームデータを要素数4で返す。[�
 }
 
 function getSettingData(){//localstrageのデータをすべて配列にする。getNextAlarmで必要。
-  let data = [['0',localStorage.getItem('sun_check'),localStorage.getItem('sun_start_hour'),localStorage.getItem('sun_start_minute'),localStorage.getItem('sun_range')],
-              ['1',localStorage.getItem('mon_check'),localStorage.getItem('mon_start_hour'),localStorage.getItem('mon_start_minute'),localStorage.getItem('mon_range')],
-              ['2',localStorage.getItem('tue_check'),localStorage.getItem('tue_start_hour'),localStorage.getItem('tue_start_minute'),localStorage.getItem('tue_range')],
-              ['3',localStorage.getItem('wed_check'),localStorage.getItem('wed_start_hour'),localStorage.getItem('wed_start_minute'),localStorage.getItem('wed_range')],
-              ['4',localStorage.getItem('thu_check'),localStorage.getItem('thu_start_hour'),localStorage.getItem('thu_start_minute'),localStorage.getItem('thu_range')],
-              ['5',localStorage.getItem('fri_check'),localStorage.getItem('fri_start_hour'),localStorage.getItem('fri_start_minute'),localStorage.getItem('fri_range')],
-              ['6',localStorage.getItem('sat_check'),localStorage.getItem('sat_start_hour'),localStorage.getItem('sat_start_minute'),localStorage.getItem('sat_range')],
+  let data = [['0',localStorage.getItem('sun_check'),localStorage.getItem('sun_start_hour'),localStorage.getItem('sun_start_minute'),localStorage.getItem('range')],
+              ['1',localStorage.getItem('mon_check'),localStorage.getItem('mon_start_hour'),localStorage.getItem('mon_start_minute'),localStorage.getItem('range')],
+              ['2',localStorage.getItem('tue_check'),localStorage.getItem('tue_start_hour'),localStorage.getItem('tue_start_minute'),localStorage.getItem('range')],
+              ['3',localStorage.getItem('wed_check'),localStorage.getItem('wed_start_hour'),localStorage.getItem('wed_start_minute'),localStorage.getItem('range')],
+              ['4',localStorage.getItem('thu_check'),localStorage.getItem('thu_start_hour'),localStorage.getItem('thu_start_minute'),localStorage.getItem('range')],
+              ['5',localStorage.getItem('fri_check'),localStorage.getItem('fri_start_hour'),localStorage.getItem('fri_start_minute'),localStorage.getItem('range')],
+              ['6',localStorage.getItem('sat_check'),localStorage.getItem('sat_start_hour'),localStorage.getItem('sat_start_minute'),localStorage.getItem('range')],
             ];
   return data;
 }
 
-function setSettingData(){//テスト用データ。後で消す。
-  localStorage.setItem('sun_start_hour','--');
-  localStorage.setItem('sun_start_minute','00');
-  localStorage.setItem('sun_range','60');
-  localStorage.setItem('mon_start_hour','--');
-  localStorage.setItem('mon_start_minute','00');
-  localStorage.setItem('mon_range','60');
-  localStorage.setItem('tue_start_hour','15');
-  localStorage.setItem('tue_start_minute','17');
-  localStorage.setItem('tue_range','1');
-  localStorage.setItem('wed_start_hour','--');
-  localStorage.setItem('wed_start_minute','55');
-  localStorage.setItem('wed_range','60');
-  localStorage.setItem('thu_start_hour','--');
-  localStorage.setItem('thu_start_minute','30');
-  localStorage.setItem('thu_range','60');
-  localStorage.setItem('fri_start_hour','--');
-  localStorage.setItem('fri_start_minute','30');
-  localStorage.setItem('fri_range','60');
-  localStorage.setItem('sat_start_hour','--');
-  localStorage.setItem('sat_start_minute','30');
-  localStorage.setItem('sat_range','60');
-}
+
 
 function checkSleepState(hour,minute){//python呼び出す関数。checkNotificationConditionから渡されたhour,minuteになると終わる。
   createNotification();
@@ -193,7 +171,7 @@ function checkSleepState(hour,minute){//python呼び出す関数。checkNotifica
     console.log('通知終了');
   }
   let settingDistnce = localStorage.getItem('measured_distance');
-  fetch('../sleepState.py')
+  fetch('./script/sleepState.py')
     .then(response => response.json())
     .then(data => {
         if(settingDistnce * 0.9 > data){
