@@ -23,5 +23,5 @@ function measure(){
 
 function setDistance(data){
     localStorage.setItem('measured_distance',data);
-    window.location.href = "./config.html"
+    window.location.href = "./config.html";
 }
